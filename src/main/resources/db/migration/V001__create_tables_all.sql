@@ -1,10 +1,10 @@
-CREATE TABLE AREA (
+CREATE TABLE area (
 	id int8,
 	name VARCHAR (255),
-	countryCode VARCHAR (10),
-	ensignUrl VARCHAR (255),
-	parentAreaId int8, --dont link the relationship
-	parentArea VARCHAR(20),
+	country_code VARCHAR (10),
+	ensign_url VARCHAR (255),
+	parent_area_id int8, --dont link the relationship
+	parent_area VARCHAR(20),
 	created TIMESTAMP NOT NULL,
 	PRIMARY KEY(id)
 );
