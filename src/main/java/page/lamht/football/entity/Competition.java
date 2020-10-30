@@ -2,6 +2,7 @@ package page.lamht.football.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.sql.Timestamp;
@@ -16,9 +17,11 @@ public class Competition extends Entity {
     private String code;
     private String emblemUrl;
     private String plan;
+    @Transient
     private Season currentSeason;
     private String parentArea;
     private Integer numberOfAvailableSeasons;
+    @Transient
     private Timestamp lastUpdated;
 
 }
