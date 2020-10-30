@@ -15,13 +15,9 @@ import java.sql.Timestamp;
 public class Area extends Entity {
 
     private String name;
-
     private String countryCode;
-
     private String ensignUrl;
-
     private Integer parentAreaId;
-
     private String parentArea;
 
 }
