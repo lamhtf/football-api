@@ -17,11 +17,9 @@ public class Competition extends Entity {
     private String code;
     private String emblemUrl;
     private String plan;
-    @Transient
     private Season currentSeason;
     private String parentArea;
     private Integer numberOfAvailableSeasons;
-    @Transient
     private Timestamp lastUpdated;
 
 }
