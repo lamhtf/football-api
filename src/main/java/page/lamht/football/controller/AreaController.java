@@ -1,29 +1,31 @@
 package page.lamht.football.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClient;
 import page.lamht.football.dto.AreasDto;
 import page.lamht.football.entity.Area;
 import page.lamht.football.repository.AreaRepository;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.sql.Timestamp;
-import java.util.Collections;
 
 @RestController
-class HelloWorldController {
+class AreaController {
+
+  Logger logger = LoggerFactory.getLogger(AreaController.class);
 
   @Autowired
   private AreaRepository areaRepository;
 
-  @GetMapping("/hello")
-  String helloWorld(){
-    System.out.println("start time: " + new Timestamp(System.currentTimeMillis()));
+  @GetMapping("/areas")
+  String getAreas(){
+      logger.info("start time: " + new Timestamp(System.currentTimeMillis()));
 
     WebClient webClient = WebClient.create();
 
@@ -46,6 +48,7 @@ class HelloWorldController {
     };
 
     System.out.println("end time: " + new Timestamp(System.currentTimeMillis()));
+    logger.info("start time: " + new Timestamp(System.currentTimeMillis()));
 
     return "Hello AWS! Successfully connected to the database!";
   }

@@ -9,12 +9,12 @@ CREATE TABLE area (
 	PRIMARY KEY(id)
 );
 
---only apply for 1 seaon for each competition
+--only apply for 1 season for each competition
 CREATE TABLE SEASON (
 	id int8,
-	startDate VARCHAR (10),
-	endDate VARCHAR (10),
-	currentMatchday int,
+	start_date VARCHAR (10),
+	end_date VARCHAR (10),
+	current_matchday int,
 	winner VARCHAR(255),
 	created TIMESTAMP NOT NULL,
 	PRIMARY KEY(id)
@@ -23,22 +23,22 @@ CREATE TABLE SEASON (
 CREATE TABLE TEAM (
 	id int8,
 --area
-	areaId int8,
+	area_id int8,
 	name VARCHAR (255),
-	shortName VARCHAR (255),
+	short_name VARCHAR (255),
 	tla VARCHAR (10),
-	crestUrl VARCHAR (255),
+	crest_url VARCHAR (255),
 	address VARCHAR (255),
 	phone VARCHAR (255),
 	website VARCHAR (255),
 	email VARCHAR (255),
 	founded int,
-	clubColors VARCHAR (255),
+	club_colors VARCHAR (255),
 	venue VARCHAR (255),
-	lastUpdated TIMESTAMP,
+	last_updated TIMESTAMP,
 	created TIMESTAMP NOT NULL,
 	PRIMARY KEY(id),
-	FOREIGN KEY (areaId)
+	FOREIGN KEY (area_id)
       REFERENCES AREA (id)
 );
 
@@ -46,64 +46,64 @@ CREATE TABLE TEAM (
 CREATE TABLE COMPETITION (
 	id int8,
 --area
-	areaId int8,
+	area_id int8,
 	name VARCHAR (255),
 	code VARCHAR (10),
-	emblemUrl VARCHAR (255),
+	emblem_url VARCHAR (255),
 	plan VARCHAR (20),
 --season
-	currentSeasonId int8,
-	numberOfAvailableSeasons int,
-	lastUpdated TIMESTAMP,
+	current_season_id int8,
+	number_of_available_seasons int,
+	last_updated TIMESTAMP,
 	created TIMESTAMP NOT NULL,
 	PRIMARY KEY(id),
-	FOREIGN KEY (areaId)
+	FOREIGN KEY (area_id)
       REFERENCES AREA (id),
-	FOREIGN KEY (currentSeasonId)
+	FOREIGN KEY (current_season_id)
       REFERENCES SEASON (id)
 );
 
 CREATE TABLE STANDINGS (
 	id int8,
-	competitionId int8,
+	competition_id int8,
 	stage VARCHAR (20),
 	type VARCHAR (10),
 	"group" VARCHAR (20),
 	PRIMARY KEY (id),
-	FOREIGN KEY (competitionId)
+	FOREIGN KEY (competition_id)
 	  REFERENCES COMPETITION (id)
 );
 
 CREATE TABLE STANDING (
 	id int8,
-	standingsId int8,
+	standings_id int8,
 	position int,
-	teamId int8, --dont link the relationship
-	teamName VARCHAR (255),
-	teamCrestUrl VARCHAR (255),
-	playedGames int,
+	team_id int8, --dont link the relationship
+	team_name VARCHAR (255),
+	team_crest_url VARCHAR (255),
+	played_games int,
 	form VARCHAR (255),
 	won int,
 	draw int,
 	lost int,
 	points int,
-	goalsFor int,
-	goalsAgainst int,
-	goalDifference int,
-	FOREIGN KEY (standingsId)
+	goals_for int,
+	goals_against int,
+	goal_difference int,
+	FOREIGN KEY (standings_id)
 	  REFERENCES STANDINGS (id)
 );
 
 
 CREATE TABLE COMPETITION_TEAM (
 	id int8,
-	competitionId int8,
-	teamId int8,
+	competition_id int8,
+	team_id int8,
 	created TIMESTAMP NOT NULL,
 	PRIMARY KEY(id),
-	FOREIGN KEY (competitionId)
+	FOREIGN KEY (competition_id)
 	  REFERENCES COMPETITION (id),
-	FOREIGN KEY (teamId)
+	FOREIGN KEY (team_id)
 	  REFERENCES TEAM (id)
 );
 
@@ -117,44 +117,44 @@ CREATE TABLE REFEREE (
 
 CREATE TABLE MATCH (
 	id int8,
-	utcDate TIMESTAMP,
+	utc_date TIMESTAMP,
 	status VARCHAR (20),
 	venue VARCHAR (255),
 	matchday int,
 	stage VARCHAR (20),
 	"group" VARCHAR (20),
-	lastUpdated TIMESTAMP,
+	last_updated TIMESTAMP,
 --head2head
-	numberOfMatches VARCHAR (255),
-	totalGoals int,
-	homeTeamId int8,
-	homeTeamName VARCHAR (255),
-	homeTeamWins int,
-	homeTeamDraws int,
-	homeTeamLosses int,
-	awayTeamId int8,
-	awayTeamName VARCHAR (255),
-	awayTeamWins int,
-	awayTeamDraws int,
-	awayTeamLosses int,
+	number_of_matches VARCHAR (255),
+	total_goals int,
+	home_team_id int8,
+	home_team_name VARCHAR (255),
+	home_team_wins int,
+	home_team_draws int,
+	home_team_losses int,
+	away_team_id int8,
+	away_team_name VARCHAR (255),
+	away_team_wins int,
+	away_team_draws int,
+	away_team_losses int,
 --score
 	winner VARCHAR (20),
 	duration VARCHAR (20),
-	fullTimeHomeTeam int,
-	fullTimeAwayTeam int,
-	halfTimeHomeTeam int,
-	halfTimeAwayTeam int,
-	extraTimeHomeTeam int,
-	extraTimeAwayTeam int,
-	penaltiesHomeTeam int,
-	penaltiesAwayTeam int,
+	full_time_home_team int,
+	full_time_away_team int,
+	half_time_home_team int,
+	half_time_away_team int,
+	extra_time_home_team int,
+	extra_time_away_team int,
+	penalties_home_team int,
+	penalties_away_team int,
 --referees (main)
-	refereeId int8,
-	refereeName VARCHAR(255),
+	referee_id int8,
+	referee_name VARCHAR(255),
 --competition
-	competitionId int8,
+	competition_id int8,
 --season
-	seasonId int8,
+	season_id int8,
 --default
 	created TIMESTAMP NOT NULL,
 	PRIMARY KEY(id)
@@ -163,35 +163,35 @@ CREATE TABLE MATCH (
 CREATE TABLE PLAYER (
 	id int8,
 	name VARCHAR (255),
-	firstName VARCHAR (255),
-	lastName VARCHAR (255),
-	dateOfBirth VARCHAR (10),
-	countryOfBirth VARCHAR (255),
+	first_name VARCHAR (255),
+	last_name VARCHAR (255),
+	date_of_birth VARCHAR (10),
+	country_of_birth VARCHAR (255),
 	nationality VARCHAR (255),
 	position VARCHAR (20),
-	shirtNumber int,
-	teamId int8,
-	lastUpdated TIMESTAMP,
+	shirt_number int,
+	team_id int8,
+	last_updated TIMESTAMP,
 	created TIMESTAMP NOT NULL,
 	PRIMARY KEY(id),
-	FOREIGN KEY (teamId)
+	FOREIGN KEY (team_id)
 	  REFERENCES TEAM (id)
 );
 
 CREATE TABLE COACH (
 	id int8,
 	name VARCHAR (255),
-	firstName VARCHAR (255),
-	lastName VARCHAR (255),
-	dateOfBirth VARCHAR (10),
-	countryOfBirth VARCHAR (255),
+	first_name VARCHAR (255),
+	last_name VARCHAR (255),
+	date_of_birth VARCHAR (10),
+	country_of_birth VARCHAR (255),
 	nationality VARCHAR (255),
 	position VARCHAR (20),
-	shirtNumber int,
-	teamId int8,
-	lastUpdated TIMESTAMP,
+	shirt_number int,
+	team_id int8,
+	last_updated TIMESTAMP,
 	created TIMESTAMP NOT NULL,
 	PRIMARY KEY(id),
-	FOREIGN KEY (teamId)
+	FOREIGN KEY (team_id)
 	  REFERENCES TEAM (id)
 );
