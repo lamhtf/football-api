@@ -1,4 +1,4 @@
-CREATE TABLE area (
+CREATE TABLE AREA (
 	id int8,
 	name VARCHAR (255),
 	country_code VARCHAR (10),
@@ -15,7 +15,7 @@ CREATE TABLE SEASON (
 	start_date VARCHAR (10),
 	end_date VARCHAR (10),
 	current_matchday int,
-	winner VARCHAR(255),
+	winner_name VARCHAR(255),
 	created TIMESTAMP NOT NULL,
 	PRIMARY KEY(id)
 );

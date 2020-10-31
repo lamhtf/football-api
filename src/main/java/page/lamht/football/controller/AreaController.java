@@ -47,10 +47,9 @@ class AreaController {
         );
     };
 
-    System.out.println("end time: " + new Timestamp(System.currentTimeMillis()));
-    logger.info("start time: " + new Timestamp(System.currentTimeMillis()));
+    logger.info("end time: " + new Timestamp(System.currentTimeMillis()));
 
-    return "Hello AWS! Successfully connected to the database!";
+    return "Completed Successfully";
   }
 
 }
