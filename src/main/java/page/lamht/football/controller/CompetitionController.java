@@ -8,7 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
-import page.lamht.football.dto.CompetitionDto;
+import page.lamht.football.dto.CompetitionsDto;
 import page.lamht.football.entity.Competition;
 import page.lamht.football.repository.CompetitionService;
 import reactor.core.publisher.Mono;
@@ -29,13 +29,13 @@ class CompetitionController {
 
         WebClient webClient = WebClient.create();
 
-        Mono<CompetitionDto> mono = webClient.get()
+        Mono<CompetitionsDto> mono = webClient.get()
                 .uri("http://localhost:8080/competitionsTest/")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
-                .bodyToMono(CompetitionDto.class);
+                .bodyToMono(CompetitionsDto.class);
 
-        CompetitionDto dto = mono.block();
+        CompetitionsDto dto = mono.block();
 
         for (Competition competition : dto.getCompetitions()) {
             service.save(competition);

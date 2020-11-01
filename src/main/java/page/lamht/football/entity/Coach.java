@@ -8,8 +8,8 @@ import java.sql.Timestamp;
 
 @EqualsAndHashCode(callSuper=false)
 @Data
-@Table("player")
-public class Player extends Entity {
+@Table("coach")
+public class Coach extends Entity {
 
     private String name;
     private String firstName;

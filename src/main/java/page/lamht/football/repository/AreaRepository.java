@@ -5,3 +5,5 @@ import page.lamht.football.entity.Area;
 
 public interface AreaRepository extends CrudRepository<Area, Long> {
 }
+
+

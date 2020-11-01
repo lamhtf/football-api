@@ -26,6 +26,9 @@ public class Competition extends Entity {
     private Season currentSeason;
     private Long currentSeasonId;
 
+    @MappedCollection(idColumn = "competition_id")
+    private CompetitionTeam competitionTeam;
+
     private Integer numberOfAvailableSeasons;
     private Timestamp lastUpdated;
 
