@@ -157,7 +157,11 @@ CREATE TABLE MATCH (
 	season_id int8,
 --default
 	created TIMESTAMP NOT NULL,
-	PRIMARY KEY(id)
+	PRIMARY KEY(id),
+	FOREIGN KEY (competition_id)
+	  REFERENCES COMPETITION (id),
+	FOREIGN KEY (season_id)
+	  REFERENCES SEASON (id)
 );
 
 CREATE TABLE PLAYER (

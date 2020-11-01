@@ -65,13 +65,13 @@ public class CompetitionService {
 
     private void insert(Competition c) {
         jdbcTemplate.update(INSERT_QUERY,
-                c.getId(), c.getAreaId(), c.getName(), c.getCode(), c.getEmblemUrl(), c.getPlan(), c.getCurrentSeasonId(), c.getNumberOfAvailableSeasons(), c.getLastUpdated(), c.getCreated()
+                c.getId(), c.getAreaId(), c.getName(), c.getCode(), c.getEmblemUrl(), c.getPlan(), c.getCurrentSeason().getId(), c.getNumberOfAvailableSeasons(), c.getLastUpdated(), c.getCreated()
         );
     }
 
     private void update(Competition c) {
         jdbcTemplate.update(UPDATE_QUERY,
-                c.getAreaId(), c.getName(), c.getCode(), c.getEmblemUrl(), c.getPlan(), c.getCurrentSeasonId(), c.getNumberOfAvailableSeasons(), c.getLastUpdated(), c.getCreated(), c.getId()
+                c.getAreaId(), c.getName(), c.getCode(), c.getEmblemUrl(), c.getPlan(), c.getCurrentSeason().getId(), c.getNumberOfAvailableSeasons(), c.getLastUpdated(), c.getCreated(), c.getId()
         );
     }
 
