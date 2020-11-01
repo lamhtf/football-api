@@ -59,7 +59,8 @@ public class CompetitionService {
         Competition dbInstance = this.findById(c.getId());
         if (dbInstance == null)
             this.insert(c);
-        this.update(c);
+        else
+            this.update(c);
     }
 
     private void insert(Competition c) {

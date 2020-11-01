@@ -41,6 +41,7 @@ public class AreaService {
         Area dbInstance = this.findById(a.getId());
         if (dbInstance == null)
             this.insert(a);
+//        else
 //        this.update(s);
     }
 

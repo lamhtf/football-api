@@ -46,7 +46,8 @@ public class SeasonService {
         Season dbInstance = this.findById(s.getId());
         if (dbInstance == null)
             this.insert(s);
-//        this.update(s);
+        else
+            this.update(s);
     }
 
     private void insert(Season s) {
