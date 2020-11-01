@@ -33,7 +33,7 @@ class MatchController {
         WebClient webClient = WebClient.create();
 
         Mono<MatchesDto> mono = webClient.get()
-                .uri("http://localhost:8080/competitionsTest/")
+                .uri("http://localhost:8080/matchesTest/")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
                 .bodyToMono(MatchesDto.class);

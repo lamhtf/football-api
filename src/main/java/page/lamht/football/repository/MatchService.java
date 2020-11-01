@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import page.lamht.football.dto.MatchDto;
 import page.lamht.football.entity.*;
 
+import java.sql.Timestamp;
+
 @Service
 public class MatchService {
 
@@ -84,7 +86,7 @@ public class MatchService {
                 home.getWins(), home.getDraws(), home.getLosses(), away.getId(), away.getName(), away.getWins(),
                 away.getDraws(), away.getLosses(), winner, duration, f.getHomeTeam(), f.getAwayTeam(),
                 h.getHomeTeam(), h.getAwayTeam(), e.getHomeTeam(), e.getAwayTeam(), p.getHomeTeam(), p.getAwayTeam(),
-                r.getId(), r.getName(), m.getCompetition().getId(), m.getSeason().getId()
+                r.getId(), r.getName(), m.getCompetition().getId(), m.getSeason().getId(), new Timestamp(System.currentTimeMillis())
         );
     }
 
@@ -114,8 +116,8 @@ public class MatchService {
                 home.getWins(), home.getDraws(), home.getLosses(), away.getId(), away.getName(), away.getWins(),
                 away.getDraws(), away.getLosses(), winner, duration, f.getHomeTeam(), f.getAwayTeam(),
                 h.getHomeTeam(), h.getAwayTeam(), e.getHomeTeam(), e.getAwayTeam(), p.getHomeTeam(), p.getAwayTeam(),
-                r.getId(), r.getName(), m.getCompetition().getId(), m.getSeason().getId(), m.getId()
-                );
+                r.getId(), r.getName(), m.getCompetition().getId(), m.getSeason().getId(), new Timestamp(System.currentTimeMillis()), m.getId()
+        );
     }
 
 }
