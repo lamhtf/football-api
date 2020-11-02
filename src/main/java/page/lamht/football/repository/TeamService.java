@@ -6,10 +6,12 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import page.lamht.football.entity.Competition;
 import page.lamht.football.entity.Team;
 
 @Service
+@Transactional
 public class TeamService {
 
     @Autowired

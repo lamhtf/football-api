@@ -5,11 +5,13 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import page.lamht.football.entity.Area;
 import page.lamht.football.entity.Competition;
 import page.lamht.football.entity.Season;
 
 @Service
+@Transactional
 public class CompetitionService {
 
     private final static String INSERT_QUERY = "INSERT INTO public.competition VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";

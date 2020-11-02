@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import page.lamht.football.dto.CompetitionsDto;
 import page.lamht.football.dto.MatchDto;
@@ -26,11 +27,13 @@ class MatchController {
     @Autowired
     private MatchService service;
 
-    @GetMapping("/matches")
+    @GetMapping("/matches/{league}/{token}")
     String getCompetitions() {
         logger.info("start time: " + new Timestamp(System.currentTimeMillis()));
 
-        WebClient webClient = WebClient.create();
+        ExchangeStrategies exchangeStrategies = ExchangeStrategies.builder()
+                .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(1024 * 1024 * 10)).build();
+        WebClient webClient = WebClient.builder().exchangeStrategies(exchangeStrategies).build();
 
         Mono<MatchesDto> mono = webClient.get()
                 .uri("http://localhost:8080/matchesTest/")
@@ -41,6 +44,7 @@ class MatchController {
         MatchesDto dto = mono.block();
 
         for (MatchDto matchDto : dto.getMatches()) {
+            matchDto.setCompetition(dto.getCompetition());
             service.save(matchDto);
         }
 

@@ -5,12 +5,14 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import page.lamht.football.dto.MatchDto;
 import page.lamht.football.entity.*;
 
 import java.sql.Timestamp;
 
 @Service
+@Transactional
 public class MatchService {
 
     private final static String INSERT_QUERY = "INSERT INTO public.match VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -80,13 +82,20 @@ public class MatchService {
         }
         if (m.getReferees().size() > 0)
             r = m.getReferees().get(0);
+        Long cId = null, sId = null;
+        Competition c = m.getCompetition();
+        if (c!=null) cId = c.getId();
+        Season se = m.getSeason();
+        if (se!=null) sId = se.getId();
+
+
         jdbcTemplate.update(INSERT_QUERY,
                 m.getId(), m.getUtcDate(), m.getStatus(), m.getVenue(), m.getMatchday(), m.getStage(),
                 m.getGroup(), m.getLastUpdated(), m.getNumberOfMatches(), m.getTotalGoals(), home.getId(), home.getName(),
                 home.getWins(), home.getDraws(), home.getLosses(), away.getId(), away.getName(), away.getWins(),
                 away.getDraws(), away.getLosses(), winner, duration, f.getHomeTeam(), f.getAwayTeam(),
                 h.getHomeTeam(), h.getAwayTeam(), e.getHomeTeam(), e.getAwayTeam(), p.getHomeTeam(), p.getAwayTeam(),
-                r.getId(), r.getName(), m.getCompetition().getId(), m.getSeason().getId(), new Timestamp(System.currentTimeMillis())
+                r.getId(), r.getName(), cId, sId, new Timestamp(System.currentTimeMillis())
         );
     }
 
