@@ -17,7 +17,7 @@ public class Constants {
     //English Premier League
     public final static String EPL_TABLE = API_HOST_V2 + "/competitions/PL/standings";
     //Italian Serie A
-    public final static String ISA_TABLE = API_HOST_V2 + "/competitions/SA/standings";
+    public final static String SA_TABLE = API_HOST_V2 + "/competitions/SA/standings";
     //German Bundesliga
     public final static String BL1_TABLE = API_HOST_V2 + "/competitions/BL1/standings";
     //Spanish La Liga
@@ -36,7 +36,7 @@ public class Constants {
     public final static String SA_MATCHES = API_HOST_V2 + "/competitions/2019/matches";
     public final static String BL1_MATCHES = API_HOST_V2 + "/competitions/2002/matches";
     public final static String LL_MATCHES = API_HOST_V2 + "/competitions/2014/matches";
-    public final static String PPL_MATCHES = API_HOST_V2 + "/competitions/2187/matches";
+    public final static String PPL_MATCHES = API_HOST_V2 + "/competitions/2017/matches";
     public final static String FL1_MATCHES = API_HOST_V2 + "/competitions/2015/matches";
     public final static String DE_MATCHES = API_HOST_V2 + "/competitions/2003/matches";
     public final static String CL_MATCHES = API_HOST_V2 + "/competitions/2001/matches";

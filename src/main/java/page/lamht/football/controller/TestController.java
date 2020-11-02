@@ -6,12 +6,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import page.lamht.football.repository.AreaRepository;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import static page.lamht.football.util.Constants.*;
+import static page.lamht.football.util.Constants.CL_MATCHES;
 
 
 @RestController
@@ -37,9 +41,11 @@ class TestController {
       return "{\"count\":150,\"filters\":{},\"competitions\":[{\"id\":2006,\"area\":{\"id\":2001,\"name\":\"Africa\",\"countryCode\":\"AFR\",\"ensignUrl\":null},\"name\":\"WC Qualification\",\"code\":null,\"emblemUrl\":null,\"plan\":\"TIER_FOUR\",\"currentSeason\":{\"id\":555,\"startDate\":\"2019-09-04\",\"endDate\":\"2021-11-16\",\"currentMatchday\":null,\"winner\":null},\"numberOfAvailableSeasons\":2,\"lastUpdated\":\"2018-06-04T23:54:04Z\"}]}";
   }
 
-  @GetMapping(value="/matchesTest", produces={MediaType.APPLICATION_JSON_VALUE})
-  String getMatches() throws IOException {
-    FileInputStream fis = new FileInputStream("src/main/resources/test/EPLMatches.txt");
+  @GetMapping(value="/matchesTest/{league}", produces={MediaType.APPLICATION_JSON_VALUE})
+  String getMatches(@PathVariable String league) throws IOException {
+
+    String filePath = "src/main/resources/test/" + league + "Matches.txt";
+    FileInputStream fis = new FileInputStream(filePath);
     String s = IOUtils.toString(fis, "UTF-8");
     return s;
   }

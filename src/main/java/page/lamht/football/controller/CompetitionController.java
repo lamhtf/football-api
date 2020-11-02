@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 import page.lamht.football.dto.CompetitionsDto;
@@ -23,8 +24,8 @@ class CompetitionController {
     @Autowired
     private CompetitionService service;
 
-    @GetMapping("/competitions")
-    String getCompetitions() {
+    @GetMapping("/competitions/{token}")
+    String getCompetitions(@PathVariable String token) {
         logger.info("start time: " + new Timestamp(System.currentTimeMillis()));
 
         WebClient webClient = WebClient.create();

@@ -17,12 +17,28 @@ public class BatchScheduler {
 
     @Autowired
     private AreaController areaController;
+    @Autowired
+    private CompetitionController competitionController;
+    @Autowired
+    private MatchController matchController;
 
-//    @Scheduled(cron = "0 0 0 * * ?")
-    @Scheduled(cron = "0/10 * * * * ?")
+    @Scheduled(cron = "0 0 0 * * ?")
     public String runAreas() {
         logger.info("Current time is :: " + Calendar.getInstance().getTime());
-//        return areaController.getAreas(TOKEN_1);
-        return areaController.getAreas(null);
+        return areaController.getAreas(TOKEN_1);
     }
+
+    @Scheduled(cron = "10 0 0 * * ?")
+    public String runCompetitions() {
+        logger.info("Current time is :: " + Calendar.getInstance().getTime());
+        return competitionController.getCompetitions(TOKEN_1);
+    }
+
+    @Scheduled(cron = "0 10 0 * * ?")
+    public String runMatches() {
+        logger.info("Current time is :: " + Calendar.getInstance().getTime());
+        return areaController.getAreas(TOKEN_1);
+    }
+
+
 }
