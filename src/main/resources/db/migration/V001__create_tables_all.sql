@@ -66,9 +66,9 @@ CREATE TABLE COMPETITION (
 CREATE TABLE STANDINGS (
 	id int8,
 	competition_id int8,
-	stage VARCHAR (20),
+	stage VARCHAR (50),
 	type VARCHAR (10),
-	"group" VARCHAR (20),
+	"group" VARCHAR (50),
 	PRIMARY KEY (id),
 	FOREIGN KEY (competition_id)
 	  REFERENCES COMPETITION (id)
@@ -121,8 +121,8 @@ CREATE TABLE MATCH (
 	status VARCHAR (20),
 	venue VARCHAR (255),
 	matchday int,
-	stage VARCHAR (20),
-	"group" VARCHAR (20),
+	stage VARCHAR (50),
+	"group" VARCHAR (50),
 	last_updated TIMESTAMP,
 --head2head
 	number_of_matches VARCHAR (255),

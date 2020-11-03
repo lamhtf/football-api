@@ -3,4 +3,3 @@ spring:
     url: jdbc:postgresql://localhost:5432/myfootball
     username: postgres
     password: password
-test: true

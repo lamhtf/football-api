@@ -1,6 +1,6 @@
 package page.lamht.football.util;
 
-public class Constants {
+public final class Constants {
 
     public final static String X_AUTH_TOKEN = "X-Auth-Token";
 

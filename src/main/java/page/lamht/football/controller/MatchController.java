@@ -18,6 +18,7 @@ import page.lamht.football.dto.MatchesDto;
 import page.lamht.football.entity.Competition;
 import page.lamht.football.repository.CompetitionService;
 import page.lamht.football.repository.MatchService;
+import page.lamht.football.util.Utils;
 import reactor.core.publisher.Mono;
 
 import java.sql.Timestamp;
@@ -29,9 +30,6 @@ class MatchController {
 
     Logger logger = LoggerFactory.getLogger(MatchController.class);
 
-    @Value("${test}")
-    Boolean test;
-
     @Autowired
     private MatchService service;
 
@@ -40,25 +38,14 @@ class MatchController {
         if (StringUtils.isEmpty(token)) return null;
         logger.info("start time: " + new Timestamp(System.currentTimeMillis()));
 
-        String URL = switch (league) {
-            case "EPL" -> EPL_MATCHES;
-            case "SA" -> SA_MATCHES;
-            case "BL1" -> BL1_MATCHES;
-            case "LL" -> LL_MATCHES;
-            case "PPL" -> PPL_MATCHES;
-            case "FL1" -> FL1_MATCHES;
-            case "DE" -> DE_MATCHES;
-            default -> CL_MATCHES;
-        };
-
-        if (test) URL = LOCAL_HOST + "/matchesTest/" + league;
+        String url = Utils.selectMatchApi(league);
 
         ExchangeStrategies exchangeStrategies = ExchangeStrategies.builder()
                 .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(1024 * 1024 * 10)).build();
         WebClient webClient = WebClient.builder().exchangeStrategies(exchangeStrategies).build();
 
         Mono<MatchesDto> mono = webClient.get()
-                .uri(URL)
+                .uri(url)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .header(X_AUTH_TOKEN, token)
                 .retrieve()

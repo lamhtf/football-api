@@ -14,6 +14,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import page.lamht.football.dto.AreasDto;
 import page.lamht.football.entity.Area;
 import page.lamht.football.repository.AreaRepository;
+import page.lamht.football.util.Utils;
 import reactor.core.publisher.Mono;
 
 import java.sql.Timestamp;
@@ -25,9 +26,6 @@ class AreaController {
 
     Logger logger = LoggerFactory.getLogger(AreaController.class);
 
-    @Value("${test}")
-    Boolean test;
-
     @Autowired
     private AreaRepository areaRepository;
 
@@ -36,12 +34,11 @@ class AreaController {
         if (StringUtils.isEmpty(token)) return null;
         logger.info("start time: " + new Timestamp(System.currentTimeMillis()));
 
-        String URL = AREAS;
-        if (test) URL = LOCAL_HOST + "/areasTest";
+        String url = Utils.selectAreaApi();
 
         WebClient webClient = WebClient.create();
         Mono<AreasDto> areasDtoMono = webClient.get()
-                .uri(URL)
+                .uri(url)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .header(X_AUTH_TOKEN, token)
                 .retrieve()

@@ -12,6 +12,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import page.lamht.football.dto.CompetitionsDto;
 import page.lamht.football.entity.Competition;
 import page.lamht.football.repository.CompetitionService;
+import page.lamht.football.util.Utils;
 import reactor.core.publisher.Mono;
 
 import java.sql.Timestamp;
@@ -28,10 +29,12 @@ class CompetitionController {
     String getCompetitions(@PathVariable String token) {
         logger.info("start time: " + new Timestamp(System.currentTimeMillis()));
 
+        String url = Utils.selectCompetitionApi();
+
         WebClient webClient = WebClient.create();
 
         Mono<CompetitionsDto> mono = webClient.get()
-                .uri("http://localhost:8080/competitionsTest/")
+                .uri(url)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
                 .bodyToMono(CompetitionsDto.class);
