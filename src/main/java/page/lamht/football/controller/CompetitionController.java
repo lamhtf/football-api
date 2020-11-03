@@ -27,7 +27,7 @@ class CompetitionController {
 
     @GetMapping("/competitions/{token}")
     String getCompetitions(@PathVariable String token) {
-        logger.info("start time: " + new Timestamp(System.currentTimeMillis()));
+        logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
         String url = Utils.selectCompetitionApi();
 
@@ -45,7 +45,7 @@ class CompetitionController {
             service.save(competition);
         }
 
-        logger.info("end time: " + new Timestamp(System.currentTimeMillis()));
+        logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
 
         return "Completed Successfully";
     }

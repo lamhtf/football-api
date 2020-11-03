@@ -17,8 +17,6 @@ public class AreaService {
     private final static String INSERT_QUERY = "INSERT INTO public.area VALUES (?, ?, ?, ?, ?, ?, ?)";
     private final static String UPDATE_QUERY = "UPDATE public.area SET \"name\"=?, country_code=?, ensign_url=?, parent_area_id=?, parent_area=?, created=? WHERE id=?";
 
-
-
     @Autowired
     private JdbcTemplate jdbcTemplate;
 

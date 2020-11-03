@@ -3,7 +3,6 @@ package page.lamht.football.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
@@ -14,23 +13,25 @@ import org.springframework.web.reactive.function.client.WebClient;
 import page.lamht.football.dto.AreasDto;
 import page.lamht.football.entity.Area;
 import page.lamht.football.repository.AreaRepository;
+import page.lamht.football.repository.MatchService;
+import page.lamht.football.repository.TeamService;
 import page.lamht.football.util.Utils;
 import reactor.core.publisher.Mono;
 
 import java.sql.Timestamp;
 
-import static page.lamht.football.util.Constants.*;
+import static page.lamht.football.util.Constants.X_AUTH_TOKEN;
 
 @RestController
-class AreaController {
+class TeamController {
 
-    Logger logger = LoggerFactory.getLogger(AreaController.class);
+    Logger logger = LoggerFactory.getLogger(TeamController.class);
 
     @Autowired
-    private AreaRepository areaRepository;
+    private TeamService service;
 
-    @GetMapping("/areas/{token}")
-    String getAreas(@PathVariable String token) {
+    @GetMapping("/teams/{token}")
+    String getTeams(@PathVariable String token) {
         if (StringUtils.isEmpty(token)) return null;
         logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 

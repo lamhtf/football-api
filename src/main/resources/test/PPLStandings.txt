@@ -1,0 +1,962 @@
+{
+    "filters": {},
+    "competition": {
+        "id": 2017,
+        "area": {
+            "id": 2187,
+            "name": "Portugal"
+        },
+        "name": "Primeira Liga",
+        "code": "PPL",
+        "plan": "TIER_ONE",
+        "lastUpdated": "2020-11-02T02:30:14Z"
+    },
+    "season": {
+        "id": 644,
+        "startDate": "2020-09-20",
+        "endDate": "2021-05-19",
+        "currentMatchday": 6,
+        "winner": null
+    },
+    "standings": [
+        {
+            "stage": "REGULAR_SEASON",
+            "type": "TOTAL",
+            "group": null,
+            "table": [
+                {
+                    "position": 1,
+                    "team": {
+                        "id": 498,
+                        "name": "Sporting Clube de Portugal",
+                        "crestUrl": "https://crests.football-data.org/498.svg"
+                    },
+                    "playedGames": 6,
+                    "form": "W,W,W,D,W",
+                    "won": 5,
+                    "draw": 1,
+                    "lost": 0,
+                    "points": 16,
+                    "goalsFor": 15,
+                    "goalsAgainst": 4,
+                    "goalDifference": 11
+                },
+                {
+                    "position": 2,
+                    "team": {
+                        "id": 1903,
+                        "name": "Sport Lisboa e Benfica",
+                        "crestUrl": "https://crests.football-data.org/1903.svg"
+                    },
+                    "playedGames": 5,
+                    "form": "W,W,W,W,W",
+                    "won": 5,
+                    "draw": 0,
+                    "lost": 0,
+                    "points": 15,
+                    "goalsFor": 15,
+                    "goalsAgainst": 3,
+                    "goalDifference": 12
+                },
+                {
+                    "position": 3,
+                    "team": {
+                        "id": 503,
+                        "name": "FC Porto",
+                        "crestUrl": "https://crests.football-data.org/503.svg"
+                    },
+                    "playedGames": 6,
+                    "form": "L,W,D,L,W",
+                    "won": 3,
+                    "draw": 1,
+                    "lost": 2,
+                    "points": 10,
+                    "goalsFor": 15,
+                    "goalsAgainst": 9,
+                    "goalDifference": 6
+                },
+                {
+                    "position": 4,
+                    "team": {
+                        "id": 5530,
+                        "name": "CD Santa Clara",
+                        "crestUrl": "https://crests.football-data.org/5530.svg"
+                    },
+                    "playedGames": 6,
+                    "form": "W,L,L,D,W",
+                    "won": 3,
+                    "draw": 1,
+                    "lost": 2,
+                    "points": 10,
+                    "goalsFor": 7,
+                    "goalsAgainst": 5,
+                    "goalDifference": 2
+                },
+                {
+                    "position": 5,
+                    "team": {
+                        "id": 5543,
+                        "name": "Vitória SC",
+                        "crestUrl": "https://crests.football-data.org/5543.svg"
+                    },
+                    "playedGames": 6,
+                    "form": "W,L,W,W,D",
+                    "won": 3,
+                    "draw": 1,
+                    "lost": 2,
+                    "points": 10,
+                    "goalsFor": 4,
+                    "goalsAgainst": 3,
+                    "goalDifference": 1
+                },
+                {
+                    "position": 6,
+                    "team": {
+                        "id": 5613,
+                        "name": "Sporting Clube de Braga",
+                        "crestUrl": "https://crests.football-data.org/5613.svg"
+                    },
+                    "playedGames": 5,
+                    "form": "W,W,W,L,L",
+                    "won": 3,
+                    "draw": 0,
+                    "lost": 2,
+                    "points": 9,
+                    "goalsFor": 8,
+                    "goalsAgainst": 5,
+                    "goalDifference": 3
+                },
+                {
+                    "position": 7,
+                    "team": {
+                        "id": 496,
+                        "name": "Rio Ave FC",
+                        "crestUrl": "https://crests.football-data.org/496.svg"
+                    },
+                    "playedGames": 6,
+                    "form": "W,W,L,D,D",
+                    "won": 2,
+                    "draw": 3,
+                    "lost": 1,
+                    "points": 9,
+                    "goalsFor": 5,
+                    "goalsAgainst": 5,
+                    "goalDifference": 0
+                },
+                {
+                    "position": 8,
+                    "team": {
+                        "id": 507,
+                        "name": "FC Paços de Ferreira",
+                        "crestUrl": "https://crests.football-data.org/507.svg"
+                    },
+                    "playedGames": 6,
+                    "form": "W,D,W,L,L",
+                    "won": 2,
+                    "draw": 2,
+                    "lost": 2,
+                    "points": 8,
+                    "goalsFor": 7,
+                    "goalsAgainst": 8,
+                    "goalDifference": -1
+                },
+                {
+                    "position": 9,
+                    "team": {
+                        "id": 583,
+                        "name": "Moreirense FC",
+                        "crestUrl": "https://crests.football-data.org/583.svg"
+                    },
+                    "playedGames": 6,
+                    "form": "L,W,D,D,L",
+                    "won": 2,
+                    "draw": 2,
+                    "lost": 2,
+                    "points": 8,
+                    "goalsFor": 5,
+                    "goalsAgainst": 6,
+                    "goalDifference": -1
+                },
+                {
+                    "position": 10,
+                    "team": {
+                        "id": 5529,
+                        "name": "CD Nacional",
+                        "crestUrl": "https://crests.football-data.org/5529.svg"
+                    },
+                    "playedGames": 6,
+                    "form": "D,D,L,D,W",
+                    "won": 1,
+                    "draw": 4,
+                    "lost": 1,
+                    "points": 7,
+                    "goalsFor": 6,
+                    "goalsAgainst": 6,
+                    "goalDifference": 0
+                },
+                {
+                    "position": 11,
+                    "team": {
+                        "id": 5575,
+                        "name": "CS Marítimo",
+                        "crestUrl": "https://crests.football-data.org/5575.svg"
+                    },
+                    "playedGames": 6,
+                    "form": "D,L,L,W,W",
+                    "won": 2,
+                    "draw": 1,
+                    "lost": 3,
+                    "points": 7,
+                    "goalsFor": 7,
+                    "goalsAgainst": 9,
+                    "goalDifference": -2
+                },
+                {
+                    "position": 12,
+                    "team": {
+                        "id": 5531,
+                        "name": "FC Famalicão",
+                        "crestUrl": "https://crests.football-data.org/5531.svg"
+                    },
+                    "playedGames": 5,
+                    "form": "D,D,D,W,L",
+                    "won": 1,
+                    "draw": 3,
+                    "lost": 1,
+                    "points": 6,
+                    "goalsFor": 9,
+                    "goalsAgainst": 12,
+                    "goalDifference": -3
+                },
+                {
+                    "position": 13,
+                    "team": {
+                        "id": 5568,
+                        "name": "Os Belenenses Futebol",
+                        "crestUrl": "https://crests.football-data.org/5568.svg"
+                    },
+                    "playedGames": 6,
+                    "form": "D,L,D,D,L",
+                    "won": 1,
+                    "draw": 3,
+                    "lost": 2,
+                    "points": 6,
+                    "goalsFor": 3,
+                    "goalsAgainst": 5,
+                    "goalDifference": -2
+                },
+                {
+                    "position": 14,
+                    "team": {
+                        "id": 1049,
+                        "name": "CD Tondela",
+                        "crestUrl": "https://crests.football-data.org/1049.svg"
+                    },
+                    "playedGames": 6,
+                    "form": "L,W,D,L,L",
+                    "won": 1,
+                    "draw": 2,
+                    "lost": 3,
+                    "points": 5,
+                    "goalsFor": 4,
+                    "goalsAgainst": 12,
+                    "goalDifference": -8
+                },
+                {
+                    "position": 15,
+                    "team": {
+                        "id": 5533,
+                        "name": "Gil Vicente FC",
+                        "crestUrl": "https://crests.football-data.org/5533.svg"
+                    },
+                    "playedGames": 6,
+                    "form": "L,L,L,D,D",
+                    "won": 1,
+                    "draw": 2,
+                    "lost": 3,
+                    "points": 5,
+                    "goalsFor": 4,
+                    "goalsAgainst": 7,
+                    "goalDifference": -3
+                },
+                {
+                    "position": 16,
+                    "team": {
+                        "id": 5601,
+                        "name": "Portimonense SC",
+                        "crestUrl": "https://crests.football-data.org/5601.svg"
+                    },
+                    "playedGames": 6,
+                    "form": "L,L,W,L,L",
+                    "won": 1,
+                    "draw": 1,
+                    "lost": 4,
+                    "points": 4,
+                    "goalsFor": 4,
+                    "goalsAgainst": 8,
+                    "goalDifference": -4
+                },
+                {
+                    "position": 17,
+                    "team": {
+                        "id": 810,
+                        "name": "Boavista FC",
+                        "crestUrl": "https://crests.football-data.org/810.svg"
+                    },
+                    "playedGames": 5,
+                    "form": "D,L,D,L,D",
+                    "won": 0,
+                    "draw": 3,
+                    "lost": 2,
+                    "points": 3,
+                    "goalsFor": 6,
+                    "goalsAgainst": 12,
+                    "goalDifference": -6
+                },
+                {
+                    "position": 18,
+                    "team": {
+                        "id": 5602,
+                        "name": "SC Farense",
+                        "crestUrl": "https://crests.football-data.org/5602.svg"
+                    },
+                    "playedGames": 6,
+                    "form": "D,L,D,L,L",
+                    "won": 0,
+                    "draw": 2,
+                    "lost": 4,
+                    "points": 2,
+                    "goalsFor": 6,
+                    "goalsAgainst": 11,
+                    "goalDifference": -5
+                }
+            ]
+        },
+        {
+            "stage": "REGULAR_SEASON",
+            "type": "HOME",
+            "group": null,
+            "table": [
+                {
+                    "position": 1,
+                    "team": {
+                        "id": 1903,
+                        "name": "Sport Lisboa e Benfica",
+                        "crestUrl": "https://crests.football-data.org/1903.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 3,
+                    "draw": 0,
+                    "lost": 0,
+                    "points": 9,
+                    "goalsFor": 7,
+                    "goalsAgainst": 2,
+                    "goalDifference": 5
+                },
+                {
+                    "position": 2,
+                    "team": {
+                        "id": 498,
+                        "name": "Sporting Clube de Portugal",
+                        "crestUrl": "https://crests.football-data.org/498.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 2,
+                    "draw": 1,
+                    "lost": 0,
+                    "points": 7,
+                    "goalsFor": 9,
+                    "goalsAgainst": 3,
+                    "goalDifference": 6
+                },
+                {
+                    "position": 3,
+                    "team": {
+                        "id": 583,
+                        "name": "Moreirense FC",
+                        "crestUrl": "https://crests.football-data.org/583.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 2,
+                    "draw": 1,
+                    "lost": 0,
+                    "points": 7,
+                    "goalsFor": 5,
+                    "goalsAgainst": 2,
+                    "goalDifference": 3
+                },
+                {
+                    "position": 4,
+                    "team": {
+                        "id": 503,
+                        "name": "FC Porto",
+                        "crestUrl": "https://crests.football-data.org/503.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 2,
+                    "draw": 0,
+                    "lost": 1,
+                    "points": 6,
+                    "goalsFor": 6,
+                    "goalsAgainst": 4,
+                    "goalDifference": 2
+                },
+                {
+                    "position": 5,
+                    "team": {
+                        "id": 507,
+                        "name": "FC Paços de Ferreira",
+                        "crestUrl": "https://crests.football-data.org/507.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 2,
+                    "draw": 0,
+                    "lost": 1,
+                    "points": 6,
+                    "goalsFor": 5,
+                    "goalsAgainst": 5,
+                    "goalDifference": 0
+                },
+                {
+                    "position": 6,
+                    "team": {
+                        "id": 5530,
+                        "name": "CD Santa Clara",
+                        "crestUrl": "https://crests.football-data.org/5530.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 1,
+                    "draw": 1,
+                    "lost": 1,
+                    "points": 4,
+                    "goalsFor": 3,
+                    "goalsAgainst": 2,
+                    "goalDifference": 1
+                },
+                {
+                    "position": 7,
+                    "team": {
+                        "id": 5575,
+                        "name": "CS Marítimo",
+                        "crestUrl": "https://crests.football-data.org/5575.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 1,
+                    "draw": 1,
+                    "lost": 1,
+                    "points": 4,
+                    "goalsFor": 3,
+                    "goalsAgainst": 3,
+                    "goalDifference": 0
+                },
+                {
+                    "position": 8,
+                    "team": {
+                        "id": 5533,
+                        "name": "Gil Vicente FC",
+                        "crestUrl": "https://crests.football-data.org/5533.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 1,
+                    "draw": 1,
+                    "lost": 1,
+                    "points": 4,
+                    "goalsFor": 3,
+                    "goalsAgainst": 3,
+                    "goalDifference": 0
+                },
+                {
+                    "position": 9,
+                    "team": {
+                        "id": 496,
+                        "name": "Rio Ave FC",
+                        "crestUrl": "https://crests.football-data.org/496.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 1,
+                    "draw": 1,
+                    "lost": 1,
+                    "points": 4,
+                    "goalsFor": 2,
+                    "goalsAgainst": 3,
+                    "goalDifference": -1
+                },
+                {
+                    "position": 10,
+                    "team": {
+                        "id": 1049,
+                        "name": "CD Tondela",
+                        "crestUrl": "https://crests.football-data.org/1049.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 1,
+                    "draw": 1,
+                    "lost": 1,
+                    "points": 4,
+                    "goalsFor": 2,
+                    "goalsAgainst": 5,
+                    "goalDifference": -3
+                },
+                {
+                    "position": 11,
+                    "team": {
+                        "id": 5613,
+                        "name": "Sporting Clube de Braga",
+                        "crestUrl": "https://crests.football-data.org/5613.svg"
+                    },
+                    "playedGames": 2,
+                    "form": null,
+                    "won": 1,
+                    "draw": 0,
+                    "lost": 1,
+                    "points": 3,
+                    "goalsFor": 2,
+                    "goalsAgainst": 2,
+                    "goalDifference": 0
+                },
+                {
+                    "position": 12,
+                    "team": {
+                        "id": 5529,
+                        "name": "CD Nacional",
+                        "crestUrl": "https://crests.football-data.org/5529.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 3,
+                    "lost": 0,
+                    "points": 3,
+                    "goalsFor": 4,
+                    "goalsAgainst": 4,
+                    "goalDifference": 0
+                },
+                {
+                    "position": 13,
+                    "team": {
+                        "id": 5543,
+                        "name": "Vitória SC",
+                        "crestUrl": "https://crests.football-data.org/5543.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 1,
+                    "draw": 0,
+                    "lost": 2,
+                    "points": 3,
+                    "goalsFor": 1,
+                    "goalsAgainst": 2,
+                    "goalDifference": -1
+                },
+                {
+                    "position": 14,
+                    "team": {
+                        "id": 5568,
+                        "name": "Os Belenenses Futebol",
+                        "crestUrl": "https://crests.football-data.org/5568.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 2,
+                    "lost": 1,
+                    "points": 2,
+                    "goalsFor": 2,
+                    "goalsAgainst": 3,
+                    "goalDifference": -1
+                },
+                {
+                    "position": 15,
+                    "team": {
+                        "id": 5531,
+                        "name": "FC Famalicão",
+                        "crestUrl": "https://crests.football-data.org/5531.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 2,
+                    "lost": 1,
+                    "points": 2,
+                    "goalsFor": 4,
+                    "goalsAgainst": 8,
+                    "goalDifference": -4
+                },
+                {
+                    "position": 16,
+                    "team": {
+                        "id": 5602,
+                        "name": "SC Farense",
+                        "crestUrl": "https://crests.football-data.org/5602.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 1,
+                    "lost": 2,
+                    "points": 1,
+                    "goalsFor": 3,
+                    "goalsAgainst": 5,
+                    "goalDifference": -2
+                },
+                {
+                    "position": 17,
+                    "team": {
+                        "id": 5601,
+                        "name": "Portimonense SC",
+                        "crestUrl": "https://crests.football-data.org/5601.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 1,
+                    "lost": 2,
+                    "points": 1,
+                    "goalsFor": 2,
+                    "goalsAgainst": 5,
+                    "goalDifference": -3
+                },
+                {
+                    "position": 18,
+                    "team": {
+                        "id": 810,
+                        "name": "Boavista FC",
+                        "crestUrl": "https://crests.football-data.org/810.svg"
+                    },
+                    "playedGames": 2,
+                    "form": null,
+                    "won": 0,
+                    "draw": 0,
+                    "lost": 2,
+                    "points": 0,
+                    "goalsFor": 0,
+                    "goalsAgainst": 6,
+                    "goalDifference": -6
+                }
+            ]
+        },
+        {
+            "stage": "REGULAR_SEASON",
+            "type": "AWAY",
+            "group": null,
+            "table": [
+                {
+                    "position": 1,
+                    "team": {
+                        "id": 498,
+                        "name": "Sporting Clube de Portugal",
+                        "crestUrl": "https://crests.football-data.org/498.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 3,
+                    "draw": 0,
+                    "lost": 0,
+                    "points": 9,
+                    "goalsFor": 6,
+                    "goalsAgainst": 1,
+                    "goalDifference": 5
+                },
+                {
+                    "position": 2,
+                    "team": {
+                        "id": 5543,
+                        "name": "Vitória SC",
+                        "crestUrl": "https://crests.football-data.org/5543.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 2,
+                    "draw": 1,
+                    "lost": 0,
+                    "points": 7,
+                    "goalsFor": 3,
+                    "goalsAgainst": 1,
+                    "goalDifference": 2
+                },
+                {
+                    "position": 3,
+                    "team": {
+                        "id": 1903,
+                        "name": "Sport Lisboa e Benfica",
+                        "crestUrl": "https://crests.football-data.org/1903.svg"
+                    },
+                    "playedGames": 2,
+                    "form": null,
+                    "won": 2,
+                    "draw": 0,
+                    "lost": 0,
+                    "points": 6,
+                    "goalsFor": 8,
+                    "goalsAgainst": 1,
+                    "goalDifference": 7
+                },
+                {
+                    "position": 4,
+                    "team": {
+                        "id": 5613,
+                        "name": "Sporting Clube de Braga",
+                        "crestUrl": "https://crests.football-data.org/5613.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 2,
+                    "draw": 0,
+                    "lost": 1,
+                    "points": 6,
+                    "goalsFor": 6,
+                    "goalsAgainst": 3,
+                    "goalDifference": 3
+                },
+                {
+                    "position": 5,
+                    "team": {
+                        "id": 5530,
+                        "name": "CD Santa Clara",
+                        "crestUrl": "https://crests.football-data.org/5530.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 2,
+                    "draw": 0,
+                    "lost": 1,
+                    "points": 6,
+                    "goalsFor": 4,
+                    "goalsAgainst": 3,
+                    "goalDifference": 1
+                },
+                {
+                    "position": 6,
+                    "team": {
+                        "id": 496,
+                        "name": "Rio Ave FC",
+                        "crestUrl": "https://crests.football-data.org/496.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 1,
+                    "draw": 2,
+                    "lost": 0,
+                    "points": 5,
+                    "goalsFor": 3,
+                    "goalsAgainst": 2,
+                    "goalDifference": 1
+                },
+                {
+                    "position": 7,
+                    "team": {
+                        "id": 503,
+                        "name": "FC Porto",
+                        "crestUrl": "https://crests.football-data.org/503.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 1,
+                    "draw": 1,
+                    "lost": 1,
+                    "points": 4,
+                    "goalsFor": 9,
+                    "goalsAgainst": 5,
+                    "goalDifference": 4
+                },
+                {
+                    "position": 8,
+                    "team": {
+                        "id": 5531,
+                        "name": "FC Famalicão",
+                        "crestUrl": "https://crests.football-data.org/5531.svg"
+                    },
+                    "playedGames": 2,
+                    "form": null,
+                    "won": 1,
+                    "draw": 1,
+                    "lost": 0,
+                    "points": 4,
+                    "goalsFor": 5,
+                    "goalsAgainst": 4,
+                    "goalDifference": 1
+                },
+                {
+                    "position": 9,
+                    "team": {
+                        "id": 5529,
+                        "name": "CD Nacional",
+                        "crestUrl": "https://crests.football-data.org/5529.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 1,
+                    "draw": 1,
+                    "lost": 1,
+                    "points": 4,
+                    "goalsFor": 2,
+                    "goalsAgainst": 2,
+                    "goalDifference": 0
+                },
+                {
+                    "position": 10,
+                    "team": {
+                        "id": 5568,
+                        "name": "Os Belenenses Futebol",
+                        "crestUrl": "https://crests.football-data.org/5568.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 1,
+                    "draw": 1,
+                    "lost": 1,
+                    "points": 4,
+                    "goalsFor": 1,
+                    "goalsAgainst": 2,
+                    "goalDifference": -1
+                },
+                {
+                    "position": 11,
+                    "team": {
+                        "id": 810,
+                        "name": "Boavista FC",
+                        "crestUrl": "https://crests.football-data.org/810.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 3,
+                    "lost": 0,
+                    "points": 3,
+                    "goalsFor": 6,
+                    "goalsAgainst": 6,
+                    "goalDifference": 0
+                },
+                {
+                    "position": 12,
+                    "team": {
+                        "id": 5601,
+                        "name": "Portimonense SC",
+                        "crestUrl": "https://crests.football-data.org/5601.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 1,
+                    "draw": 0,
+                    "lost": 2,
+                    "points": 3,
+                    "goalsFor": 2,
+                    "goalsAgainst": 3,
+                    "goalDifference": -1
+                },
+                {
+                    "position": 13,
+                    "team": {
+                        "id": 5575,
+                        "name": "CS Marítimo",
+                        "crestUrl": "https://crests.football-data.org/5575.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 1,
+                    "draw": 0,
+                    "lost": 2,
+                    "points": 3,
+                    "goalsFor": 4,
+                    "goalsAgainst": 6,
+                    "goalDifference": -2
+                },
+                {
+                    "position": 14,
+                    "team": {
+                        "id": 507,
+                        "name": "FC Paços de Ferreira",
+                        "crestUrl": "https://crests.football-data.org/507.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 2,
+                    "lost": 1,
+                    "points": 2,
+                    "goalsFor": 2,
+                    "goalsAgainst": 3,
+                    "goalDifference": -1
+                },
+                {
+                    "position": 15,
+                    "team": {
+                        "id": 5602,
+                        "name": "SC Farense",
+                        "crestUrl": "https://crests.football-data.org/5602.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 1,
+                    "lost": 2,
+                    "points": 1,
+                    "goalsFor": 3,
+                    "goalsAgainst": 6,
+                    "goalDifference": -3
+                },
+                {
+                    "position": 16,
+                    "team": {
+                        "id": 5533,
+                        "name": "Gil Vicente FC",
+                        "crestUrl": "https://crests.football-data.org/5533.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 1,
+                    "lost": 2,
+                    "points": 1,
+                    "goalsFor": 1,
+                    "goalsAgainst": 4,
+                    "goalDifference": -3
+                },
+                {
+                    "position": 17,
+                    "team": {
+                        "id": 583,
+                        "name": "Moreirense FC",
+                        "crestUrl": "https://crests.football-data.org/583.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 1,
+                    "lost": 2,
+                    "points": 1,
+                    "goalsFor": 0,
+                    "goalsAgainst": 4,
+                    "goalDifference": -4
+                },
+                {
+                    "position": 18,
+                    "team": {
+                        "id": 1049,
+                        "name": "CD Tondela",
+                        "crestUrl": "https://crests.football-data.org/1049.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 1,
+                    "lost": 2,
+                    "points": 1,
+                    "goalsFor": 2,
+                    "goalsAgainst": 7,
+                    "goalDifference": -5
+                }
+            ]
+        }
+    ]
+}

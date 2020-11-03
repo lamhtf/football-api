@@ -41,4 +41,14 @@ public final class Constants {
     public final static String DE_MATCHES = API_HOST_V2 + "/competitions/2003/matches";
     public final static String CL_MATCHES = API_HOST_V2 + "/competitions/2001/matches";
 
+    public final static String EPL_TEAMS = API_HOST_V2 + "/competitions/2021/teams";
+    public final static String SA_TEAMS = API_HOST_V2 + "/competitions/2019/teams";
+    public final static String BL1_TEAMS = API_HOST_V2 + "/competitions/2002/teams";
+    public final static String LL_TEAMS = API_HOST_V2 + "/competitions/2014/teams";
+    public final static String PPL_TEAMS = API_HOST_V2 + "/competitions/2017/teams";
+    public final static String FL1_TEAMS = API_HOST_V2 + "/competitions/2015/teams";
+    public final static String DE_TEAMS = API_HOST_V2 + "/competitions/2003/teams";
+    public final static String CL_TEAMS = API_HOST_V2 + "/competitions/2001/teams";
+
+
 }

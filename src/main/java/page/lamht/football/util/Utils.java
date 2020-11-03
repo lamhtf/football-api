@@ -8,7 +8,7 @@ public final class Utils {
 
     public static String selectMatchApi(String league){
 
-        String URL = switch (league) {
+        String url = switch (league) {
             case "EPL" -> EPL_MATCHES;
             case "SA" -> SA_MATCHES;
             case "BL1" -> BL1_MATCHES;
@@ -19,8 +19,25 @@ public final class Utils {
             default -> CL_MATCHES;
         };
 
-        if (_LOCAL_TEST_) URL = LOCAL_HOST + "/matchesTest/" + league;
-        return URL;
+        if (_LOCAL_TEST_) url = LOCAL_HOST + "/matchesTest/" + league;
+        return url;
+    }
+
+    public static String selectStandingsApi(String league){
+
+        String url = switch (league) {
+            case "EPL" -> EPL_TABLE;
+            case "SA" -> SA_TABLE;
+            case "BL1" -> BL1_TABLE;
+            case "LL" -> LL_TABLE;
+            case "PPL" -> PPL_TABLE;
+            case "FL1" -> FL1_TABLE;
+            case "DE" -> DE_TABLE;
+            default -> CL_TABLE;
+        };
+
+        if (_LOCAL_TEST_) url = LOCAL_HOST + "/standingsTest/" + league;
+        return url;
     }
 
     public static String selectAreaApi(){

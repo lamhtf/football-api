@@ -36,7 +36,7 @@ class MatchController {
     @GetMapping("/matches/{league}/{token}")
     String getCompetitions(@PathVariable String league, @PathVariable String token) {
         if (StringUtils.isEmpty(token)) return null;
-        logger.info("start time: " + new Timestamp(System.currentTimeMillis()));
+        logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
         String url = Utils.selectMatchApi(league);
 
@@ -58,7 +58,7 @@ class MatchController {
             service.save(matchDto);
         }
 
-        logger.info("end time: " + new Timestamp(System.currentTimeMillis()));
+        logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
 
         return "Completed Successfully";
     }

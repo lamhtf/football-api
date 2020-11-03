@@ -1,0 +1,962 @@
+{
+    "filters": {},
+    "competition": {
+        "id": 2003,
+        "area": {
+            "id": 2163,
+            "name": "Netherlands"
+        },
+        "name": "Eredivisie",
+        "code": "DED",
+        "plan": "TIER_ONE",
+        "lastUpdated": "2020-11-02T01:55:12Z"
+    },
+    "season": {
+        "id": 615,
+        "startDate": "2020-09-12",
+        "endDate": "2021-05-16",
+        "currentMatchday": 7,
+        "winner": null
+    },
+    "standings": [
+        {
+            "stage": "REGULAR_SEASON",
+            "type": "TOTAL",
+            "group": null,
+            "table": [
+                {
+                    "position": 1,
+                    "team": {
+                        "id": 678,
+                        "name": "AFC Ajax",
+                        "crestUrl": "https://crests.football-data.org/678.svg"
+                    },
+                    "playedGames": 7,
+                    "form": "W,W,W,L,W",
+                    "won": 6,
+                    "draw": 0,
+                    "lost": 1,
+                    "points": 18,
+                    "goalsFor": 29,
+                    "goalsAgainst": 5,
+                    "goalDifference": 24
+                },
+                {
+                    "position": 2,
+                    "team": {
+                        "id": 679,
+                        "name": "SBV Vitesse",
+                        "crestUrl": "https://crests.football-data.org/679.svg"
+                    },
+                    "playedGames": 7,
+                    "form": "W,W,W,W,L",
+                    "won": 6,
+                    "draw": 0,
+                    "lost": 1,
+                    "points": 18,
+                    "goalsFor": 14,
+                    "goalsAgainst": 4,
+                    "goalDifference": 10
+                },
+                {
+                    "position": 3,
+                    "team": {
+                        "id": 674,
+                        "name": "PSV",
+                        "crestUrl": "https://crests.football-data.org/674.svg"
+                    },
+                    "playedGames": 7,
+                    "form": "W,L,W,W,D",
+                    "won": 5,
+                    "draw": 1,
+                    "lost": 1,
+                    "points": 16,
+                    "goalsFor": 16,
+                    "goalsAgainst": 5,
+                    "goalDifference": 11
+                },
+                {
+                    "position": 4,
+                    "team": {
+                        "id": 673,
+                        "name": "SC Heerenveen",
+                        "crestUrl": "https://crests.football-data.org/673.svg"
+                    },
+                    "playedGames": 7,
+                    "form": "W,W,L,D,W",
+                    "won": 5,
+                    "draw": 1,
+                    "lost": 1,
+                    "points": 16,
+                    "goalsFor": 16,
+                    "goalsAgainst": 8,
+                    "goalDifference": 8
+                },
+                {
+                    "position": 5,
+                    "team": {
+                        "id": 675,
+                        "name": "Feyenoord Rotterdam",
+                        "crestUrl": "https://crests.football-data.org/675.svg"
+                    },
+                    "playedGames": 7,
+                    "form": "W,D,D,W,W",
+                    "won": 4,
+                    "draw": 3,
+                    "lost": 0,
+                    "points": 15,
+                    "goalsFor": 17,
+                    "goalsAgainst": 9,
+                    "goalDifference": 8
+                },
+                {
+                    "position": 6,
+                    "team": {
+                        "id": 666,
+                        "name": "FC Twente '65",
+                        "crestUrl": "https://crests.football-data.org/666.svg"
+                    },
+                    "playedGames": 7,
+                    "form": "W,L,W,D,W",
+                    "won": 4,
+                    "draw": 2,
+                    "lost": 1,
+                    "points": 14,
+                    "goalsFor": 16,
+                    "goalsAgainst": 6,
+                    "goalDifference": 10
+                },
+                {
+                    "position": 7,
+                    "team": {
+                        "id": 677,
+                        "name": "FC Groningen",
+                        "crestUrl": "https://crests.football-data.org/677.svg"
+                    },
+                    "playedGames": 7,
+                    "form": "W,W,D,W,L",
+                    "won": 4,
+                    "draw": 1,
+                    "lost": 2,
+                    "points": 13,
+                    "goalsFor": 9,
+                    "goalsAgainst": 8,
+                    "goalDifference": 1
+                },
+                {
+                    "position": 8,
+                    "team": {
+                        "id": 676,
+                        "name": "FC Utrecht",
+                        "crestUrl": "https://crests.football-data.org/676.svg"
+                    },
+                    "playedGames": 6,
+                    "form": "L,W,D,D,W",
+                    "won": 2,
+                    "draw": 3,
+                    "lost": 1,
+                    "points": 9,
+                    "goalsFor": 8,
+                    "goalsAgainst": 8,
+                    "goalDifference": 0
+                },
+                {
+                    "position": 9,
+                    "team": {
+                        "id": 682,
+                        "name": "AZ",
+                        "crestUrl": "https://crests.football-data.org/682.svg"
+                    },
+                    "playedGames": 6,
+                    "form": "W,D,D,D,D",
+                    "won": 1,
+                    "draw": 5,
+                    "lost": 0,
+                    "points": 8,
+                    "goalsFor": 15,
+                    "goalsAgainst": 12,
+                    "goalDifference": 3
+                },
+                {
+                    "position": 10,
+                    "team": {
+                        "id": 671,
+                        "name": "Heracles Almelo",
+                        "crestUrl": "https://crests.football-data.org/671.svg"
+                    },
+                    "playedGames": 7,
+                    "form": "W,D,L,L,D",
+                    "won": 2,
+                    "draw": 2,
+                    "lost": 3,
+                    "points": 8,
+                    "goalsFor": 8,
+                    "goalsAgainst": 11,
+                    "goalDifference": -3
+                },
+                {
+                    "position": 11,
+                    "team": {
+                        "id": 684,
+                        "name": "PEC Zwolle",
+                        "crestUrl": "https://crests.football-data.org/684.svg"
+                    },
+                    "playedGames": 7,
+                    "form": "L,D,D,L,W",
+                    "won": 1,
+                    "draw": 3,
+                    "lost": 3,
+                    "points": 6,
+                    "goalsFor": 7,
+                    "goalsAgainst": 12,
+                    "goalDifference": -5
+                },
+                {
+                    "position": 12,
+                    "team": {
+                        "id": 672,
+                        "name": "Willem II Tilburg",
+                        "crestUrl": "https://crests.football-data.org/672.svg"
+                    },
+                    "playedGames": 7,
+                    "form": "L,D,L,L,D",
+                    "won": 1,
+                    "draw": 2,
+                    "lost": 4,
+                    "points": 5,
+                    "goalsFor": 7,
+                    "goalsAgainst": 13,
+                    "goalDifference": -6
+                },
+                {
+                    "position": 13,
+                    "team": {
+                        "id": 683,
+                        "name": "RKC Waalwijk",
+                        "crestUrl": "https://crests.football-data.org/683.svg"
+                    },
+                    "playedGames": 7,
+                    "form": "L,D,D,W,L",
+                    "won": 1,
+                    "draw": 2,
+                    "lost": 4,
+                    "points": 5,
+                    "goalsFor": 5,
+                    "goalsAgainst": 13,
+                    "goalDifference": -8
+                },
+                {
+                    "position": 14,
+                    "team": {
+                        "id": 668,
+                        "name": "VVV Venlo",
+                        "crestUrl": "https://crests.football-data.org/668.svg"
+                    },
+                    "playedGames": 7,
+                    "form": "L,L,D,L,L",
+                    "won": 1,
+                    "draw": 2,
+                    "lost": 4,
+                    "points": 5,
+                    "goalsFor": 10,
+                    "goalsAgainst": 24,
+                    "goalDifference": -14
+                },
+                {
+                    "position": 15,
+                    "team": {
+                        "id": 680,
+                        "name": "ADO Den Haag",
+                        "crestUrl": "https://crests.football-data.org/680.svg"
+                    },
+                    "playedGames": 7,
+                    "form": "L,D,L,W,L",
+                    "won": 1,
+                    "draw": 1,
+                    "lost": 5,
+                    "points": 4,
+                    "goalsFor": 6,
+                    "goalsAgainst": 16,
+                    "goalDifference": -10
+                },
+                {
+                    "position": 16,
+                    "team": {
+                        "id": 1914,
+                        "name": "FC Emmen",
+                        "crestUrl": "https://crests.football-data.org/1914.svg"
+                    },
+                    "playedGames": 7,
+                    "form": "L,L,D,D,D",
+                    "won": 0,
+                    "draw": 3,
+                    "lost": 4,
+                    "points": 3,
+                    "goalsFor": 10,
+                    "goalsAgainst": 18,
+                    "goalDifference": -8
+                },
+                {
+                    "position": 17,
+                    "team": {
+                        "id": 6806,
+                        "name": "Sparta Rotterdam",
+                        "crestUrl": "https://crests.football-data.org/6806.svg"
+                    },
+                    "playedGames": 7,
+                    "form": "L,D,D,D,L",
+                    "won": 0,
+                    "draw": 3,
+                    "lost": 4,
+                    "points": 3,
+                    "goalsFor": 7,
+                    "goalsAgainst": 17,
+                    "goalDifference": -10
+                },
+                {
+                    "position": 18,
+                    "team": {
+                        "id": 1920,
+                        "name": "Fortuna Sittard",
+                        "crestUrl": "https://crests.football-data.org/1920.svg"
+                    },
+                    "playedGames": 7,
+                    "form": "L,L,D,L,D",
+                    "won": 0,
+                    "draw": 2,
+                    "lost": 5,
+                    "points": 2,
+                    "goalsFor": 9,
+                    "goalsAgainst": 20,
+                    "goalDifference": -11
+                }
+            ]
+        },
+        {
+            "stage": "REGULAR_SEASON",
+            "type": "HOME",
+            "group": null,
+            "table": [
+                {
+                    "position": 1,
+                    "team": {
+                        "id": 678,
+                        "name": "AFC Ajax",
+                        "crestUrl": "https://crests.football-data.org/678.svg"
+                    },
+                    "playedGames": 4,
+                    "form": null,
+                    "won": 4,
+                    "draw": 0,
+                    "lost": 0,
+                    "points": 12,
+                    "goalsFor": 15,
+                    "goalsAgainst": 4,
+                    "goalDifference": 11
+                },
+                {
+                    "position": 2,
+                    "team": {
+                        "id": 666,
+                        "name": "FC Twente '65",
+                        "crestUrl": "https://crests.football-data.org/666.svg"
+                    },
+                    "playedGames": 4,
+                    "form": null,
+                    "won": 3,
+                    "draw": 1,
+                    "lost": 0,
+                    "points": 10,
+                    "goalsFor": 11,
+                    "goalsAgainst": 3,
+                    "goalDifference": 8
+                },
+                {
+                    "position": 3,
+                    "team": {
+                        "id": 674,
+                        "name": "PSV",
+                        "crestUrl": "https://crests.football-data.org/674.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 3,
+                    "draw": 0,
+                    "lost": 0,
+                    "points": 9,
+                    "goalsFor": 8,
+                    "goalsAgainst": 1,
+                    "goalDifference": 7
+                },
+                {
+                    "position": 4,
+                    "team": {
+                        "id": 673,
+                        "name": "SC Heerenveen",
+                        "crestUrl": "https://crests.football-data.org/673.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 3,
+                    "draw": 0,
+                    "lost": 0,
+                    "points": 9,
+                    "goalsFor": 7,
+                    "goalsAgainst": 0,
+                    "goalDifference": 7
+                },
+                {
+                    "position": 5,
+                    "team": {
+                        "id": 679,
+                        "name": "SBV Vitesse",
+                        "crestUrl": "https://crests.football-data.org/679.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 3,
+                    "draw": 0,
+                    "lost": 0,
+                    "points": 9,
+                    "goalsFor": 7,
+                    "goalsAgainst": 1,
+                    "goalDifference": 6
+                },
+                {
+                    "position": 6,
+                    "team": {
+                        "id": 671,
+                        "name": "Heracles Almelo",
+                        "crestUrl": "https://crests.football-data.org/671.svg"
+                    },
+                    "playedGames": 4,
+                    "form": null,
+                    "won": 2,
+                    "draw": 1,
+                    "lost": 1,
+                    "points": 7,
+                    "goalsFor": 7,
+                    "goalsAgainst": 3,
+                    "goalDifference": 4
+                },
+                {
+                    "position": 7,
+                    "team": {
+                        "id": 676,
+                        "name": "FC Utrecht",
+                        "crestUrl": "https://crests.football-data.org/676.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 2,
+                    "draw": 1,
+                    "lost": 0,
+                    "points": 7,
+                    "goalsFor": 6,
+                    "goalsAgainst": 3,
+                    "goalDifference": 3
+                },
+                {
+                    "position": 8,
+                    "team": {
+                        "id": 677,
+                        "name": "FC Groningen",
+                        "crestUrl": "https://crests.football-data.org/677.svg"
+                    },
+                    "playedGames": 4,
+                    "form": null,
+                    "won": 2,
+                    "draw": 1,
+                    "lost": 1,
+                    "points": 7,
+                    "goalsFor": 4,
+                    "goalsAgainst": 4,
+                    "goalDifference": 0
+                },
+                {
+                    "position": 9,
+                    "team": {
+                        "id": 682,
+                        "name": "AZ",
+                        "crestUrl": "https://crests.football-data.org/682.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 1,
+                    "draw": 2,
+                    "lost": 0,
+                    "points": 5,
+                    "goalsFor": 6,
+                    "goalsAgainst": 3,
+                    "goalDifference": 3
+                },
+                {
+                    "position": 10,
+                    "team": {
+                        "id": 675,
+                        "name": "Feyenoord Rotterdam",
+                        "crestUrl": "https://crests.football-data.org/675.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 1,
+                    "draw": 2,
+                    "lost": 0,
+                    "points": 5,
+                    "goalsFor": 6,
+                    "goalsAgainst": 4,
+                    "goalDifference": 2
+                },
+                {
+                    "position": 11,
+                    "team": {
+                        "id": 684,
+                        "name": "PEC Zwolle",
+                        "crestUrl": "https://crests.football-data.org/684.svg"
+                    },
+                    "playedGames": 4,
+                    "form": null,
+                    "won": 1,
+                    "draw": 1,
+                    "lost": 2,
+                    "points": 4,
+                    "goalsFor": 4,
+                    "goalsAgainst": 5,
+                    "goalDifference": -1
+                },
+                {
+                    "position": 12,
+                    "team": {
+                        "id": 672,
+                        "name": "Willem II Tilburg",
+                        "crestUrl": "https://crests.football-data.org/672.svg"
+                    },
+                    "playedGames": 4,
+                    "form": null,
+                    "won": 1,
+                    "draw": 0,
+                    "lost": 3,
+                    "points": 3,
+                    "goalsFor": 6,
+                    "goalsAgainst": 10,
+                    "goalDifference": -4
+                },
+                {
+                    "position": 13,
+                    "team": {
+                        "id": 683,
+                        "name": "RKC Waalwijk",
+                        "crestUrl": "https://crests.football-data.org/683.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 2,
+                    "lost": 1,
+                    "points": 2,
+                    "goalsFor": 3,
+                    "goalsAgainst": 4,
+                    "goalDifference": -1
+                },
+                {
+                    "position": 14,
+                    "team": {
+                        "id": 1914,
+                        "name": "FC Emmen",
+                        "crestUrl": "https://crests.football-data.org/1914.svg"
+                    },
+                    "playedGames": 4,
+                    "form": null,
+                    "won": 0,
+                    "draw": 2,
+                    "lost": 2,
+                    "points": 2,
+                    "goalsFor": 8,
+                    "goalsAgainst": 11,
+                    "goalDifference": -3
+                },
+                {
+                    "position": 15,
+                    "team": {
+                        "id": 6806,
+                        "name": "Sparta Rotterdam",
+                        "crestUrl": "https://crests.football-data.org/6806.svg"
+                    },
+                    "playedGames": 4,
+                    "form": null,
+                    "won": 0,
+                    "draw": 2,
+                    "lost": 2,
+                    "points": 2,
+                    "goalsFor": 6,
+                    "goalsAgainst": 10,
+                    "goalDifference": -4
+                },
+                {
+                    "position": 16,
+                    "team": {
+                        "id": 680,
+                        "name": "ADO Den Haag",
+                        "crestUrl": "https://crests.football-data.org/680.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 1,
+                    "lost": 2,
+                    "points": 1,
+                    "goalsFor": 2,
+                    "goalsAgainst": 5,
+                    "goalDifference": -3
+                },
+                {
+                    "position": 17,
+                    "team": {
+                        "id": 1920,
+                        "name": "Fortuna Sittard",
+                        "crestUrl": "https://crests.football-data.org/1920.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 1,
+                    "lost": 2,
+                    "points": 1,
+                    "goalsFor": 5,
+                    "goalsAgainst": 9,
+                    "goalDifference": -4
+                },
+                {
+                    "position": 18,
+                    "team": {
+                        "id": 668,
+                        "name": "VVV Venlo",
+                        "crestUrl": "https://crests.football-data.org/668.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 1,
+                    "lost": 2,
+                    "points": 1,
+                    "goalsFor": 2,
+                    "goalsAgainst": 16,
+                    "goalDifference": -14
+                }
+            ]
+        },
+        {
+            "stage": "REGULAR_SEASON",
+            "type": "AWAY",
+            "group": null,
+            "table": [
+                {
+                    "position": 1,
+                    "team": {
+                        "id": 675,
+                        "name": "Feyenoord Rotterdam",
+                        "crestUrl": "https://crests.football-data.org/675.svg"
+                    },
+                    "playedGames": 4,
+                    "form": null,
+                    "won": 3,
+                    "draw": 1,
+                    "lost": 0,
+                    "points": 10,
+                    "goalsFor": 11,
+                    "goalsAgainst": 5,
+                    "goalDifference": 6
+                },
+                {
+                    "position": 2,
+                    "team": {
+                        "id": 679,
+                        "name": "SBV Vitesse",
+                        "crestUrl": "https://crests.football-data.org/679.svg"
+                    },
+                    "playedGames": 4,
+                    "form": null,
+                    "won": 3,
+                    "draw": 0,
+                    "lost": 1,
+                    "points": 9,
+                    "goalsFor": 7,
+                    "goalsAgainst": 3,
+                    "goalDifference": 4
+                },
+                {
+                    "position": 3,
+                    "team": {
+                        "id": 674,
+                        "name": "PSV",
+                        "crestUrl": "https://crests.football-data.org/674.svg"
+                    },
+                    "playedGames": 4,
+                    "form": null,
+                    "won": 2,
+                    "draw": 1,
+                    "lost": 1,
+                    "points": 7,
+                    "goalsFor": 8,
+                    "goalsAgainst": 4,
+                    "goalDifference": 4
+                },
+                {
+                    "position": 4,
+                    "team": {
+                        "id": 673,
+                        "name": "SC Heerenveen",
+                        "crestUrl": "https://crests.football-data.org/673.svg"
+                    },
+                    "playedGames": 4,
+                    "form": null,
+                    "won": 2,
+                    "draw": 1,
+                    "lost": 1,
+                    "points": 7,
+                    "goalsFor": 9,
+                    "goalsAgainst": 8,
+                    "goalDifference": 1
+                },
+                {
+                    "position": 5,
+                    "team": {
+                        "id": 678,
+                        "name": "AFC Ajax",
+                        "crestUrl": "https://crests.football-data.org/678.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 2,
+                    "draw": 0,
+                    "lost": 1,
+                    "points": 6,
+                    "goalsFor": 14,
+                    "goalsAgainst": 1,
+                    "goalDifference": 13
+                },
+                {
+                    "position": 6,
+                    "team": {
+                        "id": 677,
+                        "name": "FC Groningen",
+                        "crestUrl": "https://crests.football-data.org/677.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 2,
+                    "draw": 0,
+                    "lost": 1,
+                    "points": 6,
+                    "goalsFor": 5,
+                    "goalsAgainst": 4,
+                    "goalDifference": 1
+                },
+                {
+                    "position": 7,
+                    "team": {
+                        "id": 666,
+                        "name": "FC Twente '65",
+                        "crestUrl": "https://crests.football-data.org/666.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 1,
+                    "draw": 1,
+                    "lost": 1,
+                    "points": 4,
+                    "goalsFor": 5,
+                    "goalsAgainst": 3,
+                    "goalDifference": 2
+                },
+                {
+                    "position": 8,
+                    "team": {
+                        "id": 668,
+                        "name": "VVV Venlo",
+                        "crestUrl": "https://crests.football-data.org/668.svg"
+                    },
+                    "playedGames": 4,
+                    "form": null,
+                    "won": 1,
+                    "draw": 1,
+                    "lost": 2,
+                    "points": 4,
+                    "goalsFor": 8,
+                    "goalsAgainst": 8,
+                    "goalDifference": 0
+                },
+                {
+                    "position": 9,
+                    "team": {
+                        "id": 682,
+                        "name": "AZ",
+                        "crestUrl": "https://crests.football-data.org/682.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 3,
+                    "lost": 0,
+                    "points": 3,
+                    "goalsFor": 9,
+                    "goalsAgainst": 9,
+                    "goalDifference": 0
+                },
+                {
+                    "position": 10,
+                    "team": {
+                        "id": 680,
+                        "name": "ADO Den Haag",
+                        "crestUrl": "https://crests.football-data.org/680.svg"
+                    },
+                    "playedGames": 4,
+                    "form": null,
+                    "won": 1,
+                    "draw": 0,
+                    "lost": 3,
+                    "points": 3,
+                    "goalsFor": 4,
+                    "goalsAgainst": 11,
+                    "goalDifference": -7
+                },
+                {
+                    "position": 11,
+                    "team": {
+                        "id": 683,
+                        "name": "RKC Waalwijk",
+                        "crestUrl": "https://crests.football-data.org/683.svg"
+                    },
+                    "playedGames": 4,
+                    "form": null,
+                    "won": 1,
+                    "draw": 0,
+                    "lost": 3,
+                    "points": 3,
+                    "goalsFor": 2,
+                    "goalsAgainst": 9,
+                    "goalDifference": -7
+                },
+                {
+                    "position": 12,
+                    "team": {
+                        "id": 672,
+                        "name": "Willem II Tilburg",
+                        "crestUrl": "https://crests.football-data.org/672.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 2,
+                    "lost": 1,
+                    "points": 2,
+                    "goalsFor": 1,
+                    "goalsAgainst": 3,
+                    "goalDifference": -2
+                },
+                {
+                    "position": 13,
+                    "team": {
+                        "id": 676,
+                        "name": "FC Utrecht",
+                        "crestUrl": "https://crests.football-data.org/676.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 2,
+                    "lost": 1,
+                    "points": 2,
+                    "goalsFor": 2,
+                    "goalsAgainst": 5,
+                    "goalDifference": -3
+                },
+                {
+                    "position": 14,
+                    "team": {
+                        "id": 684,
+                        "name": "PEC Zwolle",
+                        "crestUrl": "https://crests.football-data.org/684.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 2,
+                    "lost": 1,
+                    "points": 2,
+                    "goalsFor": 3,
+                    "goalsAgainst": 7,
+                    "goalDifference": -4
+                },
+                {
+                    "position": 15,
+                    "team": {
+                        "id": 1914,
+                        "name": "FC Emmen",
+                        "crestUrl": "https://crests.football-data.org/1914.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 1,
+                    "lost": 2,
+                    "points": 1,
+                    "goalsFor": 2,
+                    "goalsAgainst": 7,
+                    "goalDifference": -5
+                },
+                {
+                    "position": 16,
+                    "team": {
+                        "id": 6806,
+                        "name": "Sparta Rotterdam",
+                        "crestUrl": "https://crests.football-data.org/6806.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 1,
+                    "lost": 2,
+                    "points": 1,
+                    "goalsFor": 1,
+                    "goalsAgainst": 7,
+                    "goalDifference": -6
+                },
+                {
+                    "position": 17,
+                    "team": {
+                        "id": 1920,
+                        "name": "Fortuna Sittard",
+                        "crestUrl": "https://crests.football-data.org/1920.svg"
+                    },
+                    "playedGames": 4,
+                    "form": null,
+                    "won": 0,
+                    "draw": 1,
+                    "lost": 3,
+                    "points": 1,
+                    "goalsFor": 4,
+                    "goalsAgainst": 11,
+                    "goalDifference": -7
+                },
+                {
+                    "position": 18,
+                    "team": {
+                        "id": 671,
+                        "name": "Heracles Almelo",
+                        "crestUrl": "https://crests.football-data.org/671.svg"
+                    },
+                    "playedGames": 3,
+                    "form": null,
+                    "won": 0,
+                    "draw": 1,
+                    "lost": 2,
+                    "points": 1,
+                    "goalsFor": 1,
+                    "goalsAgainst": 8,
+                    "goalDifference": -7
+                }
+            ]
+        }
+    ]
+}
