@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 import page.lamht.football.dto.AreasDto;
+import page.lamht.football.dto.TeamDto;
 import page.lamht.football.entity.Area;
+import page.lamht.football.entity.Team;
 import page.lamht.football.repository.AreaRepository;
 import page.lamht.football.repository.MatchService;
 import page.lamht.football.repository.TeamService;
@@ -30,30 +32,24 @@ class TeamController {
     @Autowired
     private TeamService service;
 
-    @GetMapping("/teams/{token}")
-    String getTeams(@PathVariable String token) {
+    @GetMapping("/teams/{league}/{token}")
+    String getTeams(@PathVariable String league, @PathVariable String token) {
         if (StringUtils.isEmpty(token)) return null;
         logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
-        String url = Utils.selectAreaApi();
+        String url = Utils.selectTeamApi(league);
 
         WebClient webClient = WebClient.create();
-        Mono<AreasDto> areasDtoMono = webClient.get()
+        Mono<TeamDto> teamDtoMono = webClient.get()
                 .uri(url)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .header(X_AUTH_TOKEN, token)
                 .retrieve()
-                .bodyToMono(AreasDto.class);
+                .bodyToMono(TeamDto.class);
 
-        AreasDto areasDto = areasDtoMono.block();
-        for (Area area : areasDto.getAreas()) {
-            areaRepository.findById(area.getId()).ifPresentOrElse(
-                    a -> areaRepository.save(area),
-                    () -> {
-                        area.setNew(true);
-                        areaRepository.save(area);
-                    }
-            );
+        TeamDto teamDto = teamDtoMono.block();
+        for (Team team : teamDto.getTeams()) {
+            service.save(team);
         }
 
         logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));

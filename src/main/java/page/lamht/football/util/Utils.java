@@ -36,7 +36,7 @@ public final class Utils {
             default -> CL_TABLE;
         };
 
-        if (_LOCAL_TEST_) url = LOCAL_HOST + "/standingsTest/" + league;
+        if (_LOCAL_TEST_) return LOCAL_HOST + "/standingsTest/" + league;
         return url;
     }
 
@@ -49,5 +49,24 @@ public final class Utils {
         if (_LOCAL_TEST_) return LOCAL_HOST + "/competitionsTest/";
         return COMPETITIONS;
     }
+
+    public static String selectTeamApi(String league){
+
+        String url = switch (league) {
+            case "EPL" -> EPL_TEAMS;
+            case "SA" -> SA_TEAMS;
+            case "BL1" -> BL1_TEAMS;
+            case "LL" -> LL_TEAMS;
+            case "PPL" -> PPL_TEAMS;
+            case "FL1" -> FL1_TEAMS;
+            case "DE" -> DE_TEAMS;
+            default -> CL_TEAMS;
+        };
+
+        if (_LOCAL_TEST_) return LOCAL_HOST + "/teamsTest/" + league;
+        return url;
+    }
+
+
 
 }

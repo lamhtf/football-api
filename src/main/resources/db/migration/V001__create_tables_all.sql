@@ -96,7 +96,7 @@ CREATE TABLE STANDING (
 
 
 CREATE TABLE COMPETITION_TEAM (
-	id int8,
+	id SERIAL,
 	competition_id int8,
 	team_id int8,
 	created TIMESTAMP NOT NULL,
