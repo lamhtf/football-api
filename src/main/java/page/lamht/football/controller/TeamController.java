@@ -13,8 +13,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 import page.lamht.football.dto.AreasDto;
 import page.lamht.football.dto.TeamDto;
 import page.lamht.football.entity.Area;
+import page.lamht.football.entity.CompetitionTeam;
 import page.lamht.football.entity.Team;
 import page.lamht.football.repository.AreaRepository;
+import page.lamht.football.repository.CompetitionTeamService;
 import page.lamht.football.repository.MatchService;
 import page.lamht.football.repository.TeamService;
 import page.lamht.football.util.Utils;
@@ -32,6 +34,10 @@ class TeamController {
     @Autowired
     private TeamService service;
 
+    @Autowired
+    private CompetitionTeamService ctService;
+
+
     @GetMapping("/teams/{league}/{token}")
     String getTeams(@PathVariable String league, @PathVariable String token) {
         if (StringUtils.isEmpty(token)) return null;
@@ -48,8 +54,15 @@ class TeamController {
                 .bodyToMono(TeamDto.class);
 
         TeamDto teamDto = teamDtoMono.block();
+
+        Long competitionId = teamDto.getCompetition().getId();
+        CompetitionTeam ct = ctService.newInstance(competitionId, null);
+
+        ctService.deleteAll(ct);
         for (Team team : teamDto.getTeams()) {
             service.save(team);
+            CompetitionTeam newCT = ctService.newInstance(competitionId, team.getId());
+            ctService.save(newCT);
         }
 
         logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));

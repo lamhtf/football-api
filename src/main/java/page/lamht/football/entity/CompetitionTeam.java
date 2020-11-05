@@ -10,6 +10,9 @@ import org.springframework.data.relational.core.mapping.Table;
 public class CompetitionTeam extends Entity {
 
     private Long competitionId;
+    private Competition competition;
+
     private Long teamId;
+    private Team team;
 
 }

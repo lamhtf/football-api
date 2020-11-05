@@ -25,12 +25,26 @@ public class CompetitionTeamService {
 
         String sql = "SELECT * FROM competition_team ct INNER JOIN team t on ct.team_id = t.id WHERE ct.competition_id=?";
         try {
-            return jdbcTemplate.queryforList(sql, new Object[]{competitionId}, new BeanPropertyRowMapper<CompetitionTeam>(CompetitionTeam.class));
+            return jdbcTemplate.query(sql, new Object[]{competitionId}, new BeanPropertyRowMapper<CompetitionTeam>(CompetitionTeam.class));
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
             return null;
         }
     }
+
+//    public List<Customer> findAll() {
+//        String sql = "SELECT * FROM CUSTOMER";
+//        return jdbcTemplate.query(
+//                sql,
+//                (rs, rowNum) ->
+//                        new Customer(
+//                                rs.getLong("id"),
+//                                rs.getString("name"),
+//                                rs.getInt("age"),
+//                                rs.getTimestamp("created_date").toLocalDateTime()
+//                        )
+//        );
+//    }
 
     public CompetitionTeam findByBothId(Long competitionId, Long teamId) {
 
@@ -43,8 +57,18 @@ public class CompetitionTeamService {
         }
     }
 
-    public CompetitionTeam save(CompetitionTeam ct) {
+    public Integer countByCompetitionId(Long competitionId) {
 
+        String sql = "SELECT * FROM competition_team ct WHERE ct.competition_id=?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{competitionId}, new BeanPropertyRowMapper<Integer>(Integer.class));
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public CompetitionTeam save(CompetitionTeam ct) {
         this.insertOnly(ct);
         return ct;
     }
@@ -61,9 +85,18 @@ public class CompetitionTeamService {
         );
     }
 
-    private void delete(CompetitionTeam ct) {
-        jdbcTemplate.update(DELETE_QUERY,
-                ct.getCompetitionId(), ct.getTeamId()
-        );
+    public void deleteAll(CompetitionTeam ct) {
+        Integer count = countByCompetitionId(ct.getCompetitionId());
+        if (count > 0)
+            jdbcTemplate.update(DELETE_QUERY,
+                    ct.getCompetitionId()
+            );
+    }
+
+    public CompetitionTeam newInstance(Long competitionId, Long teamId){
+        CompetitionTeam ct = new CompetitionTeam();
+        ct.setCompetitionId(competitionId);
+        ct.setTeamId(teamId);
+        return ct;
     }
 }
