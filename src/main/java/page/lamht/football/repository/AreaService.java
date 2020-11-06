@@ -21,7 +21,6 @@ public class AreaService {
     private JdbcTemplate jdbcTemplate;
 
     public Area findById(Long id) {
-
         String sql = "SELECT * FROM area a WHERE a.id = ?";
         try {
             return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<Area>(Area.class));
@@ -31,18 +30,26 @@ public class AreaService {
         }
     }
 
-    public Area save(Area area){
+    public Integer countById(Long id) {
+        String sql = "SELECT count(*) FROM area a WHERE a.id = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public Area save(Area area) {
 
         this.insertOrUpdate(area);
         return area;
     }
 
     private void insertOrUpdate(Area a) {
-        Area dbInstance = this.findById(a.getId());
-        if (dbInstance == null)
+        if (countById(a.getId()) > 0)
             this.insert(a);
-//        else
-//        this.update(s);
+//        else update(a);
     }
 
     private void insert(Area a) {

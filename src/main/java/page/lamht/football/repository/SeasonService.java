@@ -23,10 +23,19 @@ public class SeasonService {
     private JdbcTemplate jdbcTemplate;
 
     public Season findById(Long id) {
-
         String sql = "SELECT * FROM season s WHERE s.id = ?";
         try {
             return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<Season>(Season.class));
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public Integer countById(Long id) {
+        String sql = "SELECT count(*) FROM season s WHERE s.id = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
             return null;
@@ -45,8 +54,7 @@ public class SeasonService {
     }
 
     private void insertOrUpdate(Season s) {
-        Season dbInstance = this.findById(s.getId());
-        if (dbInstance == null)
+        if (countById(s.getId()) > 0)
             this.insert(s);
         else
             this.update(s);

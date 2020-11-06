@@ -18,7 +18,7 @@ import java.sql.Timestamp;
 @Transactional
 public class StandingService {
 
-    private final static String INSERT_QUERY = "INSERT INTO public.match VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private final static String INSERT_QUERY = "INSERT INTO public.standings VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final static String UPDATE_QUERY = "UPDATE public.\"match\" SET utc_date=?, status=?, venue=?, matchday=?, stage=?, \"group\"=?, last_updated=?, number_of_matches=?, total_goals=?, home_team_id=?, home_team_name=?, home_team_wins=?, home_team_draws=?, home_team_losses=?, away_team_id=?, away_team_name=?, away_team_wins=?, away_team_draws=?, away_team_losses=?, winner=?, duration=?, full_time_home_team=?, full_time_away_team=?, half_time_home_team=?, half_time_away_team=?, extra_time_home_team=?, extra_time_away_team=?, penalties_home_team=?, penalties_away_team=?, referee_id=?, referee_name=?, competition_id=?, season_id=?, created=? WHERE id=?";
 
     @Autowired
@@ -28,7 +28,6 @@ public class StandingService {
     private TeamService teamService;
 
     public Match findById(Long id) {
-
         String sql = "SELECT * FROM standing s WHERE s.id = ?";
         try {
             return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<Match>(Match.class));
@@ -38,15 +37,23 @@ public class StandingService {
         }
     }
 
-    public Match save(MatchDto dto) {
+    public Integer countById(Long id) {
+        String sql = "SELECT count(*) FROM standing s WHERE s.id = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
 
+    public Match save(MatchDto dto) {
         insertOrUpdate(dto);
         return this.findById(dto.getId());
     }
 
     private void insertOrUpdate(MatchDto m) {
-        Match dbInstance = this.findById(m.getId());
-        if (dbInstance == null)
+        if (countById(m.getId()) > 0)
             this.insert(m);
         else
             this.update(m);

@@ -30,7 +30,6 @@ public class CompetitionService {
     private JdbcTemplate jdbcTemplate;
 
     public Competition findById(Long id) {
-
         String sql = "SELECT * FROM competition c WHERE c.id = ?";
         try {
             return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<Competition>(Competition.class));
@@ -40,8 +39,17 @@ public class CompetitionService {
         }
     }
 
-    public Competition save(Competition competition) {
+    public Integer countById(Long id) {
+        String sql = "SELECT count(*) FROM competition c WHERE c.id = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
 
+    public Competition save(Competition competition) {
         Area a = competition.getArea();
         if (a != null) {
             competition.setAreaId(a.getId());
@@ -60,8 +68,7 @@ public class CompetitionService {
     }
 
     private void insertOrUpdate(Competition c) {
-        Competition dbInstance = this.findById(c.getId());
-        if (dbInstance == null)
+        if (countById(c.getId()) > 0)
             this.insert(c);
         else
             this.update(c);

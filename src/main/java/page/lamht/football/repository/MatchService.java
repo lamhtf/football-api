@@ -28,10 +28,19 @@ public class MatchService {
     private SeasonService seasonService;
 
     public Match findById(Long id) {
-
         String sql = "SELECT * FROM match m WHERE m.id = ?";
         try {
             return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<Match>(Match.class));
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public Integer countById(Long id) {
+        String sql = "SELECT count(*) FROM match m WHERE m.id = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
             return null;
@@ -55,8 +64,7 @@ public class MatchService {
     }
 
     private void insertOrUpdate(MatchDto m) {
-        Match dbInstance = this.findById(m.getId());
-        if (dbInstance == null)
+        if (countById(m.getId()) > 0)
             this.insert(m);
         else
             this.update(m);
@@ -87,7 +95,6 @@ public class MatchService {
         if (c!=null) cId = c.getId();
         Season se = m.getSeason();
         if (se!=null) sId = se.getId();
-
 
         jdbcTemplate.update(INSERT_QUERY,
                 m.getId(), m.getUtcDate(), m.getStatus(), m.getVenue(), m.getMatchday(), m.getStage(),

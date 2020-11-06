@@ -65,6 +65,14 @@ class TestController {
     return s;
   }
 
+  @GetMapping(value="/standingsTest/{league}", produces={MediaType.APPLICATION_JSON_VALUE})
+  String getStandings(@PathVariable String league) throws IOException {
+    String filePath = "src/main/resources/test/" + league + "Standings.txt";
+    FileInputStream fis = new FileInputStream(filePath);
+    String s = IOUtils.toString(fis, "UTF-8");
+    return s;
+  }
+
 //  @GetMapping("/test")
 //  String getTeams() {
 //    List<CompetitionTeam> teams = ctService.findByCompetitionId(Long.valueOf(2021));

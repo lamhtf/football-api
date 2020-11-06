@@ -25,7 +25,6 @@ public class TeamService {
     private JdbcTemplate jdbcTemplate;
 
     public Team findById(Long id) {
-
         String sql = "SELECT * FROM team t WHERE t.id = ?";
         try {
             return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<Team>(Team.class));
@@ -35,8 +34,17 @@ public class TeamService {
         }
     }
 
-    public List<Team> findByCompetitionId(Long competitionId) {
+    public Integer countById(Long id) {
+        String sql = "SELECT count(*) FROM team t WHERE t.id = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
 
+    public List<Team> findByCompetitionId(Long competitionId) {
         String sql = "SELECT * FROM competition_team ct INNER JOIN team t on ct.team_id = t.id WHERE ct.competition_id=?";
         try {
             return jdbcTemplate.query(sql, new Object[]{competitionId}, new BeanPropertyRowMapper<Team>(Team.class));
@@ -47,14 +55,12 @@ public class TeamService {
     }
 
     public Team save(Team team) {
-
         this.insertOrUpdate(team);
         return team;
     }
 
     private void insertOrUpdate(Team t) {
-        Team dbInstance = this.findById(t.getId());
-        if (dbInstance == null)
+        if (countById(t.getId())> 0)
             this.insert(t);
         else
             this.update(t);
