@@ -9,13 +9,13 @@ public final class Utils {
     public static String selectMatchApi(String league){
 
         String url = switch (league) {
-            case "EPL" -> EPL_MATCHES;
-            case "SA" -> SA_MATCHES;
-            case "BL1" -> BL1_MATCHES;
-            case "LL" -> LL_MATCHES;
-            case "PPL" -> PPL_MATCHES;
-            case "FL1" -> FL1_MATCHES;
-            case "DE" -> DE_MATCHES;
+            case ENGLISH_PREMIER_LEAGUE -> EPL_MATCHES;
+            case ITALIAN_SERIE_A -> SA_MATCHES;
+            case GERMAN_BUNDESLIGA -> BL1_MATCHES;
+            case SPAINISH_LA_LIGA -> LL_MATCHES;
+            case PORTUGUESE_PRIMEIRA_LIGA -> PPL_MATCHES;
+            case FRENCH_LIGUE_1 -> FL1_MATCHES;
+            case DUTCH_EREDIVISIE -> DE_MATCHES;
             default -> CL_MATCHES;
         };
 
@@ -26,13 +26,13 @@ public final class Utils {
     public static String selectStandingsApi(String league){
 
         String url = switch (league) {
-            case "EPL" -> EPL_TABLE;
-            case "SA" -> SA_TABLE;
-            case "BL1" -> BL1_TABLE;
-            case "LL" -> LL_TABLE;
-            case "PPL" -> PPL_TABLE;
-            case "FL1" -> FL1_TABLE;
-            case "DE" -> DE_TABLE;
+            case ENGLISH_PREMIER_LEAGUE -> EPL_TABLE;
+            case ITALIAN_SERIE_A -> SA_TABLE;
+            case GERMAN_BUNDESLIGA -> BL1_TABLE;
+            case SPAINISH_LA_LIGA -> LL_TABLE;
+            case PORTUGUESE_PRIMEIRA_LIGA -> PPL_TABLE;
+            case FRENCH_LIGUE_1 -> FL1_TABLE;
+            case DUTCH_EREDIVISIE -> DE_TABLE;
             default -> CL_TABLE;
         };
 
@@ -53,13 +53,13 @@ public final class Utils {
     public static String selectTeamApi(String league){
 
         String url = switch (league) {
-            case "EPL" -> EPL_TEAMS;
-            case "SA" -> SA_TEAMS;
-            case "BL1" -> BL1_TEAMS;
-            case "LL" -> LL_TEAMS;
-            case "PPL" -> PPL_TEAMS;
-            case "FL1" -> FL1_TEAMS;
-            case "DE" -> DE_TEAMS;
+            case ENGLISH_PREMIER_LEAGUE -> EPL_TEAMS;
+            case ITALIAN_SERIE_A -> SA_TEAMS;
+            case GERMAN_BUNDESLIGA -> BL1_TEAMS;
+            case SPAINISH_LA_LIGA -> LL_TEAMS;
+            case PORTUGUESE_PRIMEIRA_LIGA -> PPL_TEAMS;
+            case FRENCH_LIGUE_1 -> FL1_TEAMS;
+            case DUTCH_EREDIVISIE -> DE_TEAMS;
             default -> CL_TEAMS;
         };
 

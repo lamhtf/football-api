@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import page.lamht.football.entity.Area;
 import page.lamht.football.entity.Competition;
+import page.lamht.football.entity.CompetitionTeam;
 import page.lamht.football.entity.Team;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -26,6 +29,17 @@ public class TeamService {
         String sql = "SELECT * FROM team t WHERE t.id = ?";
         try {
             return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<Team>(Team.class));
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public List<Team> findByCompetitionId(Long competitionId) {
+
+        String sql = "SELECT * FROM competition_team ct INNER JOIN team t on ct.team_id = t.id WHERE ct.competition_id=?";
+        try {
+            return jdbcTemplate.query(sql, new Object[]{competitionId}, new BeanPropertyRowMapper<Team>(Team.class));
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
             return null;

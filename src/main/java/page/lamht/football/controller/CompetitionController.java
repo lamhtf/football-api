@@ -3,6 +3,7 @@ package page.lamht.football.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,11 +23,14 @@ class CompetitionController {
 
     Logger logger = LoggerFactory.getLogger(CompetitionController.class);
 
+    @Value("${xauth.token}")
+    private String token;
+
     @Autowired
     private CompetitionService service;
 
-    @GetMapping("/competitions/{token}")
-    String getCompetitions(@PathVariable String token) {
+    @GetMapping("/competitions}")
+    String getCompetitions() {
         logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
         String url = Utils.selectCompetitionApi();

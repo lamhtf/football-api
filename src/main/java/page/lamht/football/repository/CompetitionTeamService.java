@@ -25,6 +25,7 @@ public class CompetitionTeamService {
 
         String sql = "SELECT * FROM competition_team ct INNER JOIN team t on ct.team_id = t.id WHERE ct.competition_id=?";
         try {
+            List<Team> teams = jdbcTemplate.query(sql, new Object[]{competitionId}, new BeanPropertyRowMapper<Team>(Team.class));
             return jdbcTemplate.query(sql, new Object[]{competitionId}, new BeanPropertyRowMapper<CompetitionTeam>(CompetitionTeam.class));
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
@@ -59,9 +60,9 @@ public class CompetitionTeamService {
 
     public Integer countByCompetitionId(Long competitionId) {
 
-        String sql = "SELECT * FROM competition_team ct WHERE ct.competition_id=?";
+        String sql = "SELECT count(*) FROM competition_team ct WHERE ct.competition_id=?";
         try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{competitionId}, new BeanPropertyRowMapper<Integer>(Integer.class));
+            return jdbcTemplate.queryForObject(sql, new Object[]{competitionId}, Integer.class);
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
             return null;
@@ -74,9 +75,9 @@ public class CompetitionTeamService {
     }
 
     private void insertOnly(CompetitionTeam ct) {
-        CompetitionTeam dbInstance = this.findByBothId(ct.getCompetitionId(), ct.getTeamId());
-        if (dbInstance == null)
-            this.insert(ct);
+//        CompetitionTeam dbInstance = this.findByBothId(ct.getCompetitionId(), ct.getTeamId());
+//        if (dbInstance == null)
+        this.insert(ct);
     }
 
     private void insert(CompetitionTeam ct) {

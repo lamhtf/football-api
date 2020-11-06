@@ -3,6 +3,7 @@ package page.lamht.football.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
@@ -23,6 +24,7 @@ import page.lamht.football.util.Utils;
 import reactor.core.publisher.Mono;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import static page.lamht.football.util.Constants.X_AUTH_TOKEN;
 
@@ -31,6 +33,9 @@ class TeamController {
 
     Logger logger = LoggerFactory.getLogger(TeamController.class);
 
+    @Value("${xauth.token}")
+    private String token;
+
     @Autowired
     private TeamService service;
 
@@ -38,9 +43,8 @@ class TeamController {
     private CompetitionTeamService ctService;
 
 
-    @GetMapping("/teams/{league}/{token}")
-    String getTeams(@PathVariable String league, @PathVariable String token) {
-        if (StringUtils.isEmpty(token)) return null;
+    @GetMapping("/teams/{league}")
+    String getTeams(@PathVariable String league) {
         logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
         String url = Utils.selectTeamApi(league);

@@ -31,6 +31,14 @@ public final class Constants {
     //Euro Champion League
     public final static String CL_TABLE = API_HOST_V2 + "/competitions/CL/standings";
 
+    public final static String ENGLISH_PREMIER_LEAGUE = "EPL";
+    public final static String ITALIAN_SERIE_A = "SA";
+    public final static String GERMAN_BUNDESLIGA = "BL1";
+    public final static String SPAINISH_LA_LIGA = "PD";
+    public final static String PORTUGUESE_PRIMEIRA_LIGA = "PPL";
+    public final static String FRENCH_LIGUE_1 = "FL1";
+    public final static String DUTCH_EREDIVISIE = "DED";
+    public final static String UEFA_CHAMPION_LEAGUE = "CL";
 
     public final static String EPL_MATCHES = API_HOST_V2 + "/competitions/2021/matches";
     public final static String SA_MATCHES = API_HOST_V2 + "/competitions/2019/matches";
@@ -49,6 +57,5 @@ public final class Constants {
     public final static String FL1_TEAMS = API_HOST_V2 + "/competitions/2015/teams";
     public final static String DE_TEAMS = API_HOST_V2 + "/competitions/2003/teams";
     public final static String CL_TEAMS = API_HOST_V2 + "/competitions/2001/teams";
-
 
 }

@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 import page.lamht.football.dto.AreasDto;
@@ -19,19 +17,21 @@ import reactor.core.publisher.Mono;
 
 import java.sql.Timestamp;
 
-import static page.lamht.football.util.Constants.*;
+import static page.lamht.football.util.Constants.X_AUTH_TOKEN;
 
 @RestController
 class AreaController {
 
     Logger logger = LoggerFactory.getLogger(AreaController.class);
 
+    @Value("${xauth.token}")
+    private String token;
+
     @Autowired
     private AreaRepository areaRepository;
 
-    @GetMapping("/areas/{token}")
-    String getAreas(@PathVariable String token) {
-        if (StringUtils.isEmpty(token)) return null;
+    @GetMapping("/areas")
+    String getAreas() {
         logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
         String url = Utils.selectAreaApi();

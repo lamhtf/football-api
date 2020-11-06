@@ -8,11 +8,13 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import page.lamht.football.entity.CompetitionTeam;
 import page.lamht.football.repository.AreaRepository;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 import static page.lamht.football.util.Constants.*;
 import static page.lamht.football.util.Constants.CL_MATCHES;
@@ -55,6 +57,19 @@ class TestController {
     return "{\"count\":38,\"filters\":{\"permission\":\"TIER_ONE\",\"limit\":100},\"matches\":[{\"id\":303759,\"competition\":{\"id\":2021,\"name\":\"Premier League\",\"area\":{\"name\":\"England\",\"code\":\"ENG\",\"ensignUrl\":\"https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg\"}},\"season\":{\"id\":619,\"startDate\":\"2020-09-12\",\"endDate\":\"2021-05-23\",\"currentMatchday\":7,\"winner\":null},\"utcDate\":\"2020-09-12T11:30:00Z\",\"status\":\"FINISHED\",\"matchday\":1,\"stage\":\"REGULAR_SEASON\",\"group\":\"Regular Season\",\"lastUpdated\":\"2020-09-13T00:08:13Z\",\"odds\":{\"msg\":\"Activate Odds-Package in User-Panel to retrieve odds.\"},\"score\":{\"winner\":\"AWAY_TEAM\",\"duration\":\"REGULAR\",\"fullTime\":{\"homeTeam\":0,\"awayTeam\":3},\"halfTime\":{\"homeTeam\":0,\"awayTeam\":1},\"extraTime\":{\"homeTeam\":null,\"awayTeam\":null},\"penalties\":{\"homeTeam\":null,\"awayTeam\":null}},\"homeTeam\":{\"id\":63,\"name\":\"Fulham FC\"},\"awayTeam\":{\"id\":57,\"name\":\"Arsenal FC\"},\"referees\":[{\"id\":11443,\"name\":\"Chris Kavanagh\",\"nationality\":null},{\"id\":11438,\"name\":\"Dan Cook\",\"nationality\":null},{\"id\":98555,\"name\":\"Sian Massey-Ellis\",\"nationality\":null},{\"id\":11487,\"name\":\"Kevin Friend\",\"nationality\":null},{\"id\":11556,\"name\":\"David Coote\",\"nationality\":null}]}]}";
   }
 
+  @GetMapping(value="/teamsTest/{league}", produces={MediaType.APPLICATION_JSON_VALUE})
+  String getTeams(@PathVariable String league) throws IOException {
+    String filePath = "src/main/resources/test/" + league + "Teams.txt";
+    FileInputStream fis = new FileInputStream(filePath);
+    String s = IOUtils.toString(fis, "UTF-8");
+    return s;
+  }
+
+//  @GetMapping("/test")
+//  String getTeams() {
+//    List<CompetitionTeam> teams = ctService.findByCompetitionId(Long.valueOf(2021));
+//    return teams;
+//  }
 
 
 }

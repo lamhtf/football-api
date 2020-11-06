@@ -30,12 +30,14 @@ class MatchController {
 
     Logger logger = LoggerFactory.getLogger(MatchController.class);
 
+    @Value("${xauth.token}")
+    private String token;
+
     @Autowired
     private MatchService service;
 
-    @GetMapping("/matches/{league}/{token}")
-    String getCompetitions(@PathVariable String league, @PathVariable String token) {
-        if (StringUtils.isEmpty(token)) return null;
+    @GetMapping("/matches/{league}")
+    String getCompetitions(@PathVariable String league) {
         logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
         String url = Utils.selectMatchApi(league);

@@ -3,3 +3,5 @@ spring:
     url: jdbc:postgresql://localhost:5432/myfootball
     username: postgres
     password: password
+xauth:
+  token: b176748f45734c5e9431855fc91fec3d
