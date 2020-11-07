@@ -41,12 +41,7 @@ public class CompetitionService {
 
     public Integer countById(Long id) {
         String sql = "SELECT count(*) FROM competition c WHERE c.id = ?";
-        try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
-            return null;
-        }
+        return jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
     }
 
     public Competition save(Competition competition) {
@@ -68,7 +63,7 @@ public class CompetitionService {
     }
 
     private void insertOrUpdate(Competition c) {
-        if (countById(c.getId()) > 0)
+        if (countById(c.getId()) == 0)
             this.insert(c);
         else
             this.update(c);

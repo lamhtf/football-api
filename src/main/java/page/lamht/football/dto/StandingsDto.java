@@ -9,7 +9,7 @@ public class StandingsDto {
     private String stage;
     private String type;
     private String group;
-    private List<StandingTable> table;
+    private List<StandingStatistic> table;
 
     @Data
     public static class StandingTeam {
@@ -19,8 +19,10 @@ public class StandingsDto {
     }
 
     @Data
-    public static class StandingTable {
+    public static class StandingStatistic {
         private Integer position;
+        private StandingTeam team;
+        private Integer playedGames;
         private String form;
         private Integer won;
         private Integer draw;
@@ -28,7 +30,7 @@ public class StandingsDto {
         private Integer points;
         private Integer goalsFor;
         private Integer goalsAgainst;
-        private Integer goalsDifference;
+        private Integer goalDifference;
     }
 
 }

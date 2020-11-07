@@ -14,6 +14,15 @@ public final class Constants {
 
     public final static String COMPETITIONS = API_HOST_V2 + "/competitions";
 
+    public final static String ENGLISH_PREMIER_LEAGUE = "PL";
+    public final static String ITALIAN_SERIE_A = "SA";
+    public final static String GERMAN_BUNDESLIGA = "BL1";
+    public final static String SPAINISH_LA_LIGA = "PD";
+    public final static String PORTUGUESE_PRIMEIRA_LIGA = "PPL";
+    public final static String FRENCH_LIGUE_1 = "FL1";
+    public final static String DUTCH_EREDIVISIE = "DED";
+    public final static String UEFA_CHAMPION_LEAGUE = "CL";
+
     //English Premier League
     public final static String EPL_TABLE = API_HOST_V2 + "/competitions/PL/standings";
     //Italian Serie A
@@ -30,15 +39,6 @@ public final class Constants {
     public final static String DE_TABLE = API_HOST_V2 + "/competitions/DED/standings";
     //Euro Champion League
     public final static String CL_TABLE = API_HOST_V2 + "/competitions/CL/standings";
-
-    public final static String ENGLISH_PREMIER_LEAGUE = "EPL";
-    public final static String ITALIAN_SERIE_A = "SA";
-    public final static String GERMAN_BUNDESLIGA = "BL1";
-    public final static String SPAINISH_LA_LIGA = "PD";
-    public final static String PORTUGUESE_PRIMEIRA_LIGA = "PPL";
-    public final static String FRENCH_LIGUE_1 = "FL1";
-    public final static String DUTCH_EREDIVISIE = "DED";
-    public final static String UEFA_CHAMPION_LEAGUE = "CL";
 
     public final static String EPL_MATCHES = API_HOST_V2 + "/competitions/2021/matches";
     public final static String SA_MATCHES = API_HOST_V2 + "/competitions/2019/matches";

@@ -32,12 +32,7 @@ public class AreaService {
 
     public Integer countById(Long id) {
         String sql = "SELECT count(*) FROM area a WHERE a.id = ?";
-        try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
-            return null;
-        }
+        return jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
     }
 
     public Area save(Area area) {
@@ -47,7 +42,7 @@ public class AreaService {
     }
 
     private void insertOrUpdate(Area a) {
-        if (countById(a.getId()) > 0)
+        if (countById(a.getId()) == 0)
             this.insert(a);
 //        else update(a);
     }

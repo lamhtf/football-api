@@ -61,12 +61,7 @@ public class CompetitionTeamService {
     public Integer countByCompetitionId(Long competitionId) {
 
         String sql = "SELECT count(*) FROM competition_team ct WHERE ct.competition_id=?";
-        try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{competitionId}, Integer.class);
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
-            return null;
-        }
+        return jdbcTemplate.queryForObject(sql, new Object[]{competitionId}, Integer.class);
     }
 
     public CompetitionTeam save(CompetitionTeam ct) {

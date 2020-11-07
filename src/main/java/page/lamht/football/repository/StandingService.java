@@ -6,20 +6,20 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import page.lamht.football.dto.MatchDto;
+import page.lamht.football.dto.StandingDto;
+import page.lamht.football.dto.StandingsDto;
 import page.lamht.football.entity.Competition;
-import page.lamht.football.entity.Match;
-import page.lamht.football.entity.Referee;
-import page.lamht.football.entity.Season;
+import page.lamht.football.entity.Standings;
 
-import java.sql.Timestamp;
+import java.util.List;
 
 @Service
 @Transactional
 public class StandingService {
 
-    private final static String INSERT_QUERY = "INSERT INTO public.standings VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    private final static String UPDATE_QUERY = "UPDATE public.\"match\" SET utc_date=?, status=?, venue=?, matchday=?, stage=?, \"group\"=?, last_updated=?, number_of_matches=?, total_goals=?, home_team_id=?, home_team_name=?, home_team_wins=?, home_team_draws=?, home_team_losses=?, away_team_id=?, away_team_name=?, away_team_wins=?, away_team_draws=?, away_team_losses=?, winner=?, duration=?, full_time_home_team=?, full_time_away_team=?, half_time_home_team=?, half_time_away_team=?, extra_time_home_team=?, extra_time_away_team=?, penalties_home_team=?, penalties_away_team=?, referee_id=?, referee_name=?, competition_id=?, season_id=?, created=? WHERE id=?";
+    private final static String INSERT_QUERY = "INSERT INTO public.standings (competition_id, stage, \"type\", \"group\")VALUES(?,?,?,?)";
+    private final static String INSERT_SS_QUERY = "INSERT INTO public.standing VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private final static String DELETE_ALL_SS_QUERY = "DELETE FROM public.standing s WHERE s.standings_id = ?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -27,103 +27,68 @@ public class StandingService {
     @Autowired
     private TeamService teamService;
 
-    public Match findById(Long id) {
-        String sql = "SELECT * FROM standing s WHERE s.id = ?";
+    public Standings findByAll(Long competitionId, String stage, String type, String group) {
+        String sql = "SELECT * FROM standings s WHERE s.competition_id=? and s.stage=? and s.type=?";
         try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<Match>(Match.class));
+            if (group != null) {
+                sql += " and s.group=?";
+                return jdbcTemplate.queryForObject(sql, new Object[]{competitionId, stage, type, group}, new BeanPropertyRowMapper<Standings>(Standings.class));
+            }
+            return jdbcTemplate.queryForObject(sql, new Object[]{competitionId, stage, type}, new BeanPropertyRowMapper<Standings>(Standings.class));
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
             return null;
         }
     }
+    public Integer countByAll(Long competitionId, String stage, String type, String group) {
+        String sql = "SELECT count(*) FROM standings s WHERE s.competition_id=? and s.stage=? and s.type=?";
+        if (group != null){
+            sql +=  " and s.group=?";
+            return jdbcTemplate.queryForObject(sql, new Object[]{competitionId, stage, type, group}, Integer.class);
+        }
+        return jdbcTemplate.queryForObject(sql, new Object[]{competitionId, stage, type}, Integer.class);
+    }
 
-    public Integer countById(Long id) {
-        String sql = "SELECT count(*) FROM standing s WHERE s.id = ?";
-        try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
-            return null;
+    public StandingDto save(StandingDto dto) {
+        insertOnly(dto);
+        return dto;
+    }
+
+    private void insertOnly(StandingDto dto) {
+        List<StandingsDto> sList = dto.getStandings();
+        Competition c = dto.getCompetition();
+
+        for (StandingsDto s: sList) {
+
+            if (countByAll(c.getId(), s.getStage(), s.getType(), s.getGroup()) == 0)
+                this.insert(s, c);
+            Standings dbInstance = findByAll(c.getId(), s.getStage(), s.getType(), s.getGroup());
+            Long sId = dbInstance.getId();
+            deleteAllStatsByStandingsId(sId);
+            List<StandingsDto.StandingStatistic> statisticsList = s.getTable();
+            for (StandingsDto.StandingStatistic stats: statisticsList){
+                insertStatistics(sId, stats);
+            }
         }
     }
 
-    public Match save(MatchDto dto) {
-        insertOrUpdate(dto);
-        return this.findById(dto.getId());
-    }
-
-    private void insertOrUpdate(MatchDto m) {
-        if (countById(m.getId()) > 0)
-            this.insert(m);
-        else
-            this.update(m);
-    }
-
-    private void insert(MatchDto m) {
-        MatchDto.MatchScore s = m.getScore();
-        MatchDto.MatchHomeAway f = new MatchDto.MatchHomeAway(),
-                h = new MatchDto.MatchHomeAway(),
-                e = new MatchDto.MatchHomeAway(),
-                p = new MatchDto.MatchHomeAway();
-        MatchDto.MatchTeam
-                home = m.getHomeTeam(), away = m.getAwayTeam();
-        Referee r = new Referee();
-        String winner = null, duration = null;
-        if (s != null) {
-            f = s.getFullTime();
-            h = s.getHalfTime();
-            e = s.getExtraTime();
-            p = s.getPenalties();
-            winner = s.getWinner();
-            duration = s.getDuration();
-        }
-        if (m.getReferees().size() > 0)
-            r = m.getReferees().get(0);
-        Long cId = null, sId = null;
-        Competition c = m.getCompetition();
-        if (c!=null) cId = c.getId();
-        Season se = m.getSeason();
-        if (se!=null) sId = se.getId();
-
-
+    private void insert(StandingsDto s, Competition c) {
         jdbcTemplate.update(INSERT_QUERY,
-                m.getId(), m.getUtcDate(), m.getStatus(), m.getVenue(), m.getMatchday(), m.getStage(),
-                m.getGroup(), m.getLastUpdated(), m.getNumberOfMatches(), m.getTotalGoals(), home.getId(), home.getName(),
-                home.getWins(), home.getDraws(), home.getLosses(), away.getId(), away.getName(), away.getWins(),
-                away.getDraws(), away.getLosses(), winner, duration, f.getHomeTeam(), f.getAwayTeam(),
-                h.getHomeTeam(), h.getAwayTeam(), e.getHomeTeam(), e.getAwayTeam(), p.getHomeTeam(), p.getAwayTeam(),
-                r.getId(), r.getName(), cId, sId, new Timestamp(System.currentTimeMillis())
+                c.getId(), s.getStage(), s.getType(), s.getGroup()
         );
     }
 
-    private void update(MatchDto m) {
-        MatchDto.MatchScore s = m.getScore();
-        MatchDto.MatchHomeAway f = new MatchDto.MatchHomeAway(),
-                h = new MatchDto.MatchHomeAway(),
-                e = new MatchDto.MatchHomeAway(),
-                p = new MatchDto.MatchHomeAway();
-        MatchDto.MatchTeam
-                home = m.getHomeTeam(), away = m.getAwayTeam();
-        Referee r = new Referee();
-        String winner = null, duration = null;
-        if (s != null) {
-            f = s.getFullTime();
-            h = s.getHalfTime();
-            e = s.getExtraTime();
-            p = s.getPenalties();
-            winner = s.getWinner();
-            duration = s.getDuration();
-        }
-        if (m.getReferees().size() > 0)
-            r = m.getReferees().get(0);
-        jdbcTemplate.update(UPDATE_QUERY,
-                m.getUtcDate(), m.getStatus(), m.getVenue(), m.getMatchday(), m.getStage(),
-                m.getGroup(), m.getLastUpdated(), m.getNumberOfMatches(), m.getTotalGoals(), home.getId(), home.getName(),
-                home.getWins(), home.getDraws(), home.getLosses(), away.getId(), away.getName(), away.getWins(),
-                away.getDraws(), away.getLosses(), winner, duration, f.getHomeTeam(), f.getAwayTeam(),
-                h.getHomeTeam(), h.getAwayTeam(), e.getHomeTeam(), e.getAwayTeam(), p.getHomeTeam(), p.getAwayTeam(),
-                r.getId(), r.getName(), m.getCompetition().getId(), m.getSeason().getId(), new Timestamp(System.currentTimeMillis()), m.getId()
+    private void insertStatistics(Long sId, StandingsDto.StandingStatistic ss) {
+        StandingsDto.StandingTeam st = ss.getTeam();
+        jdbcTemplate.update(INSERT_SS_QUERY,
+                sId, ss.getPosition(), st.getId(), st.getName(), st.getCrestUrl(), ss.getPlayedGames(),
+                ss.getForm(), ss.getWon(), ss.getDraw(), ss.getLost(),  ss.getPoints(), ss.getGoalsFor(),
+                ss.getGoalsAgainst(), ss.getGoalDifference()
         );
+    }
+
+    private void deleteAllStatsByStandingsId(Long sId) {
+        jdbcTemplate.update(DELETE_ALL_SS_QUERY, sId);
     }
 
 }

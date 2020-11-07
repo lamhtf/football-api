@@ -34,12 +34,7 @@ public class SeasonService {
 
     public Integer countById(Long id) {
         String sql = "SELECT count(*) FROM season s WHERE s.id = ?";
-        try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
-            return null;
-        }
+        return jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
     }
 
     public Season save(Season season) {
@@ -54,7 +49,7 @@ public class SeasonService {
     }
 
     private void insertOrUpdate(Season s) {
-        if (countById(s.getId()) > 0)
+        if (countById(s.getId()) == 0)
             this.insert(s);
         else
             this.update(s);

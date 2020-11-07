@@ -36,12 +36,7 @@ public class TeamService {
 
     public Integer countById(Long id) {
         String sql = "SELECT count(*) FROM team t WHERE t.id = ?";
-        try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
-            return null;
-        }
+        return jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
     }
 
     public List<Team> findByCompetitionId(Long competitionId) {
@@ -60,7 +55,7 @@ public class TeamService {
     }
 
     private void insertOrUpdate(Team t) {
-        if (countById(t.getId())> 0)
+        if (countById(t.getId()) == 0)
             this.insert(t);
         else
             this.update(t);

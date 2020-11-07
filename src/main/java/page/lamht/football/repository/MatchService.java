@@ -39,12 +39,7 @@ public class MatchService {
 
     public Integer countById(Long id) {
         String sql = "SELECT count(*) FROM match m WHERE m.id = ?";
-        try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
-            return null;
-        }
+        return jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
     }
 
     public Match save(MatchDto dto) {
@@ -64,7 +59,7 @@ public class MatchService {
     }
 
     private void insertOrUpdate(MatchDto m) {
-        if (countById(m.getId()) > 0)
+        if (countById(m.getId()) == 0)
             this.insert(m);
         else
             this.update(m);

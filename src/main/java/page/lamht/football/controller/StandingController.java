@@ -20,6 +20,7 @@ import page.lamht.football.util.Utils;
 import reactor.core.publisher.Mono;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import static page.lamht.football.util.Constants.X_AUTH_TOKEN;
 
@@ -42,7 +43,7 @@ class StandingController {
     String getTeams(@PathVariable String league) {
         logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
-        String url = Utils.selectTeamApi(league);
+        String url = Utils.selectStandingsApi(league);
 
         WebClient webClient = WebClient.create();
         Mono<StandingDto> standingDtoMono = webClient.get()
@@ -53,14 +54,8 @@ class StandingController {
                 .bodyToMono(StandingDto.class);
 
         StandingDto standingDto = standingDtoMono.block();
-
-        StandingsDto dto = standingDto.getStandings();
-
-//        for (Team team : .getTeams()) {
-//            service.save(team);
-//            CompetitionTeam newCT = ctService.newInstance(competitionId, team.getId());
-//            ctService.save(newCT);
-//        }
+        service.save(standingDto);
+//        List<StandingsDto> dto = standingDto.getStandings();
 
         logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
 

@@ -23,13 +23,13 @@ public class BatchScheduler {
     @Autowired
     private MatchController matchController;
 
-    @Scheduled(cron = "0 0 0 * * ?")
+    @Scheduled(cron = "0 0 12 * * ?")
     public String runAreas() {
         logger.info("runAreas :: " + Calendar.getInstance().getTime());
         return areaController.getAreas();
     }
 
-    @Scheduled(cron = "10 0 0 * * ?")
+    @Scheduled(cron = "10 0 12 * * ?")
     public String runCompetitions() {
         logger.info("runCompetitions :: " + Calendar.getInstance().getTime());
         return competitionController.getCompetitions();

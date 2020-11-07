@@ -64,7 +64,7 @@ CREATE TABLE COMPETITION (
 );
 
 CREATE TABLE STANDINGS (
-	id int8,
+	id serial,
 	competition_id int8,
 	stage VARCHAR (50),
 	type VARCHAR (10),
@@ -75,10 +75,9 @@ CREATE TABLE STANDINGS (
 );
 
 CREATE TABLE STANDING (
-	id int8,
 	standings_id int8,
 	position int,
-	team_id int8, --dont link the relationship
+	team_id int8,
 	team_name VARCHAR (255),
 	team_crest_url VARCHAR (255),
 	played_games int,
@@ -90,8 +89,11 @@ CREATE TABLE STANDING (
 	goals_for int,
 	goals_against int,
 	goal_difference int,
+	PRIMARY KEY(standings_id, team_id),
 	FOREIGN KEY (standings_id)
-	  REFERENCES STANDINGS (id)
+	  REFERENCES STANDINGS (id),
+	FOREIGN KEY (team_id)
+	  REFERENCES TEAM (id)
 );
 
 
