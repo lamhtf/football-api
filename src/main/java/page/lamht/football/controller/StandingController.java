@@ -37,7 +37,7 @@ class StandingController {
     private CompetitionTeamService ctService;
 
     @GetMapping("/standings/{league}")
-    String getTeams(@PathVariable String league) {
+    String getStandingTables(@PathVariable String league) {
         logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
         String url = Utils.selectStandingsApi(league);

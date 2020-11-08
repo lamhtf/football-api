@@ -3,91 +3,87 @@ package page.lamht.football.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import page.lamht.football.entity.Team;
+import page.lamht.football.repository.TeamService;
 import page.lamht.football.util.Constants;
 
 import java.util.Calendar;
+import java.util.List;
 
 import static page.lamht.football.util.Constants.*;
 
-//@Controller
+@Component
 public class BatchScheduler {
-
     Logger logger = LoggerFactory.getLogger(BatchScheduler.class);
 
     @Autowired
-    private AreaController areaController;
+    AreaController areaController;
     @Autowired
-    private CompetitionController competitionController;
+    CompetitionController competitionController;
     @Autowired
-    private MatchController matchController;
+    TeamController teamController;
+    @Autowired
+    MatchController matchController;
+    @Autowired
+    StandingController standingController;
+    @Autowired
+    SquadController squadController;
+    @Autowired
+    TeamService teamService;
 
-    @Scheduled(cron = "0 0 12 * * ?")
-    public String runAreas() {
-        logger.info("runAreas :: " + Calendar.getInstance().getTime());
-        return areaController.getAreas();
+    @Scheduled(cron = "${schedule.init}")
+    public void runInit() {
+        logger.info("runInit :: start");
+        logger.info("Initialize those data for areas");
+        areaController.getAreas();
+        logger.info("Initialize those data for competitions");
+        competitionController.getCompetitions();
+        logger.info("Initialize those data for teams");
+        teamController.getTeams(Constants.ENGLISH_PREMIER_LEAGUE);
+        teamController.getTeams(Constants.ITALIAN_SERIE_A);
+        teamController.getTeams(Constants.GERMAN_BUNDESLIGA);
+        teamController.getTeams(Constants.SPAINISH_LA_LIGA);
+        teamController.getTeams(Constants.PORTUGUESE_PRIMEIRA_LIGA);
+        teamController.getTeams(Constants.FRENCH_LIGUE_1);
+        teamController.getTeams(Constants.DUTCH_EREDIVISIE);
+        teamController.getTeams(Constants.UEFA_CHAMPION_LEAGUE);
+
+        for (Long leagueId : Constants.COMMON_LEAGUE_LIST) {
+            logger.info("Initialize team squad");
+            List<Team> teamList = teamService.findByCompetitionId(leagueId);
+            for (Team t : teamList) {
+                squadController.getPlayers(t.getId());
+            }
+        }
     }
 
-    @Scheduled(cron = "10 0 12 * * ?")
-    public String runCompetitions() {
-        logger.info("runCompetitions :: " + Calendar.getInstance().getTime());
-        return competitionController.getCompetitions();
+    @Scheduled(cron = "${schedule.fixtures}")
+    public void runFixtures() {
+        logger.info("runFixtures :: start");
+        matchController.getFixtures(Constants.ENGLISH_PREMIER_LEAGUE);
+        matchController.getFixtures(Constants.ITALIAN_SERIE_A);
+        matchController.getFixtures(Constants.GERMAN_BUNDESLIGA);
+        matchController.getFixtures(Constants.SPAINISH_LA_LIGA);
+        matchController.getFixtures(Constants.PORTUGUESE_PRIMEIRA_LIGA);
+        matchController.getFixtures(Constants.FRENCH_LIGUE_1);
+        matchController.getFixtures(Constants.DUTCH_EREDIVISIE);
+        matchController.getFixtures(Constants.UEFA_CHAMPION_LEAGUE);
     }
 
-//    @Scheduled(cron = "0 1 0 * * ?")
-//    public String runTeams() {
-//        logger.info("runEPLTeams :: " + Calendar.getInstance().getTime());
-//        return areaController.getAreas();
-//    }
-
-
-    @Scheduled(cron = "0 0/3 0-7,19-23 * * ?")
-    public String runEPLMatches() {
-        logger.info("runEPLMatches :: " + Calendar.getInstance().getTime());
-        return matchController.getCompetitions(ENGLISH_PREMIER_LEAGUE);
+    @Scheduled(cron = "${schedule.standings}")
+    public void runStandings() {
+        logger.info("runStandings :: start");
+        standingController.getStandingTables(Constants.ENGLISH_PREMIER_LEAGUE);
+        standingController.getStandingTables(Constants.ITALIAN_SERIE_A);
+        standingController.getStandingTables(Constants.GERMAN_BUNDESLIGA);
+        standingController.getStandingTables(Constants.SPAINISH_LA_LIGA);
+        standingController.getStandingTables(Constants.PORTUGUESE_PRIMEIRA_LIGA);
+        standingController.getStandingTables(Constants.FRENCH_LIGUE_1);
+        standingController.getStandingTables(Constants.DUTCH_EREDIVISIE);
+        standingController.getStandingTables(Constants.UEFA_CHAMPION_LEAGUE);
     }
-
-    @Scheduled(cron = "20 0/3 0-7,19-23 * * ?")
-    public String runSAMatches() {
-        logger.info("runSAMatches :: " + Calendar.getInstance().getTime());
-        return matchController.getCompetitions(ITALIAN_SERIE_A);
-    }
-
-    @Scheduled(cron = "40 0/3 0-7,19-23 * * ?")
-    public String runBL1Matches() {
-        logger.info("runBL1Matches :: " + Calendar.getInstance().getTime());
-        return matchController.getCompetitions(GERMAN_BUNDESLIGA);
-    }
-
-    @Scheduled(cron = "0 1/3 0-7,19-23 * * ?")
-    public String runLLMatches() {
-        logger.info("runLLMatches :: " + Calendar.getInstance().getTime());
-        return matchController.getCompetitions(SPAINISH_LA_LIGA);
-    }
-
-    @Scheduled(cron = "20 1/3 0-7,19-23 * * ?")
-    public String runPPLMatches() {
-        logger.info("runPPLMatches :: " + Calendar.getInstance().getTime());
-        return matchController.getCompetitions(PORTUGUESE_PRIMEIRA_LIGA);
-    }
-
-    @Scheduled(cron = "40 1/3 0-7,19-23 * * ?")
-    public String runFL1Matches() {
-        logger.info("runFL1Matches :: " + Calendar.getInstance().getTime());
-        return matchController.getCompetitions(FRENCH_LIGUE_1);
-    }
-
-    @Scheduled(cron = "0 2/3 0-7,19-23 * * ?")
-    public String runDEMatches() {
-        logger.info("runDEMatches :: " + Calendar.getInstance().getTime());
-        return matchController.getCompetitions(DUTCH_EREDIVISIE);
-    }
-
-    @Scheduled(cron = "20 2/3 0-7,17,19-23 * * ?")
-    public String runCLMatches() {
-        logger.info("runCLMatches :: " + Calendar.getInstance().getTime());
-        return matchController.getCompetitions(UEFA_CHAMPION_LEAGUE);
-    }
-
 }

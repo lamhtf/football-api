@@ -35,7 +35,7 @@ class MatchController {
     private MatchService service;
 
     @GetMapping("/matches/{league}")
-    String getCompetitions(@PathVariable String league) {
+    String getFixtures(@PathVariable String league) {
         logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
         String url = Utils.selectMatchApi(league);
