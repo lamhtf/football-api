@@ -13,18 +13,18 @@ import org.springframework.web.reactive.function.client.WebClient;
 import page.lamht.football.dto.CompetitionsDto;
 import page.lamht.football.entity.Competition;
 import page.lamht.football.repository.CompetitionService;
+import page.lamht.football.util.TokenSelector;
 import page.lamht.football.util.Utils;
 import reactor.core.publisher.Mono;
 
 import java.sql.Timestamp;
 
+import static page.lamht.football.util.Constants.X_AUTH_TOKEN;
+
 @RestController
 class CompetitionController {
 
     Logger logger = LoggerFactory.getLogger(CompetitionController.class);
-
-    @Value("${xauth.token}")
-    private String token;
 
     @Autowired
     private CompetitionService service;
@@ -40,6 +40,7 @@ class CompetitionController {
         Mono<CompetitionsDto> mono = webClient.get()
                 .uri(url)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(X_AUTH_TOKEN, TokenSelector.getToken())
                 .retrieve()
                 .bodyToMono(CompetitionsDto.class);
 

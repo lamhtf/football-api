@@ -19,5 +19,6 @@ public class Coach extends Entity {
     private String nationality;
     private String position;
     private Integer shirtNumber;
+    private Long teamId;
     private Timestamp lastUpdated;
 }

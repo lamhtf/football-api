@@ -25,7 +25,7 @@ public class CompetitionTeamService {
 
         String sql = "SELECT * FROM competition_team ct INNER JOIN team t on ct.team_id = t.id WHERE ct.competition_id=?";
         try {
-            List<Team> teams = jdbcTemplate.query(sql, new Object[]{competitionId}, new BeanPropertyRowMapper<Team>(Team.class));
+//            List<Team> teams = jdbcTemplate.query(sql, new Object[]{competitionId}, new BeanPropertyRowMapper<Team>(Team.class));
             return jdbcTemplate.query(sql, new Object[]{competitionId}, new BeanPropertyRowMapper<CompetitionTeam>(CompetitionTeam.class));
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e);

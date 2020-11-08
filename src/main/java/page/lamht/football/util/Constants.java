@@ -1,5 +1,7 @@
 package page.lamht.football.util;
 
+import java.util.List;
+
 public final class Constants {
 
     public final static String X_AUTH_TOKEN = "X-Auth-Token";
@@ -14,6 +16,8 @@ public final class Constants {
 
     public final static String COMPETITIONS = API_HOST_V2 + "/competitions";
 
+    public final static String TEAM_SQUAD = API_HOST_V2 + "/teams";
+
     public final static String ENGLISH_PREMIER_LEAGUE = "PL";
     public final static String ITALIAN_SERIE_A = "SA";
     public final static String GERMAN_BUNDESLIGA = "BL1";
@@ -22,6 +26,18 @@ public final class Constants {
     public final static String FRENCH_LIGUE_1 = "FL1";
     public final static String DUTCH_EREDIVISIE = "DED";
     public final static String UEFA_CHAMPION_LEAGUE = "CL";
+
+    private final static Long EPL_LEAGUE_ID = Long.valueOf(2021);
+    private final static Long SA_LEAGUE_ID = Long.valueOf(2019);
+    private final static Long BL1_LEAGUE_ID = Long.valueOf(2002);
+    private final static Long LL_LEAGUE_ID = Long.valueOf(2014);
+    private final static Long PPL_LEAGUE_ID = Long.valueOf(2017);
+    private final static Long FL1_LEAGUE_ID = Long.valueOf(2015);
+    private final static Long DE_LEAGUE_ID = Long.valueOf(2003);
+    private final static Long CL_LEAGUE_ID = Long.valueOf(2001);
+
+    public final static List<Long> COMMON_LEAGUE_LIST =
+            List.of(EPL_LEAGUE_ID, SA_LEAGUE_ID, BL1_LEAGUE_ID, LL_LEAGUE_ID, PPL_LEAGUE_ID, FL1_LEAGUE_ID, DE_LEAGUE_ID, CL_LEAGUE_ID);
 
     //English Premier League
     public final static String EPL_TABLE = API_HOST_V2 + "/competitions/PL/standings";

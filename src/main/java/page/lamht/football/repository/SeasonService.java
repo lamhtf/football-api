@@ -17,9 +17,6 @@ public class SeasonService {
     private final static String UPDATE_QUERY = "UPDATE public.season SET start_date=?, end_date=?, current_matchday=?, winner_name=?, created=? WHERE id=?";
 
     @Autowired
-    private SeasonRepository repository;
-
-    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     public Season findById(Long id) {
@@ -65,11 +62,6 @@ public class SeasonService {
         jdbcTemplate.update(UPDATE_QUERY,
                 s.getStartDate(), s.getEndDate(), s.getCurrentMatchday(), s.getWinnerName(), s.getCreated(), s.getId()
         );
-    }
-
-    public Long count() {
-
-        return repository.count();
     }
 
 }

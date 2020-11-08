@@ -18,6 +18,7 @@ import page.lamht.football.dto.MatchesDto;
 import page.lamht.football.entity.Competition;
 import page.lamht.football.repository.CompetitionService;
 import page.lamht.football.repository.MatchService;
+import page.lamht.football.util.TokenSelector;
 import page.lamht.football.util.Utils;
 import reactor.core.publisher.Mono;
 
@@ -29,9 +30,6 @@ import static page.lamht.football.util.Constants.*;
 class MatchController {
 
     Logger logger = LoggerFactory.getLogger(MatchController.class);
-
-    @Value("${xauth.token}")
-    private String token;
 
     @Autowired
     private MatchService service;
@@ -49,7 +47,7 @@ class MatchController {
         Mono<MatchesDto> mono = webClient.get()
                 .uri(url)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .header(X_AUTH_TOKEN, token)
+                .header(X_AUTH_TOKEN, TokenSelector.getToken())
                 .retrieve()
                 .bodyToMono(MatchesDto.class);
 

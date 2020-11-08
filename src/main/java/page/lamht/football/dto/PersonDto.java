@@ -1,16 +1,17 @@
-package page.lamht.football.entity;
+package page.lamht.football.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.relational.core.mapping.Table;
+import page.lamht.football.entity.Entity;
 
 import java.sql.Timestamp;
 
 @EqualsAndHashCode(callSuper=false)
 @Data
-@Table("player")
-public class Player extends Entity {
+public class PersonDto {
 
+    private Long id;
     private String name;
     private String firstName;
     private String lastName;
@@ -19,6 +20,6 @@ public class Player extends Entity {
     private String nationality;
     private String position;
     private Integer shirtNumber;
-    private Long teamId;
+    private String role;
     private Timestamp lastUpdated;
 }

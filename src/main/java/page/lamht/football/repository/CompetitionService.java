@@ -24,9 +24,6 @@ public class CompetitionService {
     SeasonService seasonService;
 
     @Autowired
-    private CompetitionRepository repository;
-
-    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     public Competition findById(Long id) {
@@ -81,8 +78,4 @@ public class CompetitionService {
         );
     }
 
-    public Long count() {
-
-        return repository.count();
-    }
 }

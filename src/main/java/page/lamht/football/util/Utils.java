@@ -4,7 +4,7 @@ import static page.lamht.football.util.Constants.*;
 
 public final class Utils {
 
-    private static Boolean _LOCAL_TEST_ = true;
+    private static Boolean _LOCAL_TEST_ = false;
 
     public static String selectMatchApi(String league){
 
@@ -65,6 +65,10 @@ public final class Utils {
 
         if (_LOCAL_TEST_) return LOCAL_HOST + "/teamsTest/" + league;
         return url;
+    }
+
+    public static String selectSquadApi(Long teamId){
+        return TEAM_SQUAD + "/" +teamId;
     }
 
 

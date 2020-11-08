@@ -179,7 +179,7 @@ CREATE TABLE PLAYER (
 	team_id int8,
 	last_updated TIMESTAMP,
 	created TIMESTAMP NOT NULL,
-	PRIMARY KEY(id),
+	PRIMARY KEY(id, team_id),
 	FOREIGN KEY (team_id)
 	  REFERENCES TEAM (id)
 );

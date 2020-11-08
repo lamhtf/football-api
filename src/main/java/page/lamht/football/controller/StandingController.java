@@ -16,6 +16,7 @@ import page.lamht.football.entity.CompetitionTeam;
 import page.lamht.football.entity.Team;
 import page.lamht.football.repository.CompetitionTeamService;
 import page.lamht.football.repository.StandingService;
+import page.lamht.football.util.TokenSelector;
 import page.lamht.football.util.Utils;
 import reactor.core.publisher.Mono;
 
@@ -29,15 +30,11 @@ class StandingController {
 
     Logger logger = LoggerFactory.getLogger(StandingController.class);
 
-    @Value("${xauth.token}")
-    private String token;
-
     @Autowired
     private StandingService service;
 
     @Autowired
     private CompetitionTeamService ctService;
-
 
     @GetMapping("/standings/{league}")
     String getTeams(@PathVariable String league) {
@@ -49,7 +46,7 @@ class StandingController {
         Mono<StandingDto> standingDtoMono = webClient.get()
                 .uri(url)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .header(X_AUTH_TOKEN, token)
+                .header(X_AUTH_TOKEN, TokenSelector.getToken())
                 .retrieve()
                 .bodyToMono(StandingDto.class);
 
