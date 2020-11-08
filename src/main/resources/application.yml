@@ -3,10 +3,11 @@ spring:
     url: jdbc:postgresql://localhost:5432/myfootball
     username: postgres
     password: password
+init: false
 schedule:
   init: "0 0 12 * * ?"
-  fixtures: "0 0/4 0-7,19-23 * * ?"
-  standings: "0 2/4 0-7,19-23 * * ?"
+  fixtures: "0 0/2 0-7,19-23 * * ?"
+  standings: "0 1/2 0-7,19-23 * * ?"
 
 
 

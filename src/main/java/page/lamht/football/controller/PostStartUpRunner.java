@@ -3,6 +3,7 @@ package page.lamht.football.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.batch.BatchDataSource;
 import org.springframework.stereotype.Component;
@@ -16,15 +17,20 @@ import java.util.List;
 public class PostStartUpRunner implements CommandLineRunner {
     Logger logger = LoggerFactory.getLogger(PostStartUpRunner.class);
 
+    @Value("${init}")
+    Boolean init;
+
     @Autowired
     BatchScheduler batchScheduler;
 
     @Override
     public void run(String... args) throws Exception {
-        logger.info("start init");
-        batchScheduler.runInit();
-        batchScheduler.runFixtures();
-        batchScheduler.runStandings();
-        logger.info("complete init");
+        if (init) {
+            logger.info("start init");
+            batchScheduler.runInit();
+            batchScheduler.runFixtures();
+            batchScheduler.runStandings();
+            logger.info("complete init");
+        }
     }
 }
