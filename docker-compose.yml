@@ -2,17 +2,17 @@ version: '3.7'
 
 services:
 
-  postgres:
-    container_name: "rds-hello-world"
+  myfootball:
+    container_name: "football-batch"
     image: postgres
     volumes:
-      - rds-hello-world:/var/lib/postgresql/data
+      - football-batch:/var/lib/postgresql/data
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_USER=hello
-      - POSTGRES_PASSWORD=hello
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
 
 volumes:
-  rds-hello-world:
+  football-batch:
     driver: local
