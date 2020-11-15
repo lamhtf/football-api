@@ -21,6 +21,8 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-logging', version: '2.3.4.RELEASE'
+
 	compileOnly 'org.projectreactor:reactor-spring:1.0.1.RELEASE'
 
 	compileOnly("org.springframework.boot:spring-boot-devtools")

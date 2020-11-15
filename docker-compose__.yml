@@ -3,6 +3,7 @@ version: '3.7'
 services:
 
   app:
+    image: lamht/football-batch:latest
     container_name: football-batch
     ports:
       - 8080:8080
@@ -11,15 +12,15 @@ services:
 
   dbpostgresql:
     image: postgres
+    container_name: postgres-db
     volumes:
-      - football-batch:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_DB=myfootball
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=myfootball
 
 volumes:
-  football-batch:
-    driver: local
+  postgres-data:
