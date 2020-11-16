@@ -35,7 +35,7 @@ class TeamController {
     private CompetitionTeamService ctService;
 
 
-    @GetMapping("/teams/{league}")
+//    @GetMapping("/teams/{league}")
     String getTeams(@PathVariable String league) {
         logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 

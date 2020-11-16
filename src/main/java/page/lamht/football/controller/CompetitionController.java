@@ -29,7 +29,7 @@ class CompetitionController {
     @Autowired
     private CompetitionService service;
 
-    @GetMapping("/competitions}")
+//    @GetMapping("/competitions}")
     String getCompetitions() {
         logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 

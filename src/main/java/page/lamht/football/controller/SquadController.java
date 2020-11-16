@@ -35,7 +35,7 @@ class SquadController {
     @Autowired
     private PlayerService service;
 
-    @GetMapping("/squad/{teamId}")
+//    @GetMapping("/squad/{teamId}")
     String getPlayers(@PathVariable Long teamId) {
         logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 

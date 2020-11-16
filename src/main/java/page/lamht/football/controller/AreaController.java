@@ -28,7 +28,7 @@ class AreaController {
     @Autowired
     private AreaRepository areaRepository;
 
-    @GetMapping("/areas")
+//    @GetMapping("/areas")
     String getAreas() {
         logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 

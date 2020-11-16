@@ -36,7 +36,7 @@ class StandingController {
     @Autowired
     private CompetitionTeamService ctService;
 
-    @GetMapping("/standings/{league}")
+//    @GetMapping("/standings/{league}")
     String getStandingTables(@PathVariable String league) {
         logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 

@@ -34,7 +34,7 @@ class MatchController {
     @Autowired
     private MatchService service;
 
-    @GetMapping("/matches/{league}")
+//    @GetMapping("/matches/{league}")
     String getFixtures(@PathVariable String league) {
         logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
