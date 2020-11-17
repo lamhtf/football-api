@@ -62,8 +62,8 @@ class StandingController {
     String getStandings(@PathVariable String league) {
 
         Long leagueId = Utils.selectLeagueId(league);
-        
-        service.findByAll()
+
+        service.findByAll();
 
 
     }

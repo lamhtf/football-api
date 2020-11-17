@@ -27,6 +27,15 @@ public class StandingService {
     @Autowired
     private TeamService teamService;
 
+    public List<Standings> findByCompetitionId(Long competitionId, String stage, String type, String group) {
+        String sql = "SELECT * FROM standings s WHERE s.competition_id=?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{competitionId, stage, type}, new BeanPropertyRowMapper<Standings>(Standings.class));
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
     public Standings findByAll(Long competitionId, String stage, String type, String group) {
         String sql = "SELECT * FROM standings s WHERE s.competition_id=? and s.stage=? and s.type=?";
         try {
