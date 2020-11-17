@@ -68,6 +68,7 @@ public final class Utils {
     }
 
     public static String selectSquadApi(Long teamId){
+        if (_LOCAL_TEST_) return "";
         return TEAM_SQUAD + "/" +teamId;
     }
 

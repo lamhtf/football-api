@@ -19,20 +19,26 @@ repositories {
 }
 
 dependencies {
+	//spring boot core
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-logging', version: '2.3.4.RELEASE'
 
 	compileOnly 'org.projectreactor:reactor-spring:1.0.1.RELEASE'
-
 	compileOnly("org.springframework.boot:spring-boot-devtools")
 
+	//lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
-	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+//	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
 
+	//file io
 	implementation 'commons-io:commons-io:2.8.0'
+
+	//mapStruts
+	implementation 'org.mapstruct:mapstruct:1.4.1.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.1.Final'
 
 	// database
 	implementation 'org.flywaydb:flyway-core'
@@ -44,6 +50,7 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 
+	//lombok test
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
 }
