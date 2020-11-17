@@ -6,16 +6,11 @@ public final class Constants {
 
     public final static String X_AUTH_TOKEN = "X-Auth-Token";
 
-    public final static String TOKEN_1 = "b176748f45734c5e9431855fc91fec3d";
-
     public final static String LOCAL_HOST = "http://localhost:8080";
-
     public final static String API_HOST_V2 = "https://api.football-data.org/v2";
 
     public final static String AREAS = API_HOST_V2 + "/areas";
-
     public final static String COMPETITIONS = API_HOST_V2 + "/competitions";
-
     public final static String TEAM_SQUAD = API_HOST_V2 + "/teams";
 
     public final static String ENGLISH_PREMIER_LEAGUE = "PL";
@@ -27,33 +22,25 @@ public final class Constants {
     public final static String DUTCH_EREDIVISIE = "DED";
     public final static String UEFA_CHAMPION_LEAGUE = "CL";
 
-    private final static Long EPL_LEAGUE_ID = Long.valueOf(2021);
-    private final static Long SA_LEAGUE_ID = Long.valueOf(2019);
-    private final static Long BL1_LEAGUE_ID = Long.valueOf(2002);
-    private final static Long LL_LEAGUE_ID = Long.valueOf(2014);
-    private final static Long PPL_LEAGUE_ID = Long.valueOf(2017);
-    private final static Long FL1_LEAGUE_ID = Long.valueOf(2015);
-    private final static Long DE_LEAGUE_ID = Long.valueOf(2003);
-    private final static Long CL_LEAGUE_ID = Long.valueOf(2001);
+    public final static Long EPL_LEAGUE_ID = Long.valueOf(2021);
+    public final static Long SA_LEAGUE_ID = Long.valueOf(2019);
+    public final static Long BL1_LEAGUE_ID = Long.valueOf(2002);
+    public final static Long LL_LEAGUE_ID = Long.valueOf(2014);
+    public final static Long PPL_LEAGUE_ID = Long.valueOf(2017);
+    public final static Long FL1_LEAGUE_ID = Long.valueOf(2015);
+    public final static Long DE_LEAGUE_ID = Long.valueOf(2003);
+    public final static Long CL_LEAGUE_ID = Long.valueOf(2001);
 
     public final static List<Long> COMMON_LEAGUE_LIST =
             List.of(EPL_LEAGUE_ID, SA_LEAGUE_ID, BL1_LEAGUE_ID, LL_LEAGUE_ID, PPL_LEAGUE_ID, FL1_LEAGUE_ID, DE_LEAGUE_ID, CL_LEAGUE_ID);
 
-    //English Premier League
     public final static String EPL_TABLE = API_HOST_V2 + "/competitions/PL/standings";
-    //Italian Serie A
     public final static String SA_TABLE = API_HOST_V2 + "/competitions/SA/standings";
-    //German Bundesliga
     public final static String BL1_TABLE = API_HOST_V2 + "/competitions/BL1/standings";
-    //Spanish La Liga
     public final static String LL_TABLE = API_HOST_V2 + "/competitions/PD/standings";
-    //Portuguese Primeira Liga
     public final static String PPL_TABLE = API_HOST_V2 + "/competitions/PPL/standings";
-    //French Ligue 1
     public final static String FL1_TABLE = API_HOST_V2 + "/competitions/FL1/standings";
-    //Dutch Eredivisie
     public final static String DE_TABLE = API_HOST_V2 + "/competitions/DED/standings";
-    //Euro Champion League
     public final static String CL_TABLE = API_HOST_V2 + "/competitions/CL/standings";
 
     public final static String EPL_MATCHES = API_HOST_V2 + "/competitions/2021/matches";

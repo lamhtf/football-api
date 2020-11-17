@@ -72,6 +72,18 @@ public final class Utils {
         return TEAM_SQUAD + "/" +teamId;
     }
 
-
+    public static Long selectLeagueId(String league){
+        Long leagueId = switch (league) {
+            case ENGLISH_PREMIER_LEAGUE -> EPL_LEAGUE_ID;
+            case ITALIAN_SERIE_A -> SA_LEAGUE_ID;
+            case GERMAN_BUNDESLIGA -> BL1_LEAGUE_ID;
+            case SPAINISH_LA_LIGA -> LL_LEAGUE_ID;
+            case PORTUGUESE_PRIMEIRA_LIGA -> PPL_LEAGUE_ID;
+            case FRENCH_LIGUE_1 -> FL1_LEAGUE_ID;
+            case DUTCH_EREDIVISIE -> DE_LEAGUE_ID;
+            default -> CL_LEAGUE_ID;
+        };
+        return leagueId;
+    }
 
 }
