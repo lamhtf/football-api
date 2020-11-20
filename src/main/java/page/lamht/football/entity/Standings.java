@@ -5,6 +5,8 @@ import lombok.EqualsAndHashCode;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.util.List;
+
 @EqualsAndHashCode(callSuper=false)
 @Data
 @Table("standing")
@@ -17,4 +19,6 @@ public class Standings extends Entity {
     private String stage;
     private String type;
     private String group;
+
+    private List<Standing> table;
 }

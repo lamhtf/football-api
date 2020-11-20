@@ -13,6 +13,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import page.lamht.football.dto.StandingDto;
 import page.lamht.football.dto.StandingsDto;
 import page.lamht.football.entity.CompetitionTeam;
+import page.lamht.football.entity.Standings;
 import page.lamht.football.entity.Team;
 import page.lamht.football.repository.CompetitionTeamService;
 import page.lamht.football.repository.StandingService;
@@ -60,12 +61,12 @@ class StandingController {
 
     @GetMapping("/standings/{league}")
     String getStandings(@PathVariable String league) {
-
         Long leagueId = Utils.selectLeagueId(league);
+        List<Standings> standingsList = service.findAllByCompetitionId(leagueId);
 
-        service.findByAll();
 
 
+        return null;
     }
 
 }

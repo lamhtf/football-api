@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import page.lamht.football.dto.StandingDto;
 import page.lamht.football.dto.StandingsDto;
 import page.lamht.football.entity.Competition;
+import page.lamht.football.entity.Standing;
 import page.lamht.football.entity.Standings;
 
 import java.util.List;
@@ -27,10 +28,17 @@ public class StandingService {
     @Autowired
     private TeamService teamService;
 
-    public List<Standings> findByCompetitionId(Long competitionId, String stage, String type, String group) {
-        String sql = "SELECT * FROM standings s WHERE s.competition_id=?";
+    public List<Standings> findAllByCompetitionId(Long competitionId) {
+        String sql = "SELECT * FROM standings s WHERE s.competition_id=? ";
+        String sql2 = "SELECT * FROM standing t WHERE t.standings_id=? order by t.position";
+
+        List<Standings> standings = jdbcTemplate.query(sql, new Object[]{competitionId}, new BeanPropertyRowMapper<Standings>(Standings.class));
+        for (Standings ss: standings){
+            List<Standing> table = jdbcTemplate.query(sql2, new Object[]{ss.getId()}, new BeanPropertyRowMapper<Standing>(Standing.class));
+            ss.setTable(table);
+        }
         try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{competitionId, stage, type}, new BeanPropertyRowMapper<Standings>(Standings.class));
+            return standings;
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
             return null;
