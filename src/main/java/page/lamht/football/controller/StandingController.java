@@ -17,6 +17,9 @@ import page.lamht.football.dto.StandingsDto;
 import page.lamht.football.entity.CompetitionTeam;
 import page.lamht.football.entity.Standings;
 import page.lamht.football.entity.Team;
+import page.lamht.football.mapper.StandingsMapper;
+import page.lamht.football.mo.StandingsMo;
+import page.lamht.football.mo.StandingsResponse;
 import page.lamht.football.repository.CompetitionTeamService;
 import page.lamht.football.repository.StandingService;
 import page.lamht.football.util.TokenSelector;
@@ -68,8 +71,11 @@ class StandingController {
         Long leagueId = Utils.selectLeagueId(league);
         if (leagueId == null) return "";
         List<Standings> standingsList = service.findAllByCompetitionId(leagueId);
+        List<StandingsMo> standingsMo = StandingsMapper.INSTANCE.standingssToStandingsMos(standingsList);
 
-        String result = objectMapper.writeValueAsString(standingsList);
+        StandingsResponse response = new StandingsResponse(null, null, standingsMo);
+
+        String result = objectMapper.writeValueAsString(response);
         return result;
     }
 

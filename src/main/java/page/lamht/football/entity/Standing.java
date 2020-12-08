@@ -15,13 +15,13 @@ public class Standing implements Serializable {
     @MappedCollection(idColumn = "id")
     private Standings standings;
     private Long standingsId;
-    private Integer position;
-
 
     private Long teamId;
     private String teamName;
     private String teamCrestUrl;
+    private String shortName;
 
+    private Integer position;
     private Integer playedGames;
     private String form;
 

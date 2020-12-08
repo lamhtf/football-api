@@ -30,7 +30,7 @@ public class StandingService {
 
     public List<Standings> findAllByCompetitionId(Long competitionId) {
         String sql = "SELECT * FROM standings s WHERE s.competition_id=? ";
-        String sql2 = "SELECT * FROM standing t WHERE t.standings_id=? order by t.position";
+        String sql2 = "SELECT s.*, t.short_name FROM standing s, team t WHERE s.team_id = t.id and s.standings_id=? order by s.position";
 
         List<Standings> standings = jdbcTemplate.query(sql, new Object[]{competitionId}, new BeanPropertyRowMapper<Standings>(Standings.class));
         for (Standings ss: standings){

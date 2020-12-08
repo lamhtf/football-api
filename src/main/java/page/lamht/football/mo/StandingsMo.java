@@ -10,14 +10,12 @@ public class StandingsMo {
     private String stage;
     private String type;
     private String group;
-    private List<StandingMo> standings;
+    private List<StandingMo> table;
 
     @Data
-    static class StandingMo {
-        private Long teamId;
-        private String teamName;
-        private String teamCrestUrl;
-
+    public static class StandingMo {
+        private Integer position;
+        private StandingTeamMo team;
         private Integer playedGames;
         private String form;
 
@@ -28,6 +26,13 @@ public class StandingsMo {
         private Integer goalsFor;
         private Integer goalsAgainst;
         private Integer goalDifference;
+    }
+
+    @Data
+    public static class StandingTeamMo {
+        private Long id;
+        private String name;
+        private String crestUrl;
     }
 
 }
