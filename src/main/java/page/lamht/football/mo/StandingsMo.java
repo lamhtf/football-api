@@ -24,10 +24,10 @@ public class StandingsMo {
         private Integer won;
         private Integer draw;
         private Integer lost;
-        private Integer point;
+        private Integer points;
         private Integer goalsFor;
         private Integer goalsAgainst;
-        private Integer goalsDifference;
+        private Integer goalDifference;
     }
 
 }

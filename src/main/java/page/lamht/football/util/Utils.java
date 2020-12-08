@@ -81,7 +81,8 @@ public final class Utils {
             case PORTUGUESE_PRIMEIRA_LIGA -> PPL_LEAGUE_ID;
             case FRENCH_LIGUE_1 -> FL1_LEAGUE_ID;
             case DUTCH_EREDIVISIE -> DE_LEAGUE_ID;
-            default -> CL_LEAGUE_ID;
+            case UEFA_CHAMPION_LEAGUE -> CL_LEAGUE_ID;
+            default -> null;
         };
         return leagueId;
     }

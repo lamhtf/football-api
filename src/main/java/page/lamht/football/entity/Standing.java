@@ -15,6 +15,8 @@ public class Standing implements Serializable {
     @MappedCollection(idColumn = "id")
     private Standings standings;
     private Long standingsId;
+    private Integer position;
+
 
     private Long teamId;
     private String teamName;
@@ -26,8 +28,8 @@ public class Standing implements Serializable {
     private Integer won;
     private Integer draw;
     private Integer lost;
-    private Integer point;
+    private Integer points;
     private Integer goalsFor;
     private Integer goalsAgainst;
-    private Integer goalsDifference;
+    private Integer goalDifference;
 }

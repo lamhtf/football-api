@@ -1,0 +1,9 @@
+CREATE TABLE APP_INFO (
+    id int,
+	os VARCHAR (10),
+	version VARCHAR(10),
+	url VARCHAR (1000),
+	created TIMESTAMP NOT NULL,
+	updated TIMESTAMP NOT NULL,
+	PRIMARY KEY(id)
+);

@@ -1,5 +1,7 @@
 package page.lamht.football.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,8 @@ class StandingController {
     @Autowired
     private CompetitionTeamService ctService;
 
+    ObjectMapper objectMapper = new ObjectMapper();
+
     String getStandingTables(@PathVariable String league) {
         logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
@@ -59,14 +63,14 @@ class StandingController {
         return "Completed Successfully";
     }
 
-    @GetMapping("/standings/{league}")
-    String getStandings(@PathVariable String league) {
+    @GetMapping(value="/standings/{league}", produces=MediaType.APPLICATION_JSON_VALUE)
+    String getStandings(@PathVariable String league) throws JsonProcessingException {
         Long leagueId = Utils.selectLeagueId(league);
+        if (leagueId == null) return "";
         List<Standings> standingsList = service.findAllByCompetitionId(leagueId);
 
-
-
-        return null;
+        String result = objectMapper.writeValueAsString(standingsList);
+        return result;
     }
 
 }

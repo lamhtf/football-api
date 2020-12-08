@@ -3,6 +3,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/myfootball
     username: postgres
     password: password
+server:
+  port: 8080
 init: false
 schedule:
   init: "0 0 12 * * ?"

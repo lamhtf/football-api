@@ -1,11 +1,11 @@
 package page.lamht.football.mapper;
-import mapstruct
+//import mapstruct
 
-@Mapper
+//@Mapper
 public interface StandingsMapper {
 
-    CarMapper INSTANCE = Mappers.getMapper( CarMapper.class );
-
-    @Mapping(source = "numberOfSeats", target = "seatCount")
-    CarDto carToCarDto(Car car);
+//    CarMapper INSTANCE = Mappers.getMapper( CarMapper.class );
+//
+//    @Mapping(source = "numberOfSeats", target = "seatCount")
+//    CarDto carToCarDto(Car car);
 }
