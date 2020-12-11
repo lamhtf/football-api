@@ -23,7 +23,7 @@ import static page.lamht.football.util.Constants.X_AUTH_TOKEN;
 @RestController
 class AreaController {
 
-    Logger logger = LoggerFactory.getLogger(AreaController.class);
+    private final static Logger logger = LoggerFactory.getLogger(AreaController.class);
 
     @Autowired
     private AreaRepository areaRepository;

@@ -18,7 +18,7 @@ import static page.lamht.football.util.Constants.*;
 
 @Component
 public class BatchScheduler {
-    Logger logger = LoggerFactory.getLogger(BatchScheduler.class);
+    private final static Logger logger = LoggerFactory.getLogger(BatchScheduler.class);
 
     @Autowired
     AreaController areaController;

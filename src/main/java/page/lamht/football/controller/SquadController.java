@@ -31,7 +31,7 @@ import static page.lamht.football.util.Constants.X_AUTH_TOKEN;
 @RestController
 class SquadController {
 
-    Logger logger = LoggerFactory.getLogger(SquadController.class);
+    private final static Logger logger = LoggerFactory.getLogger(SquadController.class);
 
     @Autowired
     private PlayerService service;

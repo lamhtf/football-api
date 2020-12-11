@@ -3,7 +3,7 @@ package page.lamht.football.mo;
 import lombok.Data;
 
 @Data
-public class FavouriteMo {
+public class FavouriteTeamMo {
 
     private Integer competitionId;
     private String code;

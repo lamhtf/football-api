@@ -10,6 +10,7 @@ import page.lamht.football.dto.MatchDto;
 import page.lamht.football.entity.*;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Service
 @Transactional
@@ -17,6 +18,7 @@ public class MatchService {
 
     private final static String INSERT_QUERY = "INSERT INTO public.match VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final static String UPDATE_QUERY = "UPDATE public.\"match\" SET utc_date=?, status=?, venue=?, matchday=?, stage=?, \"group\"=?, last_updated=?, number_of_matches=?, total_goals=?, home_team_id=?, home_team_name=?, home_team_wins=?, home_team_draws=?, home_team_losses=?, away_team_id=?, away_team_name=?, away_team_wins=?, away_team_draws=?, away_team_losses=?, winner=?, duration=?, full_time_home_team=?, full_time_away_team=?, half_time_home_team=?, half_time_away_team=?, extra_time_home_team=?, extra_time_away_team=?, penalties_home_team=?, penalties_away_team=?, referee_id=?, referee_name=?, competition_id=?, season_id=?, created=? WHERE id=?";
+    private final static String LIST_MATCHES = "SELECT m.*, h.short_name as home_team_name, a.short_name as away_team_name FROM public.\"match\" m, public.\"team\" h, public.\"team\" a where m.home_team_id = h.id and m.away_team_id = a.id and competition_id = ?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -31,6 +33,15 @@ public class MatchService {
         String sql = "SELECT * FROM match m WHERE m.id = ?";
         try {
             return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<Match>(Match.class));
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public List<Match> findByCompetitionId(Long compeititionId) {
+        try {
+            return jdbcTemplate.query(LIST_MATCHES, new Object[]{compeititionId}, new BeanPropertyRowMapper<Match>(Match.class));
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
             return null;

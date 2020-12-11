@@ -24,7 +24,7 @@ import static page.lamht.football.util.Constants.X_AUTH_TOKEN;
 @RestController
 class CompetitionController {
 
-    Logger logger = LoggerFactory.getLogger(CompetitionController.class);
+    private final static Logger logger = LoggerFactory.getLogger(CompetitionController.class);
 
     @Autowired
     private CompetitionService service;

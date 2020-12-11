@@ -7,8 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import page.lamht.football.entity.CompetitionTeam;
-import page.lamht.football.entity.Team;
-import page.lamht.football.mo.FavouriteMo;
+import page.lamht.football.mo.FavouriteTeamMo;
 
 import java.util.List;
 
@@ -26,10 +25,10 @@ public class CompetitionTeamService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public List<FavouriteMo> findFavourites(){
+    public List<FavouriteTeamMo> findFavourites(){
 
         try {
-            return jdbcTemplate.query(LIST_FAVOURITES, new BeanPropertyRowMapper<FavouriteMo>(FavouriteMo.class));
+            return jdbcTemplate.query(LIST_FAVOURITES, new BeanPropertyRowMapper<FavouriteTeamMo>(FavouriteTeamMo.class));
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
             return null;

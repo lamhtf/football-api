@@ -15,7 +15,7 @@ import java.util.List;
 
 @Component
 public class PostStartUpRunner implements CommandLineRunner {
-    Logger logger = LoggerFactory.getLogger(PostStartUpRunner.class);
+    private final static Logger logger = LoggerFactory.getLogger(PostStartUpRunner.class);
 
     @Value("${init}")
     Boolean init;

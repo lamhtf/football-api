@@ -34,7 +34,9 @@ import static page.lamht.football.util.Constants.X_AUTH_TOKEN;
 @RestController
 class StandingController {
 
-    Logger logger = LoggerFactory.getLogger(StandingController.class);
+    private static final Logger logger = LoggerFactory.getLogger(StandingController.class);
+
+    private static final WebClient webClient = WebClient.create();
 
     @Autowired
     private StandingService service;
@@ -49,7 +51,6 @@ class StandingController {
 
         String url = Utils.selectStandingsApi(league);
 
-        WebClient webClient = WebClient.create();
         Mono<StandingDto> standingDtoMono = webClient.get()
                 .uri(url)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)

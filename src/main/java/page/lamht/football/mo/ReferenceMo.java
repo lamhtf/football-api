@@ -3,5 +3,6 @@ package page.lamht.football.mo;
 import lombok.Data;
 
 @Data
-public class SeasonMo {
+public class ReferenceMo {
+    private String name;
 }
