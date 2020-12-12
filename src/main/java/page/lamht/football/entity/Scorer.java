@@ -12,6 +12,8 @@ public class Scorer extends Entity {
     private Long competitionId;
     private Long seasonId;
     private Long playerId;
+    private Player player;
     private Long teamId;
+    private Team team;
     private int numberOfGoals;
 }

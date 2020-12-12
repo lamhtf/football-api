@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -47,6 +48,7 @@ class MatchController {
         logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
         String url = Utils.selectMatchApi(league);
+        url = url + "?dateFrom=" + Utils.getYesterday() + "&dateTo=" + Utils.getToday();
 
         Mono<MatchesDto> mono = webClient.get()
                 .uri(url)
@@ -68,10 +70,10 @@ class MatchController {
     }
 
     @GetMapping(value="/matches/{league}", produces=MediaType.APPLICATION_JSON_VALUE)
-    String getMatches(@PathVariable String league) throws JsonProcessingException {
+    String getMatches(@PathVariable String league, @RequestParam Long lastUpdated) throws JsonProcessingException {
         Long leagueId = Utils.selectLeagueId(league);
         if (leagueId == null) return "";
-        List<Match> matchList = service.findByCompetitionId(leagueId);
+        List<Match> matchList = service.findByCompetitionId(leagueId, new Timestamp(lastUpdated));
         List<MatchMo> matchMos = MatchMapper.INSTANCE.matchsToMatchMos(matchList);
 
         MatchResponse response = new MatchResponse(null, matchMos);

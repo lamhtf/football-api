@@ -1,5 +1,11 @@
 package page.lamht.football.util;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 import static page.lamht.football.util.Constants.*;
 
 public final class Utils {
@@ -85,6 +91,17 @@ public final class Utils {
             default -> null;
         };
         return leagueId;
+    }
+
+    public static String getYesterday(){
+        Instant now = Instant.now();
+        Instant yesterday = now.minus(1, ChronoUnit.DAYS);
+        return yesterday.toString().substring(0,10);
+    }
+
+    public static String getToday(){
+        Instant now = Instant.now();
+        return now.toString().substring(0,10);
     }
 
 }

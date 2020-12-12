@@ -12,12 +12,5 @@ CREATE TABLE SCORER (
 	  REFERENCES SEASON (id),
 	FOREIGN KEY (player_id, team_id)
 	  REFERENCES PLAYER (id, team_id),
-	PRIMARY KEY(id)
-);
-
-CREATE TABLE ALERT_MSG (
-	id int8,
-	message VARCHAR(255),
-	active VARCHAR(1),
-	PRIMARY KEY(id)
+	PRIMARY KEY(id, competition_id)
 );
