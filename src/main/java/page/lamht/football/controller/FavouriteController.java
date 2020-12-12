@@ -12,6 +12,7 @@ import page.lamht.football.mo.*;
 import page.lamht.football.repository.CompetitionTeamService;
 import page.lamht.football.repository.StandingService;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -29,9 +30,10 @@ class FavouriteController {
 
     @GetMapping(value="/favourites", produces=MediaType.APPLICATION_JSON_VALUE)
     String getFavourites() throws JsonProcessingException {
+        Timestamp callTime = new Timestamp(System.currentTimeMillis());
 
         List<FavouriteTeamMo> teamList = ctService.findFavourites();
-        FavouriteResponse response = new FavouriteResponse(teamList);
+        FavouriteResponse response = new FavouriteResponse(teamList, callTime);
         String result = objectMapper.writeValueAsString(response);
         return result;
     }

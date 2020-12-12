@@ -44,6 +44,30 @@ class MatchController {
     @Autowired
     private MatchService service;
 
+    String initFixtures(String league) {
+        logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
+
+        String url = Utils.selectMatchApi(league);
+
+        Mono<MatchesDto> mono = webClient.get()
+                .uri(url)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header(X_AUTH_TOKEN, TokenSelector.getToken())
+                .retrieve()
+                .bodyToMono(MatchesDto.class);
+
+        MatchesDto dto = mono.block();
+
+        for (MatchDto matchDto : dto.getMatches()) {
+            matchDto.setCompetition(dto.getCompetition());
+            service.save(matchDto);
+        }
+
+        logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
+
+        return "Completed Successfully";
+    }
+
     String getFixtures(@PathVariable String league) {
         logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
@@ -73,13 +97,29 @@ class MatchController {
     String getMatches(@PathVariable String league, @RequestParam Long lastUpdated) throws JsonProcessingException {
         Long leagueId = Utils.selectLeagueId(league);
         if (leagueId == null) return "";
+        Timestamp callTime = new Timestamp(System.currentTimeMillis());
         List<Match> matchList = service.findByCompetitionId(leagueId, new Timestamp(lastUpdated));
         List<MatchMo> matchMos = MatchMapper.INSTANCE.matchsToMatchMos(matchList);
 
-        MatchResponse response = new MatchResponse(null, matchMos);
+        MatchResponse response = new MatchResponse(null, matchMos, callTime);
 
         String result = objectMapper.writeValueAsString(response);
         return result;
+    }
+
+    @GetMapping(value="/matches/last/{league}", produces=MediaType.APPLICATION_JSON_VALUE)
+    String getLastMatches(@PathVariable String league, @RequestParam Long lastUpdated) throws JsonProcessingException {
+        Long leagueId = Utils.selectLeagueId(league);
+        if (leagueId == null) return "";
+        Timestamp callTime = new Timestamp(System.currentTimeMillis());
+//        List<Match> matchList = service.findByCompetitionId(leagueId, new Timestamp(lastUpdated));
+//        List<MatchMo> matchMos = MatchMapper.INSTANCE.matchsToMatchMos(matchList);
+//
+//        MatchResponse response = new MatchResponse(null, matchMos, callTime);
+//
+//        String result = objectMapper.writeValueAsString(response);
+//        return result;
+        return null;
     }
 
 }

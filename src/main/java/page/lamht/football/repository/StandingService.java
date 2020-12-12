@@ -12,6 +12,7 @@ import page.lamht.football.entity.Competition;
 import page.lamht.football.entity.Standing;
 import page.lamht.football.entity.Standings;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -28,11 +29,14 @@ public class StandingService {
     @Autowired
     private TeamService teamService;
 
-    public List<Standings> findAllByCompetitionId(Long competitionId) {
-        String sql = "SELECT * FROM standings s WHERE s.competition_id=? ";
+    @Autowired
+    private CompetitionService competitionService;
+
+    public List<Standings> findAllByCompetitionId(Long competitionId, Timestamp lastUpdated) {
+        String sql = "SELECT s.* FROM standings s, competition c WHERE c.id=s.competition_id and s.competition_id=? and c.last_updated>?";
         String sql2 = "SELECT s.*, t.short_name FROM standing s, team t WHERE s.team_id = t.id and s.standings_id=? order by s.position";
 
-        List<Standings> standings = jdbcTemplate.query(sql, new Object[]{competitionId}, new BeanPropertyRowMapper<Standings>(Standings.class));
+        List<Standings> standings = jdbcTemplate.query(sql, new Object[]{competitionId, lastUpdated}, new BeanPropertyRowMapper<Standings>(Standings.class));
         for (Standings ss: standings){
             List<Standing> table = jdbcTemplate.query(sql2, new Object[]{ss.getId()}, new BeanPropertyRowMapper<Standing>(Standing.class));
             ss.setTable(table);
@@ -67,6 +71,16 @@ public class StandingService {
     }
 
     public StandingDto save(StandingDto dto) {
+        Competition c = dto.getCompetition();
+        Competition db = competitionService.findById(c.getId());
+        if (c.getLastUpdated().after(db.getLastUpdated())){
+            competitionService.directUpdate(c, db);
+            insertOnly(dto);
+        }
+        return dto;
+    }
+
+    public StandingDto init(StandingDto dto) {
         insertOnly(dto);
         return dto;
     }

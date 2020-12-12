@@ -27,10 +27,11 @@ public class PostStartUpRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
         if (init) {
             logger.info("start init");
-            batchScheduler.runInit();
-            batchScheduler.runFixtures();
-            batchScheduler.runStandings();
+            batchScheduler.init();
+            batchScheduler.initFixtures();
+            batchScheduler.initStandings();
             logger.info("complete init");
         }
     }
+
 }

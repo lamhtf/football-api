@@ -18,7 +18,10 @@ public class MatchService {
 
     private final static String INSERT_QUERY = "INSERT INTO public.match VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final static String UPDATE_QUERY = "UPDATE public.\"match\" SET utc_date=?, status=?, venue=?, matchday=?, stage=?, \"group\"=?, last_updated=?, number_of_matches=?, total_goals=?, home_team_id=?, home_team_name=?, home_team_wins=?, home_team_draws=?, home_team_losses=?, away_team_id=?, away_team_name=?, away_team_wins=?, away_team_draws=?, away_team_losses=?, winner=?, duration=?, full_time_home_team=?, full_time_away_team=?, half_time_home_team=?, half_time_away_team=?, extra_time_home_team=?, extra_time_away_team=?, penalties_home_team=?, penalties_away_team=?, referee_id=?, referee_name=?, competition_id=?, season_id=?, created=? WHERE id=? and last_updated<?";
-    private final static String LIST_MATCHES = "SELECT m.*, h.short_name as home_team_name, a.short_name as away_team_name FROM public.\"match\" m, public.\"team\" h, public.\"team\" a where m.home_team_id = h.id and m.away_team_id = a.id and competition_id = ? and m.last_updated > ?";
+    private final static String LIST_MATCHES = "SELECT m.*, h.short_name as home_team_name, a.short_name as away_team_name FROM public.\"match\" m, public.\"team\" h, public.\"team\" a where m.home_team_id = h.id and m.away_team_id = a.id and competition_id=? and m.last_updated>?";
+
+    private final static String LIST_LAST_MATCHES = "select m.id, m.matchday, m.home_team_id, m.home_team_name, m.away_team_id, m.away_team_name, m.winner, m.full_time_home_team, m.full_time_away_team  from public.\"match\" m where m.status='FINISHED' and m.competition_id=? and (m.home_team_id=? or m.away_team_id=?) order by m.utc_date desc limit ?";
+    private final static String LIST_NEXT_MATCHES = "select m.id, m.matchday, m.home_team_id, m.home_team_name, m.away_team_id, m.away_team_name  from public.\"match\" m where m.status!='FINISHED' and m.competition_id=? and (m.home_team_id=? or m.away_team_id=?) order by m.utc_date asc limit ?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -28,6 +31,13 @@ public class MatchService {
 
     @Autowired
     private SeasonService seasonService;
+
+    public List<Match> findLastMatches(Long competitionId, Long teamId, Integer limit){
+        return jdbcTemplate.query(LIST_LAST_MATCHES, new Object[]{competitionId, teamId, teamId, limit}, new BeanPropertyRowMapper<Match>(Match.class));
+    }
+    public List<Match> findNextMatches(Long competitionId, Long teamId, Integer limit){
+        return jdbcTemplate.query(LIST_NEXT_MATCHES, new Object[]{competitionId, teamId, teamId, limit}, new BeanPropertyRowMapper<Match>(Match.class));
+    }
 
     public Match findById(Long id) {
         String sql = "SELECT * FROM match m WHERE m.id = ?";
@@ -39,13 +49,8 @@ public class MatchService {
         }
     }
 
-    public List<Match> findByCompetitionId(Long compeititionId, Timestamp lastUpdated) {
-        try {
-            return jdbcTemplate.query(LIST_MATCHES, new Object[]{compeititionId, lastUpdated}, new BeanPropertyRowMapper<Match>(Match.class));
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
-            return null;
-        }
+    public List<Match> findByCompetitionId(Long competitionId, Timestamp lastUpdated) {
+        return jdbcTemplate.query(LIST_MATCHES, new Object[]{competitionId, lastUpdated}, new BeanPropertyRowMapper<Match>(Match.class));
     }
 
     public Integer countById(Long id) {
