@@ -68,7 +68,7 @@ class StandingController {
     }
 
     String getStandingTables(@PathVariable String league) {
-        logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
+        logger.info("start time: " + new Timestamp(System.currentTimeMillis()));
 
         String url = Utils.selectStandingsApi(league);
 

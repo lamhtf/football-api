@@ -21,18 +21,17 @@ public class CompetitionTeamService {
     private final static String LIST_BY_COMPETITION_ID = "SELECT * FROM competition_team ct INNER JOIN team t on ct.team_id = t.id WHERE ct.competition_id=?";
     private final static String LIST_BY_BOTH_ID = "SELECT * FROM competition_team ct WHERE ct.competition_id=? and ct.team_id = ?";
     private final static String COUNT_BY_COMPETITION_ID = "SELECT count(*) FROM competition_team ct WHERE ct.competition_id=?";
+    private final static String LIST_COMPETITIONS_BY_TEAM_ID = "select * from competition_team ct where ct.team_id=?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public List<FavouriteTeamMo> findFavourites(){
+    public List<CompetitionTeam> findAllByTeamId(Long teamId){
+        return jdbcTemplate.query(LIST_COMPETITIONS_BY_TEAM_ID, new Object[]{teamId}, new BeanPropertyRowMapper<CompetitionTeam>(CompetitionTeam.class));
+    }
 
-        try {
-            return jdbcTemplate.query(LIST_FAVOURITES, new BeanPropertyRowMapper<FavouriteTeamMo>(FavouriteTeamMo.class));
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
-            return null;
-        }
+    public List<FavouriteTeamMo> findFavourites(){
+        return jdbcTemplate.query(LIST_FAVOURITES, new BeanPropertyRowMapper<FavouriteTeamMo>(FavouriteTeamMo.class));
     }
 
     public List<CompetitionTeam> findByCompetitionId(Long competitionId) {

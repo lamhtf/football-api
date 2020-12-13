@@ -7,10 +7,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import page.lamht.football.entity.Area;
-import page.lamht.football.entity.Competition;
-import page.lamht.football.entity.CompetitionTeam;
-import page.lamht.football.entity.Team;
+import page.lamht.football.entity.*;
 
 import java.util.List;
 
@@ -23,6 +20,28 @@ public class TeamService {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private AreaService areaService;
+
+    @Autowired
+    private PlayerService playerService;
+
+    @Autowired
+    private CompetitionService competitionService;
+
+    public Team findTeamDetailById(Long teamId){
+        Team team = findById(teamId);
+        Area area = areaService.findById(team.getAreaId());
+        List<Coach> coaches = playerService.findCoachesByTeamId(teamId);
+        List<Player> players = playerService.findPlayersByTeamId(teamId);
+        List<Competition> ccompetitions = competitionService.findAllByTeamId(teamId);
+        team.setArea(area);
+        team.setCoaches(coaches);
+        team.setPlayers(players);
+        team.setActiveCompetitions(ccompetitions);
+        return team;
+    }
 
     public Team findById(Long id) {
         String sql = "SELECT * FROM team t WHERE t.id = ?";

@@ -11,16 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-import page.lamht.football.entity.Area;
-import page.lamht.football.entity.Competition;
-import page.lamht.football.entity.Match;
-import page.lamht.football.entity.Season;
+import page.lamht.football.entity.*;
 import page.lamht.football.mapper.MatchMapper;
 import page.lamht.football.mo.MatchMo;
 import page.lamht.football.mo.MatchResponse;
 import page.lamht.football.util.Utils;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,6 +36,9 @@ public class CompetitionService {
     SeasonService seasonService;
 
     @Autowired
+    CompetitionTeamService competitionTeamService;
+
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     public List<Competition> findAll(Timestamp lastUpdated) {
@@ -49,6 +50,18 @@ public class CompetitionService {
             c.setArea(a);
         }
         return competitionList;
+    }
+
+    public List<Competition> findAllByTeamId(Long teamId){
+        List<Competition> cs = new ArrayList<>();
+        List<CompetitionTeam> cts = competitionTeamService.findAllByTeamId(teamId);
+        for (CompetitionTeam ct: cts){
+            Competition c = findById(ct.getCompetitionId());
+            Area a = areaService.findById(c.getAreaId());
+            c.setArea(a);
+            cs.add(c);
+        }
+        return cs;
     }
 
     public Competition findById(Long id) {

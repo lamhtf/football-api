@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import page.lamht.football.dto.PersonDto;
+import page.lamht.football.entity.Coach;
 import page.lamht.football.entity.Player;
 
 import java.sql.Timestamp;
@@ -20,18 +21,18 @@ public class PlayerService {
     private final static String INSERT_COACH_QUERY = "INSERT INTO public.coach (id, \"name\", first_name, last_name, date_of_birth, country_of_birth, nationality, \"position\", shirt_number, team_id, last_updated, created)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private final static String DELETE_PLAYER_QUERY = "DELETE FROM public.player p WHERE p.team_id=?";
     private final static String DELETE_COACH_QUERY = "DELETE FROM public.coach c WHERE c.team_id=?";
+    private final static String FIND_COACH_BY_TEAM_ID = "select * from coach c where c.team_id = ? order by date_of_birth";
+    private final static String FIND_BY_TEAM_ID = "select * from player p where team_id=? order by position='Attacker',position='Midfielder',position='Defender',position='Goalkeeper',date_of_birth";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public List<Player> findByTeamId(Long teamId) {
-        String sql = "SELECT * FROM player p WHERE p.team_id = ?";
-        try {
-            return jdbcTemplate.query(sql, new Object[]{teamId}, new BeanPropertyRowMapper<Player>(Player.class));
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
-            return null;
-        }
+    public List<Coach> findCoachesByTeamId(Long teamId) {
+        return jdbcTemplate.query(FIND_COACH_BY_TEAM_ID, new Object[]{teamId}, new BeanPropertyRowMapper<Coach>(Coach.class));
+    }
+
+    public List<Player> findPlayersByTeamId(Long teamId) {
+        return jdbcTemplate.query(FIND_BY_TEAM_ID, new Object[]{teamId}, new BeanPropertyRowMapper<Player>(Player.class));
     }
 
     public PersonDto save(Long teamId, PersonDto p) {

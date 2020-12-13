@@ -6,6 +6,7 @@ import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper=false)
 @Data
@@ -31,4 +32,8 @@ public class Team extends Entity {
 
     @MappedCollection(idColumn = "team_id")
     private CompetitionTeam competitionTeam;
+
+    private List<Competition> activeCompetitions;
+    private List<Coach> coaches;
+    private List<Player> players;
 }

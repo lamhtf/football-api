@@ -16,9 +16,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 import page.lamht.football.dto.MatchDto;
 import page.lamht.football.dto.MatchesDto;
 import page.lamht.football.entity.Match;
+import page.lamht.football.mapper.LastMatchMapper;
 import page.lamht.football.mapper.MatchMapper;
-import page.lamht.football.mo.MatchMo;
-import page.lamht.football.mo.MatchResponse;
+import page.lamht.football.mapper.NextMatchMapper;
+import page.lamht.football.mo.*;
 import page.lamht.football.repository.MatchService;
 import page.lamht.football.util.TokenSelector;
 import page.lamht.football.util.Utils;
@@ -69,7 +70,7 @@ class MatchController {
     }
 
     String getFixtures(@PathVariable String league) {
-        logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
+        logger.info("start time: " + new Timestamp(System.currentTimeMillis()));
 
         String url = Utils.selectMatchApi(league);
         url = url + "?dateFrom=" + Utils.getYesterday() + "&dateTo=" + Utils.getToday();
@@ -112,14 +113,28 @@ class MatchController {
         Long leagueId = Utils.selectLeagueId(league);
         if (leagueId == null) return "";
         Timestamp callTime = new Timestamp(System.currentTimeMillis());
-//        List<Match> matchList = service.findByCompetitionId(leagueId, new Timestamp(lastUpdated));
-//        List<MatchMo> matchMos = MatchMapper.INSTANCE.matchsToMatchMos(matchList);
-//
-//        MatchResponse response = new MatchResponse(null, matchMos, callTime);
-//
-//        String result = objectMapper.writeValueAsString(response);
-//        return result;
-        return null;
+
+        List<Match> matchList = service.findLastMatches(leagueId, 5);
+        List<LastMatchMo> matchMos = LastMatchMapper.INSTANCE.matchsToLastMatchMos(matchList);
+
+        LastMatchesResponse response = new LastMatchesResponse(matchMos, callTime);
+
+        String result = objectMapper.writeValueAsString(response);
+        return result;
     }
 
+    @GetMapping(value="/matches/next/{league}", produces=MediaType.APPLICATION_JSON_VALUE)
+    String getNextMatches(@PathVariable String league, @RequestParam Long lastUpdated) throws JsonProcessingException {
+        Long leagueId = Utils.selectLeagueId(league);
+        if (leagueId == null) return "";
+        Timestamp callTime = new Timestamp(System.currentTimeMillis());
+
+        List<Match> matchList = service.findNextMatches(leagueId, 5);
+        List<NextMatchMo> matchMos = NextMatchMapper.INSTANCE.matchsToNextMatchMos(matchList);
+
+        NextMatchesResponse response = new NextMatchesResponse(matchMos, callTime);
+
+        String result = objectMapper.writeValueAsString(response);
+        return result;
+    }
 }
