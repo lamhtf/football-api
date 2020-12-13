@@ -19,6 +19,8 @@ public interface LastMatchMapper {
     @Mapping(source = "awayTeamName", target = "awayTeam.name")
     @Mapping(source = "fullTimeHomeTeam", target = "homeTeam.score")
     @Mapping(source = "fullTimeAwayTeam", target = "awayTeam.score")
+    @Mapping(source = "homeTeamCrestUrl", target = "homeTeam.crestUrl")
+    @Mapping(source = "awayTeamCrestUrl", target = "awayTeam.crestUrl")
     LastMatchMo matchToLastMatchMo(Match match);
 
     List<LastMatchMo> matchsToLastMatchMos(List<Match> matchs);

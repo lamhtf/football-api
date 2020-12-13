@@ -17,6 +17,8 @@ public interface NextMatchMapper {
     @Mapping(source = "homeTeamName", target = "homeTeam.name")
     @Mapping(source = "awayTeamId", target = "awayTeam.id")
     @Mapping(source = "awayTeamName", target = "awayTeam.name")
+    @Mapping(source = "homeTeamCrestUrl", target = "homeTeam.crestUrl")
+    @Mapping(source = "awayTeamCrestUrl", target = "awayTeam.crestUrl")
     NextMatchMo matchToNextMatchMo(Match match);
 
     List<NextMatchMo> matchsToNextMatchMos(List<Match> matchs);

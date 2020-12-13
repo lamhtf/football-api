@@ -8,12 +8,12 @@ import java.sql.Timestamp;
 public class PlayerMo {
     private Long id;
     private String name;
-    private String firstName;
-    private String lastName;
+//    private String firstName;
+//    private String lastName;
     private String dateOfBirth;
-    private String countryOfBirth;
+//    private String countryOfBirth;
     private String nationality;
     private String position;
-    private Integer shirtNumber;
-    private Timestamp lastUpdated;
+//    private Integer shirtNumber;
+//    private Timestamp lastUpdated;
 }

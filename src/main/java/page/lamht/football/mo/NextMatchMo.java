@@ -16,6 +16,7 @@ public class NextMatchMo {
     public static class NextMatchTeam {
         private Long id;
         private String name;
+        private String crestUrl;
     }
 
 }

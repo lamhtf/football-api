@@ -18,6 +18,7 @@ public class LastMatchMo {
         private Long id;
         private String name;
         private Integer score;
+        private String crestUrl;
     }
 
 }

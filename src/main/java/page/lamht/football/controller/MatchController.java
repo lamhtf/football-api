@@ -70,7 +70,7 @@ class MatchController {
     }
 
     String getFixtures(@PathVariable String league) {
-        logger.info("start time: " + new Timestamp(System.currentTimeMillis()));
+        logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
         String url = Utils.selectMatchApi(league);
         url = url + "?dateFrom=" + Utils.getYesterday() + "&dateTo=" + Utils.getToday();

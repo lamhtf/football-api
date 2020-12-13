@@ -8,10 +8,10 @@ import java.sql.Timestamp;
 public class CoachMo {
     private Long id;
     private String name;
-    private String firstName;
-    private String lastName;
+//    private String firstName;
+//    private String lastName;
     private String dateOfBirth;
-    private String countryOfBirth;
+//    private String countryOfBirth;
     private String nationality;
-    private Timestamp lastUpdated;
+//    private Timestamp lastUpdated;
 }

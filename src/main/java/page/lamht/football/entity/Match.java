@@ -28,11 +28,13 @@ public class Match extends Entity {
     private Integer homeTeamWins;
     private Integer homeTeamDraws;
     private Integer homeTeamLosses;
+    private String homeTeamCrestUrl;
     private String awayTeamId;
     private String awayTeamName;
     private Integer awayTeamWins;
     private Integer awayTeamDraws;
     private Integer awayTeamLosses;
+    private String awayTeamCrestUrl;
     private String winner;
     private String duration;
     private Integer fullTimeHomeTeam;
