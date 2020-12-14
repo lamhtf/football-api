@@ -1,12 +1,16 @@
 package page.lamht.football.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import page.lamht.football.entity.*;
+import page.lamht.football.entity.Competition;
+import page.lamht.football.entity.Scorer;
+import page.lamht.football.entity.Season;
 
 import java.util.List;
 
@@ -14,24 +18,26 @@ import java.util.List;
 @Transactional
 public class StatisticsService {
 
+    private final static Logger logger = LoggerFactory.getLogger(StatisticsService.class);
+
     private final static String INSERT_SCORER_QUERY = "INSERT INTO public.scorer (id, competition_id, season_id, player_id, team_id, number_of_goals) VALUES(?, ?, ?, ?, ?, ?)";
-    private final static String UPDATE_SCORER_QUERY = "UPDATE public.scorer SET number_of_goals=? WHERE competition_id=?, season_id=?, id=?, team_id=?";
+    private final static String UPDATE_SCORER_QUERY = "UPDATE public.scorer SET number_of_goals=? WHERE competition_id=? and season_id=? and id=? and team_id=?";
 
     private final static String FIND_SCORER = "SELECT * FROM scorer s WHERE s.competition_id=? and s.season_id=? and s.id=? and s.team_id=?";
     private final static String COUNT_SCORER = "SELECT count(*) FROM scorer s WHERE s.competition_id=? and s.season_id=? and s.id=? and s.team_id=?";
 
     private final static String FIND_SCORER_BY_COMPETITION_ID = "SELECT * FROM scorer s WHERE s.competition_id=? limit ?";
-    private final static String FIND_SCORER_BY_TEAM_ID = "SELECT * FROM scorer s WHERE s.team_id=?";
+    private final static String FIND_SCORER_BY_COMPETITION_AND_TEAM_ID = "SELECT * FROM scorer s WHERE s.competition_id=? and s.team_id=?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public List<Scorer> findScorerByLeagueId(Long competitionId, Integer leagueLimit){
-        return jdbcTemplate.query(FIND_SCORER_BY_COMPETITION_ID, new Object[]{competitionId}, new BeanPropertyRowMapper<Scorer>(Scorer.class));
+    public List<Scorer> findScorerByLeagueId(Long competitionId, Integer leagueLimit) {
+        return jdbcTemplate.query(FIND_SCORER_BY_COMPETITION_ID, new Object[]{competitionId, leagueLimit}, new BeanPropertyRowMapper<Scorer>(Scorer.class));
     }
 
-    public List<Scorer> findScorerByTeamId(Long teamId){
-        return jdbcTemplate.query(FIND_SCORER_BY_TEAM_ID, new Object[]{teamId}, new BeanPropertyRowMapper<Scorer>(Scorer.class));
+    public List<Scorer> findScorerByLeagueAndTeamId(Long competitionId, Long teamId) {
+        return jdbcTemplate.query(FIND_SCORER_BY_COMPETITION_AND_TEAM_ID, new Object[]{competitionId, teamId}, new BeanPropertyRowMapper<Scorer>(Scorer.class));
     }
 
     public Scorer findScorerByIds(Long competitionId, Long seasonId, Long playerId, Long teamId) {
@@ -51,7 +57,7 @@ public class StatisticsService {
 
         Long competitionId = competition.getId();
         Long seasonId = season.getId();
-        for (Scorer s: scorers) {
+        for (Scorer s : scorers) {
             Long playerId = s.getPlayer().getId();
             Long teamId = s.getTeam().getId();
             Integer goals = s.getNumberOfGoals();

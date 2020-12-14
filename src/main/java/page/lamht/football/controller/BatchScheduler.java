@@ -104,7 +104,7 @@ public class BatchScheduler {
     @Scheduled(cron = "${schedule.statistics}")
     public void runStatistics() {
         if (!scheduler){
-            logger.info("runStandings :: scheduler disabled");
+            logger.info("runStatistics :: scheduler disabled");
             return;
         }
         logger.info("runStatistics :: start");

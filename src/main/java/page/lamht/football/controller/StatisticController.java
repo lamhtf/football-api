@@ -120,7 +120,7 @@ class StatisticController {
         if (leagueId == null) return "";
         Timestamp callTime = new Timestamp(System.currentTimeMillis());
         List<Scorer> scorers = new ArrayList<>();
-        if (competitionService.hasUpdated(leagueId, callTime)) {
+        if (competitionService.hasUpdated(leagueId, new Timestamp(lastUpdated))) {
             scorers = service.findScorerByLeagueId(leagueId, leagueLimit);
             for (Scorer s : scorers) {
                 Team t = teamService.findById(s.getTeamId());
@@ -144,8 +144,8 @@ class StatisticController {
         if (leagueId == null) return "";
         Timestamp callTime = new Timestamp(System.currentTimeMillis());
         List<Scorer> scorers = new ArrayList<>();
-        if (competitionService.hasUpdated(leagueId, callTime)) {
-            scorers = service.findScorerByLeagueId(leagueId, limit);
+        if (competitionService.hasUpdated(leagueId, new Timestamp(lastUpdated))) {
+            scorers = service.findScorerByLeagueAndTeamId(leagueId, teamId);
             Team t = teamService.findById(teamId);
             for (Scorer s : scorers) {
                 Player p = playerService.findPlayerById(s.getId());

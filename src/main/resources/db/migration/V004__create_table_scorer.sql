@@ -10,7 +10,7 @@ CREATE TABLE SCORER (
 	  REFERENCES COMPETITION (id),
 	FOREIGN KEY (season_id)
 	  REFERENCES SEASON (id),
-	FOREIGN KEY (player_id, team_id)
-	  REFERENCES PLAYER (id, team_id),
+	FOREIGN KEY (team_id)
+	  REFERENCES TEAM (id),
 	PRIMARY KEY(id, competition_id, season_id, team_id)
 );
