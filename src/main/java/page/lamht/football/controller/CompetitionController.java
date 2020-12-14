@@ -36,13 +36,13 @@ class CompetitionController {
 
     ObjectMapper objectMapper = new ObjectMapper();
 
+    WebClient webClient = WebClient.create();
+
     String getCompetitions() {
         try {
             logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
             String url = Utils.selectCompetitionApi();
-
-            WebClient webClient = WebClient.create();
 
             Mono<CompetitionsDto> mono = webClient.get()
                     .uri(url)

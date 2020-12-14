@@ -6,12 +6,12 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Data
-public class NextMatchesResponse {
+public class StatisticsResponse {
 
-    public NextMatchesResponse(List<NextMatchMo> matchMos, Timestamp lastUpdated){
-        this.setMatches(matchMos);
+    public StatisticsResponse(List<ScorerMo> scorers, Timestamp lastUpdated){
+        this.setScorers(scorers);
         this.setLastUpdated(lastUpdated);
     };
-    List<NextMatchMo> matches;
+    List<ScorerMo> scorers;
     Timestamp lastUpdated;
 }

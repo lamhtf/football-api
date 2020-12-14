@@ -12,6 +12,23 @@ public final class Utils {
 
     private static Boolean _LOCAL_TEST_ = false;
 
+    public static String selectScorerApi(String league){
+
+        String url = switch (league) {
+            case ENGLISH_PREMIER_LEAGUE -> EPL_SCORERS;
+            case ITALIAN_SERIE_A -> SA_SCORERS;
+            case GERMAN_BUNDESLIGA -> BL1_SCORERS;
+            case SPAINISH_LA_LIGA -> LL_SCORERS;
+            case PORTUGUESE_PRIMEIRA_LIGA -> PPL_SCORERS;
+            case FRENCH_LIGUE_1 -> FL1_SCORERS;
+            case DUTCH_EREDIVISIE -> DE_SCORERS;
+            case UEFA_CHAMPION_LEAGUE -> CL_SCORERS;
+            default -> null;
+        };
+
+        if (_LOCAL_TEST_) url = LOCAL_HOST + "/matchesTest/" + league;
+        return url;
+    }
     public static String selectMatchApi(String league){
 
         String url = switch (league) {
@@ -22,7 +39,8 @@ public final class Utils {
             case PORTUGUESE_PRIMEIRA_LIGA -> PPL_MATCHES;
             case FRENCH_LIGUE_1 -> FL1_MATCHES;
             case DUTCH_EREDIVISIE -> DE_MATCHES;
-            default -> CL_MATCHES;
+            case UEFA_CHAMPION_LEAGUE -> CL_MATCHES;
+            default -> null;
         };
 
         if (_LOCAL_TEST_) url = LOCAL_HOST + "/matchesTest/" + league;
@@ -39,7 +57,8 @@ public final class Utils {
             case PORTUGUESE_PRIMEIRA_LIGA -> PPL_TABLE;
             case FRENCH_LIGUE_1 -> FL1_TABLE;
             case DUTCH_EREDIVISIE -> DE_TABLE;
-            default -> CL_TABLE;
+            case UEFA_CHAMPION_LEAGUE -> CL_TABLE;
+            default -> null;
         };
 
         if (_LOCAL_TEST_) return LOCAL_HOST + "/standingsTest/" + league;
@@ -66,7 +85,8 @@ public final class Utils {
             case PORTUGUESE_PRIMEIRA_LIGA -> PPL_TEAMS;
             case FRENCH_LIGUE_1 -> FL1_TEAMS;
             case DUTCH_EREDIVISIE -> DE_TEAMS;
-            default -> CL_TEAMS;
+            case UEFA_CHAMPION_LEAGUE -> CL_TEAMS;
+            default -> null;
         };
 
         if (_LOCAL_TEST_) return LOCAL_HOST + "/teamsTest/" + league;

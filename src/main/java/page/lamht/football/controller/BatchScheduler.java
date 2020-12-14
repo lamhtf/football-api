@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
 import page.lamht.football.entity.Team;
 import page.lamht.football.repository.TeamService;
 import page.lamht.football.util.Constants;
@@ -31,6 +32,8 @@ public class BatchScheduler {
     StandingController standingController;
     @Autowired
     SquadController squadController;
+    @Autowired
+    StatisticController statisticController;
     @Autowired
     TeamService teamService;
 
@@ -98,6 +101,23 @@ public class BatchScheduler {
         standingController.getStandingTables(Constants.UEFA_CHAMPION_LEAGUE);
     }
 
+    @Scheduled(cron = "${schedule.statistics}")
+    public void runStatistics() {
+        if (!scheduler){
+            logger.info("runStandings :: scheduler disabled");
+            return;
+        }
+        logger.info("runStatistics :: start");
+        statisticController.runScorers(Constants.ENGLISH_PREMIER_LEAGUE);
+        statisticController.runScorers(Constants.ITALIAN_SERIE_A);
+        statisticController.runScorers(Constants.GERMAN_BUNDESLIGA);
+        statisticController.runScorers(Constants.SPAINISH_LA_LIGA);
+        statisticController.runScorers(Constants.PORTUGUESE_PRIMEIRA_LIGA);
+        statisticController.runScorers(Constants.FRENCH_LIGUE_1);
+        statisticController.runScorers(Constants.DUTCH_EREDIVISIE);
+        statisticController.runScorers(Constants.UEFA_CHAMPION_LEAGUE);
+    }
+
 
     /****
      *
@@ -150,5 +170,17 @@ public class BatchScheduler {
         standingController.initStandingTables(Constants.FRENCH_LIGUE_1);
         standingController.initStandingTables(Constants.DUTCH_EREDIVISIE);
         standingController.initStandingTables(Constants.UEFA_CHAMPION_LEAGUE);
+    }
+
+    public void initStatistics() {
+        logger.info("initStatistics :: start");
+        statisticController.initScorers(Constants.ENGLISH_PREMIER_LEAGUE);
+        statisticController.initScorers(Constants.ITALIAN_SERIE_A);
+        statisticController.initScorers(Constants.GERMAN_BUNDESLIGA);
+        statisticController.initScorers(Constants.SPAINISH_LA_LIGA);
+        statisticController.initScorers(Constants.PORTUGUESE_PRIMEIRA_LIGA);
+        statisticController.initScorers(Constants.FRENCH_LIGUE_1);
+        statisticController.initScorers(Constants.DUTCH_EREDIVISIE);
+        statisticController.initScorers(Constants.UEFA_CHAMPION_LEAGUE);
     }
 }

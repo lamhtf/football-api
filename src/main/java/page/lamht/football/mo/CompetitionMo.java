@@ -13,6 +13,6 @@ public class CompetitionMo {
     private String emblemUrl;
     private String plan;
     private SeasonMo currentSeason;
-    private int numberOfAvailableSeasons;
+    private Integer numberOfAvailableSeasons;
     private Timestamp lastUpdated;
 }

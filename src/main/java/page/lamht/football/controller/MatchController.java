@@ -106,7 +106,7 @@ class MatchController {
         List<Match> matchList = service.findByCompetitionId(leagueId, new Timestamp(lastUpdated));
         List<MatchMo> matchMos = MatchMapper.INSTANCE.matchsToMatchMos(matchList);
 
-        MatchResponse response = new MatchResponse(null, matchMos, callTime);
+        MatchResponse response = new MatchResponse(matchMos, callTime);
 
         String result = objectMapper.writeValueAsString(response);
         return result;

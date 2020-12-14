@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface LastMatchMapper {
 
-    LastMatchMapper INSTANCE = Mappers.getMapper( LastMatchMapper.class );
+    LastMatchMapper INSTANCE = Mappers.getMapper(LastMatchMapper.class);
 
     @Mapping(source = "homeTeamId", target = "homeTeam.id")
     @Mapping(source = "homeTeamName", target = "homeTeam.name")

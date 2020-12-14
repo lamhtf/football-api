@@ -100,7 +100,7 @@ class StandingController {
         List<Standings> standingsList = service.findAllByCompetitionId(leagueId, new Timestamp(lastUpdated));
         List<StandingsMo> standingsMo = StandingsMapper.INSTANCE.standingssToStandingsMos(standingsList);
 
-        StandingsResponse response = new StandingsResponse(null, null, standingsMo, callTime);
+        StandingsResponse response = new StandingsResponse(standingsMo, callTime);
 
         String result = objectMapper.writeValueAsString(response);
         return result;

@@ -1,6 +1,6 @@
 --only apply for 1 season for each competition
 CREATE TABLE SCORER (
-	id int8, --playerId
+	id int8, --equal to playerId
 	competition_id int8,
 	season_id int8,	
 	player_id int8,
@@ -12,5 +12,5 @@ CREATE TABLE SCORER (
 	  REFERENCES SEASON (id),
 	FOREIGN KEY (player_id, team_id)
 	  REFERENCES PLAYER (id, team_id),
-	PRIMARY KEY(id, competition_id)
+	PRIMARY KEY(id, competition_id, season_id, team_id)
 );

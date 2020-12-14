@@ -7,13 +7,11 @@ import java.util.List;
 
 @Data
 public class MatchResponse {
-    public MatchResponse(CompetitionMo competition, List<MatchMo> matches, Timestamp lastUpdated){
-        this.setCompetition(competition);
+    public MatchResponse(List<MatchMo> matches, Timestamp lastUpdated){
         this.setMatches(matches);
         this.setLastUpdated(lastUpdated);
     }
 
-    private CompetitionMo competition;
     private List<MatchMo> matches;
     private Timestamp lastUpdated;
 }

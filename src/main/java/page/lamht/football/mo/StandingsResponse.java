@@ -11,15 +11,10 @@ import java.util.List;
 @Data
 public class StandingsResponse {
 
-    public StandingsResponse(CompetitionMo competition, SeasonMo season, List<StandingsMo> standings, Timestamp lastUpdated){
-        this.setCompetition(competition);
-        this.setSeason(season);
+    public StandingsResponse(List<StandingsMo> standings, Timestamp lastUpdated){
         this.setStandings(standings);
         this.setLastUpdated(lastUpdated);
     };
-//    FilterMo filter;
-    CompetitionMo competition;
-    SeasonMo season;
     List<StandingsMo> standings;
     Timestamp lastUpdated;
 }

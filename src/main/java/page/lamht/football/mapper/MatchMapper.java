@@ -13,7 +13,7 @@ import java.util.List;
 @Mapper
 public interface MatchMapper {
 
-    MatchMapper INSTANCE = Mappers.getMapper( MatchMapper.class );
+    MatchMapper INSTANCE = Mappers.getMapper(MatchMapper.class);
 
     List<MatchMo> matchsToMatchMos(List<Match> matchs);
 

@@ -30,6 +30,7 @@ public class PostStartUpRunner implements CommandLineRunner {
             batchScheduler.init();
             batchScheduler.initFixtures();
             batchScheduler.initStandings();
+            batchScheduler.initStatistics();
             logger.info("complete init");
         }
     }

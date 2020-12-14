@@ -1,21 +1,15 @@
 package page.lamht.football.repository;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import page.lamht.football.entity.*;
-import page.lamht.football.mapper.MatchMapper;
-import page.lamht.football.mo.MatchMo;
-import page.lamht.football.mo.MatchResponse;
-import page.lamht.football.util.Utils;
+import page.lamht.football.entity.Area;
+import page.lamht.football.entity.Competition;
+import page.lamht.football.entity.CompetitionTeam;
+import page.lamht.football.entity.Season;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -28,6 +22,8 @@ public class CompetitionService {
     private final static String INSERT_QUERY = "INSERT INTO public.competition VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
     private final static String UPDATE_QUERY = "UPDATE public.competition SET area_id=?, \"name\"=?, code=?, emblem_url=?, plan=?, current_season_id=?, number_of_available_seasons=?, last_updated=?, created=? where id=? ";
     private final static String FIND_ALL = "SELECT * FROM competition c where c.id in (2021,2019,2002,2014,2017,2015,2003,2001) and c.last_updated>?";
+
+    private final static String FIND_A_COMPETITION_HAS_UPDATE = "select count(1) from public.\"match\" m where m.competition_id=? and m.last_updated>?";
 
     @Autowired
     AreaService areaService;
@@ -122,6 +118,10 @@ public class CompetitionService {
         c.setNumberOfAvailableSeasons(db.getNumberOfAvailableSeasons());
         c.setEmblemUrl(db.getEmblemUrl());
         update(c);
+    }
+
+    public boolean hasUpdated(Long leagueId, Timestamp lastUpdated){
+        return jdbcTemplate.queryForObject(FIND_A_COMPETITION_HAS_UPDATE, new Object[]{leagueId, lastUpdated}, Integer.class) > 0;
     }
 
 }
