@@ -37,31 +37,35 @@ class CompetitionController {
     ObjectMapper objectMapper = new ObjectMapper();
 
     String getCompetitions() {
-        logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
+        try {
+            logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
-        String url = Utils.selectCompetitionApi();
+            String url = Utils.selectCompetitionApi();
 
-        WebClient webClient = WebClient.create();
+            WebClient webClient = WebClient.create();
 
-        Mono<CompetitionsDto> mono = webClient.get()
-                .uri(url)
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .header(X_AUTH_TOKEN, TokenSelector.getToken())
-                .retrieve()
-                .bodyToMono(CompetitionsDto.class);
+            Mono<CompetitionsDto> mono = webClient.get()
+                    .uri(url)
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    .header(X_AUTH_TOKEN, TokenSelector.getToken())
+                    .retrieve()
+                    .bodyToMono(CompetitionsDto.class);
 
-        CompetitionsDto dto = mono.block();
+            CompetitionsDto dto = mono.block();
 
-        for (Competition competition : dto.getCompetitions()) {
-            service.save(competition);
+            for (Competition competition : dto.getCompetitions()) {
+                service.save(competition);
+            }
+
+            logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
+        } catch (Exception e) {
+            logger.info(e.toString());
+            return "Fail";
         }
-
-        logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
-
         return "Completed Successfully";
     }
 
-    @GetMapping(value="/competitions", produces=MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/competitions", produces = MediaType.APPLICATION_JSON_VALUE)
     String getAllCompetitions(@RequestParam Long lastUpdated) throws JsonProcessingException {
         Timestamp callTime = new Timestamp(System.currentTimeMillis());
         List<Competition> competitionList = service.findAll(new Timestamp(lastUpdated));

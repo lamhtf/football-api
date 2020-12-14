@@ -48,22 +48,26 @@ class StandingController {
     ObjectMapper objectMapper = new ObjectMapper();
 
     String initStandingTables(@PathVariable String league) {
-        logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
+        try {
+            logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
-        String url = Utils.selectStandingsApi(league);
+            String url = Utils.selectStandingsApi(league);
 
-        Mono<StandingDto> standingDtoMono = webClient.get()
-                .uri(url)
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .header(X_AUTH_TOKEN, TokenSelector.getToken())
-                .retrieve()
-                .bodyToMono(StandingDto.class);
+            Mono<StandingDto> standingDtoMono = webClient.get()
+                    .uri(url)
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    .header(X_AUTH_TOKEN, TokenSelector.getToken())
+                    .retrieve()
+                    .bodyToMono(StandingDto.class);
 
-        StandingDto standingDto = standingDtoMono.block();
-        service.init(standingDto);
+            StandingDto standingDto = standingDtoMono.block();
+            service.init(standingDto);
 
-        logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
-
+            logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
+        } catch (Exception e) {
+            logger.info(e.toString());
+            return "Fail";
+        }
         return "Completed Successfully";
     }
 
@@ -88,7 +92,7 @@ class StandingController {
         return "Completed Successfully";
     }
 
-    @GetMapping(value="/standings/{league}", produces=MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/standings/{league}", produces = MediaType.APPLICATION_JSON_VALUE)
     String getStandings(@PathVariable String league, @RequestParam Long lastUpdated) throws JsonProcessingException {
         Long leagueId = Utils.selectLeagueId(league);
         if (leagueId == null) return "";

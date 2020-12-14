@@ -48,38 +48,42 @@ class TeamController {
     ObjectMapper objectMapper = new ObjectMapper();
 
     String getTeams(@PathVariable String league) {
-        logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
+        try {
+            logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
-        String url = Utils.selectTeamApi(league);
+            String url = Utils.selectTeamApi(league);
 
-        WebClient webClient = WebClient.create();
-        Mono<LeagueDto> leagueDtoMono = webClient.get()
-                .uri(url)
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .header(X_AUTH_TOKEN, TokenSelector.getToken())
-                .retrieve()
-                .bodyToMono(LeagueDto.class);
+            WebClient webClient = WebClient.create();
+            Mono<LeagueDto> leagueDtoMono = webClient.get()
+                    .uri(url)
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    .header(X_AUTH_TOKEN, TokenSelector.getToken())
+                    .retrieve()
+                    .bodyToMono(LeagueDto.class);
 
-        LeagueDto leagueDto = leagueDtoMono.block();
+            LeagueDto leagueDto = leagueDtoMono.block();
 
-        Long competitionId = leagueDto.getCompetition().getId();
-        CompetitionTeam ct = ctService.newInstance(competitionId, null);
+            Long competitionId = leagueDto.getCompetition().getId();
+            CompetitionTeam ct = ctService.newInstance(competitionId, null);
 
-        ctService.deleteAll(ct);
-        for (Team team : leagueDto.getTeams()) {
-            service.save(team);
-            CompetitionTeam newCT = ctService.newInstance(competitionId, team.getId());
-            ctService.save(newCT);
+            ctService.deleteAll(ct);
+            for (Team team : leagueDto.getTeams()) {
+                service.save(team);
+                CompetitionTeam newCT = ctService.newInstance(competitionId, team.getId());
+                ctService.save(newCT);
+            }
+
+            logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
+        } catch (Exception e) {
+            logger.info(e.toString());
+            return "Fail";
         }
-
-        logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
-
         return "Completed Successfully";
     }
 
 
     //    @GetMapping("/teams/{teamId}")
-    @GetMapping(value="/team/{teamId}", produces=MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/team/{teamId}", produces = MediaType.APPLICATION_JSON_VALUE)
     String getTeamDetail(@PathVariable Long teamId, @RequestParam Long lastUpdated) throws JsonProcessingException {
         Timestamp callTime = new Timestamp(System.currentTimeMillis());
 

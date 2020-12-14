@@ -46,26 +46,30 @@ class MatchController {
     private MatchService service;
 
     String initFixtures(String league) {
-        logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
+        try {
+            logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
-        String url = Utils.selectMatchApi(league);
+            String url = Utils.selectMatchApi(league);
 
-        Mono<MatchesDto> mono = webClient.get()
-                .uri(url)
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .header(X_AUTH_TOKEN, TokenSelector.getToken())
-                .retrieve()
-                .bodyToMono(MatchesDto.class);
+            Mono<MatchesDto> mono = webClient.get()
+                    .uri(url)
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    .header(X_AUTH_TOKEN, TokenSelector.getToken())
+                    .retrieve()
+                    .bodyToMono(MatchesDto.class);
 
-        MatchesDto dto = mono.block();
+            MatchesDto dto = mono.block();
 
-        for (MatchDto matchDto : dto.getMatches()) {
-            matchDto.setCompetition(dto.getCompetition());
-            service.save(matchDto);
+            for (MatchDto matchDto : dto.getMatches()) {
+                matchDto.setCompetition(dto.getCompetition());
+                service.save(matchDto);
+            }
+
+            logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
+        } catch (Exception e) {
+            logger.info(e.toString());
+            return "Fail";
         }
-
-        logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
-
         return "Completed Successfully";
     }
 
@@ -94,7 +98,7 @@ class MatchController {
         return "Completed Successfully";
     }
 
-    @GetMapping(value="/matches/{league}", produces=MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/matches/{league}", produces = MediaType.APPLICATION_JSON_VALUE)
     String getMatches(@PathVariable String league, @RequestParam Long lastUpdated) throws JsonProcessingException {
         Long leagueId = Utils.selectLeagueId(league);
         if (leagueId == null) return "";
@@ -108,7 +112,7 @@ class MatchController {
         return result;
     }
 
-    @GetMapping(value="/matches/last/{league}", produces=MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/matches/last/{league}", produces = MediaType.APPLICATION_JSON_VALUE)
     String getLastMatches(@PathVariable String league, @RequestParam Long lastUpdated) throws JsonProcessingException {
         Long leagueId = Utils.selectLeagueId(league);
         if (leagueId == null) return "";
@@ -123,7 +127,7 @@ class MatchController {
         return result;
     }
 
-    @GetMapping(value="/matches/next/{league}", produces=MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/matches/next/{league}", produces = MediaType.APPLICATION_JSON_VALUE)
     String getNextMatches(@PathVariable String league, @RequestParam Long lastUpdated) throws JsonProcessingException {
         Long leagueId = Utils.selectLeagueId(league);
         if (leagueId == null) return "";

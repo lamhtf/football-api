@@ -36,31 +36,35 @@ class SquadController {
     @Autowired
     private PlayerService service;
 
-//    @GetMapping("/squad/{teamId}")
+    //    @GetMapping("/squad/{teamId}")
     String getPlayers(@PathVariable Long teamId) {
-        logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
+        try {
+            logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
-        String url = Utils.selectSquadApi(teamId);
+            String url = Utils.selectSquadApi(teamId);
 
-        if (StringUtils.isEmpty(url)) return "";
+            if (StringUtils.isEmpty(url)) return "";
 
-        WebClient webClient = WebClient.create();
-        Mono<TeamDto> teamDtoMono = webClient.get()
-                .uri(url)
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .header(X_AUTH_TOKEN, TokenSelector.getToken())
-                .retrieve()
-                .bodyToMono(TeamDto.class);
+            WebClient webClient = WebClient.create();
+            Mono<TeamDto> teamDtoMono = webClient.get()
+                    .uri(url)
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    .header(X_AUTH_TOKEN, TokenSelector.getToken())
+                    .retrieve()
+                    .bodyToMono(TeamDto.class);
 
-        TeamDto teamDto = teamDtoMono.block();
+            TeamDto teamDto = teamDtoMono.block();
 
-        service.deleteAll(teamId);
-        for (PersonDto p : teamDto.getSquad()) {
-            service.save(teamId, p);
+            service.deleteAll(teamId);
+            for (PersonDto p : teamDto.getSquad()) {
+                service.save(teamId, p);
+            }
+
+            logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
+        } catch (Exception e) {
+            logger.info(e.toString());
+            return "Fail";
         }
-
-        logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
-
         return "Completed Successfully";
     }
 

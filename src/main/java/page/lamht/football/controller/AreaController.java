@@ -28,33 +28,37 @@ class AreaController {
     @Autowired
     private AreaRepository areaRepository;
 
-//    @GetMapping("/areas")
+    //    @GetMapping("/areas")
     String getAreas() {
-        logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
+        try {
+            logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
-        String url = Utils.selectAreaApi();
+            String url = Utils.selectAreaApi();
 
-        WebClient webClient = WebClient.create();
-        Mono<AreasDto> areasDtoMono = webClient.get()
-                .uri(url)
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .header(X_AUTH_TOKEN, TokenSelector.getToken())
-                .retrieve()
-                .bodyToMono(AreasDto.class);
+            WebClient webClient = WebClient.create();
+            Mono<AreasDto> areasDtoMono = webClient.get()
+                    .uri(url)
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    .header(X_AUTH_TOKEN, TokenSelector.getToken())
+                    .retrieve()
+                    .bodyToMono(AreasDto.class);
 
-        AreasDto areasDto = areasDtoMono.block();
-        for (Area area : areasDto.getAreas()) {
-            areaRepository.findById(area.getId()).ifPresentOrElse(
-                    a -> areaRepository.save(area),
-                    () -> {
-                        area.setNew(true);
-                        areaRepository.save(area);
-                    }
-            );
+            AreasDto areasDto = areasDtoMono.block();
+            for (Area area : areasDto.getAreas()) {
+                areaRepository.findById(area.getId()).ifPresentOrElse(
+                        a -> areaRepository.save(area),
+                        () -> {
+                            area.setNew(true);
+                            areaRepository.save(area);
+                        }
+                );
+            }
+
+            logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
+        } catch (Exception e) {
+            logger.info(e.toString());
+            return "Fail";
         }
-
-        logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
-
         return "Completed Successfully";
     }
 
