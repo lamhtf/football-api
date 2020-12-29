@@ -7,10 +7,10 @@ import java.util.List;
 
 @Data
 public class CompetitionResponse {
-    public CompetitionResponse(List<CompetitionMo> completitions, Timestamp lastUpdated){
-        this.setCompletitions(completitions);
+    public CompetitionResponse(List<CompetitionMo> competitions, Timestamp lastUpdated){
+        this.setCompetitions(competitions);
         this.setLastUpdated(lastUpdated);
     }
-    List<CompetitionMo> completitions;
+    List<CompetitionMo> competitions;
     Timestamp lastUpdated;
 }
