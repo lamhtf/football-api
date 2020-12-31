@@ -76,6 +76,16 @@ public class MatchService {
         return jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
     }
 
+    public Integer countTotalWeeksByCompetitionId(Long competitionId){
+        String sql = "select max(matchday) from public.\"match\" where competition_id = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{competitionId}, Integer.class);
+    }
+
+    public Integer getCurrentMatchdayByCompetitionId(Long competitionId){
+        String sql = "select current_matchday from public.season s, public.competition c where c.current_season_id = s.id and c.id = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{competitionId}, Integer.class);
+    }
+
     public Match save(MatchDto dto) {
 
 //        Competition c = dto.getCompetition();

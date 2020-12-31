@@ -105,8 +105,10 @@ class MatchController {
         Timestamp callTime = new Timestamp(System.currentTimeMillis());
         List<Match> matchList = service.findByCompetitionId(leagueId, new Timestamp(lastUpdated));
         List<MatchMo> matchMos = MatchMapper.INSTANCE.matchsToMatchMos(matchList);
+        Integer total = service.countTotalWeeksByCompetitionId(leagueId);
+        Integer current = service.getCurrentMatchdayByCompetitionId(leagueId);
 
-        MatchResponse response = new MatchResponse(matchMos, callTime);
+        MatchResponse response = new MatchResponse(matchMos, total, current, callTime);
 
         String result = objectMapper.writeValueAsString(response);
         return result;

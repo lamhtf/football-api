@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'page.lamht'
-version = '2020.12.29-SNAPSHOT'
+version = '2020.12.31-SNAPSHOT'
 sourceCompatibility = '14'
 
 configurations {
