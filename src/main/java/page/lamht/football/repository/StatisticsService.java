@@ -26,8 +26,8 @@ public class StatisticsService {
     private final static String FIND_SCORER = "SELECT * FROM scorer s WHERE s.competition_id=? and s.season_id=? and s.id=? and s.team_id=?";
     private final static String COUNT_SCORER = "SELECT count(*) FROM scorer s WHERE s.competition_id=? and s.season_id=? and s.id=? and s.team_id=?";
 
-    private final static String FIND_SCORER_BY_COMPETITION_ID = "SELECT * FROM scorer s WHERE s.competition_id=? limit ?";
-    private final static String FIND_SCORER_BY_COMPETITION_AND_TEAM_ID = "SELECT * FROM scorer s WHERE s.competition_id=? and s.team_id=?";
+    private final static String FIND_SCORER_BY_COMPETITION_ID = "SELECT * FROM scorer s WHERE s.competition_id=? order by number_of_goals desc limit ?";
+    private final static String FIND_SCORER_BY_COMPETITION_AND_TEAM_ID = "SELECT * FROM scorer s WHERE s.competition_id=? and s.team_id=? order by number_of_goals desc";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
