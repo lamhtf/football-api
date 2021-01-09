@@ -124,7 +124,7 @@ class StatisticController {
             scorers = service.findScorerByLeagueId(leagueId, leagueLimit);
             for (Scorer s : scorers) {
                 Team t = teamService.findById(s.getTeamId());
-                Player p = playerService.findPlayerById(s.getId());
+                Player p = playerService.findPlayerByTeamAndPlayerId(s.getTeamId(), s.getId());
                 s.setTeam(t);
                 s.setPlayer(p);
             }
@@ -148,7 +148,7 @@ class StatisticController {
             scorers = service.findScorerByLeagueAndTeamId(leagueId, teamId);
             Team t = teamService.findById(teamId);
             for (Scorer s : scorers) {
-                Player p = playerService.findPlayerById(s.getId());
+                Player p = playerService.findPlayerByTeamAndPlayerId(teamId, s.getId());
                 s.setTeam(t);
                 s.setPlayer(p);
             }

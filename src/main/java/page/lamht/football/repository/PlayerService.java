@@ -24,7 +24,7 @@ public class PlayerService {
     private final static String DELETE_COACH_QUERY = "DELETE FROM public.coach c WHERE c.team_id=?";
     private final static String FIND_COACH_BY_TEAM_ID = "select * from coach c where c.team_id = ? order by date_of_birth";
     private final static String FIND_BY_TEAM_ID = "select * from player p where team_id=? order by position='Attacker',position='Midfielder',position='Defender',position='Goalkeeper',date_of_birth";
-    private final static String FIND_PLAYER = "select * from player p where p.id=? ";
+    private final static String FIND_PLAYER = "select * from player p where p.team_id =? and p.id=?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -37,9 +37,9 @@ public class PlayerService {
         return jdbcTemplate.query(FIND_BY_TEAM_ID, new Object[]{teamId}, new BeanPropertyRowMapper<Player>(Player.class));
     }
 
-    public Player findPlayerById(Long playerId){
+    public Player findPlayerByTeamAndPlayerId(Long teamId, Long playerId){
         try {
-            return jdbcTemplate.queryForObject(FIND_PLAYER, new Object[]{playerId}, new BeanPropertyRowMapper<Player>(Player.class));
+            return jdbcTemplate.queryForObject(FIND_PLAYER, new Object[]{teamId, playerId}, new BeanPropertyRowMapper<Player>(Player.class));
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e);
             return null;
