@@ -77,7 +77,7 @@ class MatchController {
         logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
         String url = Utils.selectMatchApi(league);
-        url = url + "?dateFrom=" + Utils.getYesterday() + "&dateTo=" + Utils.getToday();
+        url = url + "?dateFrom=" + Utils.getLast3days() + "&dateTo=" + Utils.getToday();
 
         Mono<MatchesDto> mono = webClient.get()
                 .uri(url)

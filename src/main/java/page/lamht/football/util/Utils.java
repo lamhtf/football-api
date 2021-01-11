@@ -113,9 +113,9 @@ public final class Utils {
         return leagueId;
     }
 
-    public static String getYesterday(){
+    public static String getLast3days(){
         Instant now = Instant.now();
-        Instant yesterday = now.minus(1, ChronoUnit.DAYS);
+        Instant yesterday = now.minus(3, ChronoUnit.DAYS);
         return yesterday.toString().substring(0,10);
     }
 

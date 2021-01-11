@@ -74,13 +74,21 @@ public class BatchScheduler {
             return;
         }
         logger.info("runFixtures :: start");
+        logger.info("runFixtures :: ENGLISH_PREMIER_LEAGUE");
         matchController.getFixtures(Constants.ENGLISH_PREMIER_LEAGUE);
+        logger.info("runFixtures :: ITALIAN_SERIE_A");
         matchController.getFixtures(Constants.ITALIAN_SERIE_A);
+        logger.info("runFixtures :: GERMAN_BUNDESLIGA");
         matchController.getFixtures(Constants.GERMAN_BUNDESLIGA);
+        logger.info("runFixtures :: SPAINISH_LA_LIGA");
         matchController.getFixtures(Constants.SPAINISH_LA_LIGA);
+        logger.info("runFixtures :: PORTUGUESE_PRIMEIRA_LIGA");
         matchController.getFixtures(Constants.PORTUGUESE_PRIMEIRA_LIGA);
+        logger.info("runFixtures :: FRENCH_LIGUE_1");
         matchController.getFixtures(Constants.FRENCH_LIGUE_1);
+        logger.info("runFixtures :: DUTCH_EREDIVISIE");
         matchController.getFixtures(Constants.DUTCH_EREDIVISIE);
+        logger.info("runFixtures :: UEFA_CHAMPION_LEAGUE");
         matchController.getFixtures(Constants.UEFA_CHAMPION_LEAGUE);
     }
 
@@ -91,13 +99,21 @@ public class BatchScheduler {
             return;
         }
         logger.info("runStandings :: start");
+        logger.info("runStandings :: ENGLISH_PREMIER_LEAGUE");
         standingController.getStandingTables(Constants.ENGLISH_PREMIER_LEAGUE);
+        logger.info("runStandings :: ITALIAN_SERIE_A");
         standingController.getStandingTables(Constants.ITALIAN_SERIE_A);
+        logger.info("runStandings :: GERMAN_BUNDESLIGA");
         standingController.getStandingTables(Constants.GERMAN_BUNDESLIGA);
+        logger.info("runStandings :: SPAINISH_LA_LIGA");
         standingController.getStandingTables(Constants.SPAINISH_LA_LIGA);
+        logger.info("runStandings :: PORTUGUESE_PRIMEIRA_LIGA");
         standingController.getStandingTables(Constants.PORTUGUESE_PRIMEIRA_LIGA);
+        logger.info("runStandings :: FRENCH_LIGUE_1");
         standingController.getStandingTables(Constants.FRENCH_LIGUE_1);
+        logger.info("runStandings :: DUTCH_EREDIVISIE");
         standingController.getStandingTables(Constants.DUTCH_EREDIVISIE);
+        logger.info("runStandings :: UEFA_CHAMPION_LEAGUE");
         standingController.getStandingTables(Constants.UEFA_CHAMPION_LEAGUE);
     }
 

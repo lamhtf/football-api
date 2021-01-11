@@ -40,7 +40,7 @@ public class MatchService {
 
         List<Match> matches = new ArrayList<>();
         List<Team> teams = teamService.findByCompetitionId(competitionId);
-        for (Team t: teams){
+        for (Team t : teams) {
             List<Match> ms = jdbcTemplate.query(LIST_LAST_MATCHES, new Object[]{competitionId, t.getId(), t.getId(), limit}, new BeanPropertyRowMapper<Match>(Match.class));
             matches.addAll(ms);
         }
@@ -50,11 +50,29 @@ public class MatchService {
     public List<Match> findNextMatches(Long competitionId, Integer limit) {
         List<Match> matches = new ArrayList<>();
         List<Team> teams = teamService.findByCompetitionId(competitionId);
-        for (Team t: teams){
+        for (Team t : teams) {
             List<Match> ms = jdbcTemplate.query(LIST_NEXT_MATCHES, new Object[]{competitionId, t.getId(), t.getId(), limit}, new BeanPropertyRowMapper<Match>(Match.class));
             matches.addAll(ms);
         }
         return matches;
+    }
+
+    public Match findNextMatchByCompetitionIdAndTeamId(Long competitionId, Long teamId) {
+        try {
+            return jdbcTemplate.queryForObject(LIST_NEXT_MATCHES, new Object[]{competitionId, teamId, teamId, 1}, new BeanPropertyRowMapper<Match>(Match.class));
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public Match findLastMatchByCompetitionIdAndTeamId(Long competitionId, Long teamId) {
+        try {
+            return jdbcTemplate.queryForObject(LIST_LAST_MATCHES, new Object[]{competitionId, teamId, teamId, 1}, new BeanPropertyRowMapper<Match>(Match.class));
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println(e);
+            return null;
+        }
     }
 
     public Match findById(Long id) {
@@ -76,12 +94,12 @@ public class MatchService {
         return jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
     }
 
-    public Integer countTotalWeeksByCompetitionId(Long competitionId){
+    public Integer countTotalWeeksByCompetitionId(Long competitionId) {
         String sql = "select max(matchday) from public.\"match\" where competition_id = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{competitionId}, Integer.class);
     }
 
-    public Integer getCurrentMatchdayByCompetitionId(Long competitionId){
+    public Integer getCurrentMatchdayByCompetitionId(Long competitionId) {
         String sql = "select current_matchday from public.season s, public.competition c where c.current_season_id = s.id and c.id = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{competitionId}, Integer.class);
     }

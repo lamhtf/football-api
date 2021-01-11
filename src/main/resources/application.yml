@@ -6,7 +6,7 @@ spring:
 server:
   port: 8080
 init: false
-scheduler: false
+scheduler: true
 limit: 1000
 leagueLimit: 20
 schedule:
