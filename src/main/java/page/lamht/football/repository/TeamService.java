@@ -1,8 +1,8 @@
 package page.lamht.football.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -14,6 +14,8 @@ import java.util.List;
 @Service
 @Transactional
 public class TeamService {
+
+    private final static Logger logger = LoggerFactory.getLogger(TeamService.class);
 
     private final static String INSERT_QUERY = "INSERT INTO public.team VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private final static String UPDATE_QUERY = "UPDATE public.team SET area_id=?, \"name\"=?, short_name=?, tla=?, crest_url=?, address=?, phone=?, website=?, email=?, founded=?, club_colors=?, venue=?, last_updated=?, created=? WHERE id=?";
@@ -47,8 +49,8 @@ public class TeamService {
         String sql = "SELECT * FROM team t WHERE t.id = ?";
         try {
             return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<Team>(Team.class));
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            logger.error(e.toString());
             return null;
         }
     }
@@ -62,8 +64,8 @@ public class TeamService {
         String sql = "SELECT * FROM competition_team ct INNER JOIN team t on ct.team_id = t.id WHERE ct.competition_id=?";
         try {
             return jdbcTemplate.query(sql, new Object[]{competitionId}, new BeanPropertyRowMapper<Team>(Team.class));
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            logger.error(e.toString());
             return null;
         }
     }

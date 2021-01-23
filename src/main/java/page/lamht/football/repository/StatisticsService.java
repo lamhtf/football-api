@@ -3,7 +3,6 @@ package page.lamht.football.repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -33,18 +32,28 @@ public class StatisticsService {
     private JdbcTemplate jdbcTemplate;
 
     public List<Scorer> findScorerByLeagueId(Long competitionId, Integer leagueLimit) {
-        return jdbcTemplate.query(FIND_SCORER_BY_COMPETITION_ID, new Object[]{competitionId, leagueLimit}, new BeanPropertyRowMapper<Scorer>(Scorer.class));
+        try {
+            return jdbcTemplate.query(FIND_SCORER_BY_COMPETITION_ID, new Object[]{competitionId, leagueLimit}, new BeanPropertyRowMapper<Scorer>(Scorer.class));
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return null;
+        }
     }
 
     public List<Scorer> findScorerByLeagueAndTeamId(Long competitionId, Long teamId) {
-        return jdbcTemplate.query(FIND_SCORER_BY_COMPETITION_AND_TEAM_ID, new Object[]{competitionId, teamId}, new BeanPropertyRowMapper<Scorer>(Scorer.class));
+        try {
+            return jdbcTemplate.query(FIND_SCORER_BY_COMPETITION_AND_TEAM_ID, new Object[]{competitionId, teamId}, new BeanPropertyRowMapper<Scorer>(Scorer.class));
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return null;
+        }
     }
 
     public Scorer findScorerByIds(Long competitionId, Long seasonId, Long playerId, Long teamId) {
         try {
             return jdbcTemplate.queryForObject(FIND_SCORER, new Object[]{competitionId, seasonId, playerId, teamId}, new BeanPropertyRowMapper<Scorer>(Scorer.class));
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            logger.error(e.toString());
             return null;
         }
     }

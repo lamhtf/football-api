@@ -1,7 +1,8 @@
 package page.lamht.football.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,8 @@ import java.util.List;
 @Transactional
 public class CompetitionTeamService {
 
+    private final static Logger logger = LoggerFactory.getLogger(CompetitionTeamService.class);
+
     private final static String INSERT_QUERY = "INSERT INTO public.competition_team (competition_id, team_id, created) VALUES (?,?,?)";
     private final static String DELETE_QUERY = "DELETE FROM public.competition_team WHERE competition_id=?";
     private final static String LIST_FAVOURITES = "select c.id as competition_id, c.code, c.name as competition_name, t.id as team_id, t.short_name, crest_url, club_colors from public.competition c, public.competition_team ct, team t where c.id = ct.competition_id and ct.team_id = t.id and c.id in (2021, 2019, 2002, 2014, 2017, 2015, 2003) order by code, short_name";
@@ -26,12 +29,22 @@ public class CompetitionTeamService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public List<CompetitionTeam> findAllByTeamId(Long teamId){
-        return jdbcTemplate.query(LIST_COMPETITIONS_BY_TEAM_ID, new Object[]{teamId}, new BeanPropertyRowMapper<CompetitionTeam>(CompetitionTeam.class));
+    public List<CompetitionTeam> findAllByTeamId(Long teamId) {
+        try {
+            return jdbcTemplate.query(LIST_COMPETITIONS_BY_TEAM_ID, new Object[]{teamId}, new BeanPropertyRowMapper<CompetitionTeam>(CompetitionTeam.class));
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return null;
+        }
     }
 
-    public List<FavouriteTeamMo> findFavourites(){
-        return jdbcTemplate.query(LIST_FAVOURITES, new BeanPropertyRowMapper<FavouriteTeamMo>(FavouriteTeamMo.class));
+    public List<FavouriteTeamMo> findFavourites() {
+        try {
+            return jdbcTemplate.query(LIST_FAVOURITES, new BeanPropertyRowMapper<FavouriteTeamMo>(FavouriteTeamMo.class));
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return null;
+        }
     }
 
     public List<CompetitionTeam> findByCompetitionId(Long competitionId) {
@@ -39,8 +52,8 @@ public class CompetitionTeamService {
         try {
 //            List<Team> teams = jdbcTemplate.query(sql, new Object[]{competitionId}, new BeanPropertyRowMapper<Team>(Team.class));
             return jdbcTemplate.query(LIST_BY_COMPETITION_ID, new Object[]{competitionId}, new BeanPropertyRowMapper<CompetitionTeam>(CompetitionTeam.class));
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            logger.error(e.toString());
             return null;
         }
     }
@@ -49,8 +62,8 @@ public class CompetitionTeamService {
 
         try {
             return jdbcTemplate.queryForObject(LIST_BY_BOTH_ID, new Object[]{competitionId, teamId}, new BeanPropertyRowMapper<CompetitionTeam>(CompetitionTeam.class));
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            logger.error(e.toString());
             return null;
         }
     }
@@ -85,7 +98,7 @@ public class CompetitionTeamService {
             );
     }
 
-    public CompetitionTeam newInstance(Long competitionId, Long teamId){
+    public CompetitionTeam newInstance(Long competitionId, Long teamId) {
         CompetitionTeam ct = new CompetitionTeam();
         ct.setCompetitionId(competitionId);
         ct.setTeamId(teamId);

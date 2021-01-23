@@ -1,7 +1,8 @@
 package page.lamht.football.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,8 @@ import page.lamht.football.entity.Team;
 @Transactional
 public class SeasonService {
 
+    private final static Logger logger = LoggerFactory.getLogger(SeasonService.class);
+
     private final static String INSERT_QUERY = "INSERT INTO public.season VALUES (?, ?, ?, ?, ?, ?)";
     private final static String UPDATE_QUERY = "UPDATE public.season SET start_date=?, end_date=?, current_matchday=?, winner_name=?, created=? WHERE id=?";
 
@@ -23,8 +26,8 @@ public class SeasonService {
         String sql = "SELECT * FROM season s WHERE s.id = ?";
         try {
             return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<Season>(Season.class));
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            logger.error(e.toString());
             return null;
         }
     }

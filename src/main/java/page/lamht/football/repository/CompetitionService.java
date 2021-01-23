@@ -1,7 +1,8 @@
 package page.lamht.football.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,8 @@ import java.util.List;
 @Service
 @Transactional
 public class CompetitionService {
+
+    private final static Logger logger = LoggerFactory.getLogger(CompetitionService.class);
 
     private final static String INSERT_QUERY = "INSERT INTO public.competition VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
     private final static String UPDATE_QUERY = "UPDATE public.competition SET area_id=?, \"name\"=?, code=?, emblem_url=?, plan=?, current_season_id=?, number_of_available_seasons=?, last_updated=?, created=? where id=? ";
@@ -38,34 +41,44 @@ public class CompetitionService {
     private JdbcTemplate jdbcTemplate;
 
     public List<Competition> findAll(Timestamp lastUpdated) {
-        List<Competition> competitionList = jdbcTemplate.query(FIND_ALL, new Object[]{lastUpdated}, new BeanPropertyRowMapper<Competition>(Competition.class));
-        for (Competition c: competitionList){
-            Season s = seasonService.findById(c.getCurrentSeasonId());
-            Area a = areaService.findById(c.getAreaId());
-            c.setCurrentSeason(s);
-            c.setArea(a);
+        try {
+            List<Competition> competitionList = jdbcTemplate.query(FIND_ALL, new Object[]{lastUpdated}, new BeanPropertyRowMapper<Competition>(Competition.class));
+            for (Competition c : competitionList) {
+                Season s = seasonService.findById(c.getCurrentSeasonId());
+                Area a = areaService.findById(c.getAreaId());
+                c.setCurrentSeason(s);
+                c.setArea(a);
+            }
+            return competitionList;
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return null;
         }
-        return competitionList;
     }
 
-    public List<Competition> findAllByTeamId(Long teamId){
-        List<Competition> cs = new ArrayList<>();
-        List<CompetitionTeam> cts = competitionTeamService.findAllByTeamId(teamId);
-        for (CompetitionTeam ct: cts){
-            Competition c = findById(ct.getCompetitionId());
-            Area a = areaService.findById(c.getAreaId());
-            c.setArea(a);
-            cs.add(c);
+    public List<Competition> findAllByTeamId(Long teamId) {
+        try {
+            List<Competition> cs = new ArrayList<>();
+            List<CompetitionTeam> cts = competitionTeamService.findAllByTeamId(teamId);
+            for (CompetitionTeam ct : cts) {
+                Competition c = findById(ct.getCompetitionId());
+                Area a = areaService.findById(c.getAreaId());
+                c.setArea(a);
+                cs.add(c);
+            }
+            return cs;
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return null;
         }
-        return cs;
     }
 
     public Competition findById(Long id) {
         String sql = "SELECT * FROM competition c WHERE c.id = ?";
         try {
             return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<Competition>(Competition.class));
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            logger.error(e.toString());
             return null;
         }
     }
@@ -84,7 +97,7 @@ public class CompetitionService {
         }
 
         Season s = competition.getCurrentSeason();
-        if (s != null){
+        if (s != null) {
             seasonService.save(s);
             competition.setCurrentSeasonId(s.getId());
         }
@@ -112,7 +125,7 @@ public class CompetitionService {
         );
     }
 
-    public void directUpdate(Competition c, Competition db){
+    public void directUpdate(Competition c, Competition db) {
         c.setAreaId(db.getAreaId());
         c.setCurrentSeasonId(db.getCurrentSeasonId());
         c.setNumberOfAvailableSeasons(db.getNumberOfAvailableSeasons());
@@ -120,8 +133,13 @@ public class CompetitionService {
         update(c);
     }
 
-    public boolean hasUpdated(Long leagueId, Timestamp lastUpdated){
-        return jdbcTemplate.queryForObject(FIND_A_COMPETITION_HAS_UPDATE, new Object[]{leagueId, lastUpdated}, Integer.class) > 0;
+    public boolean hasUpdated(Long leagueId, Timestamp lastUpdated) {
+        try {
+            return jdbcTemplate.queryForObject(FIND_A_COMPETITION_HAS_UPDATE, new Object[]{leagueId, lastUpdated}, Integer.class) > 0;
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return false;
+        }
     }
 
 }

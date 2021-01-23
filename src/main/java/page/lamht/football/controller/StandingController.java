@@ -72,23 +72,27 @@ class StandingController {
     }
 
     String getStandingTables(@PathVariable String league) {
-        logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
+        try {
+            logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
-        String url = Utils.selectStandingsApi(league);
+            String url = Utils.selectStandingsApi(league);
 
-        Mono<StandingDto> standingDtoMono = webClient.get()
-                .uri(url)
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .header(X_AUTH_TOKEN, TokenSelector.getToken())
-                .retrieve()
-                .bodyToMono(StandingDto.class);
 
-        StandingDto standingDto = standingDtoMono.block();
-        service.save(standingDto);
-//        List<StandingsDto> dto = standingDto.getStandings();
+            Mono<StandingDto> standingDtoMono = webClient.get()
+                    .uri(url)
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    .header(X_AUTH_TOKEN, TokenSelector.getToken())
+                    .retrieve()
+                    .bodyToMono(StandingDto.class);
 
-        logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
+            StandingDto standingDto = standingDtoMono.block();
+            service.save(standingDto);
 
+            logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
+        } catch (Exception e) {
+            logger.info(e.toString());
+            return "Fail";
+        }
         return "Completed Successfully";
     }
 

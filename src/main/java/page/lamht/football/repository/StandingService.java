@@ -1,14 +1,14 @@
 package page.lamht.football.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import page.lamht.football.dto.StandingDto;
 import page.lamht.football.dto.StandingsDto;
-import page.lamht.football.entity.Area;
 import page.lamht.football.entity.Competition;
 import page.lamht.football.entity.Standing;
 import page.lamht.football.entity.Standings;
@@ -19,6 +19,8 @@ import java.util.List;
 @Service
 @Transactional
 public class StandingService {
+
+    private final static Logger logger = LoggerFactory.getLogger(StandingService.class);
 
     private final static String INSERT_QUERY = "INSERT INTO public.standings (competition_id, stage, \"type\", \"group\")VALUES(?,?,?,?)";
     private final static String INSERT_SS_QUERY = "INSERT INTO public.standing VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -45,8 +47,8 @@ public class StandingService {
         }
         try {
             return standings;
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            logger.error(e.toString());
             return null;
         }
     }
@@ -59,8 +61,8 @@ public class StandingService {
                 return jdbcTemplate.queryForObject(sql, new Object[]{competitionId, stage, type, group}, new BeanPropertyRowMapper<Standings>(Standings.class));
             }
             return jdbcTemplate.queryForObject(sql, new Object[]{competitionId, stage, type}, new BeanPropertyRowMapper<Standings>(Standings.class));
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            logger.error(e.toString());
             return null;
         }
     }
@@ -129,8 +131,8 @@ public class StandingService {
     public Standing findStandingByLeagueIdAndTeamId(Long leagueId, Long teamId) {
         try {
             return jdbcTemplate.queryForObject(GET_POSITION_BY_LEAGUE_ID_TEAM_ID, new Object[]{leagueId, teamId}, new BeanPropertyRowMapper<Standing>(Standing.class));
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            logger.error(e.toString());
             return null;
         }
     }

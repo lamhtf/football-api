@@ -1,7 +1,8 @@
 package page.lamht.football.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,8 @@ import java.util.List;
 @Service
 @Transactional
 public class MatchService {
+
+    private final static Logger logger = LoggerFactory.getLogger(MatchService.class);
 
     private final static String INSERT_QUERY = "INSERT INTO public.match VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final static String UPDATE_QUERY = "UPDATE public.\"match\" SET utc_date=?, status=?, venue=?, matchday=?, stage=?, \"group\"=?, last_updated=?, number_of_matches=?, total_goals=?, home_team_id=?, home_team_name=?, home_team_wins=?, home_team_draws=?, home_team_losses=?, away_team_id=?, away_team_name=?, away_team_wins=?, away_team_draws=?, away_team_losses=?, winner=?, duration=?, full_time_home_team=?, full_time_away_team=?, half_time_home_team=?, half_time_away_team=?, extra_time_home_team=?, extra_time_away_team=?, penalties_home_team=?, penalties_away_team=?, referee_id=?, referee_name=?, competition_id=?, season_id=?, created=? WHERE id=? and last_updated<?";
@@ -60,8 +63,8 @@ public class MatchService {
     public Match findNextMatchByCompetitionIdAndTeamId(Long competitionId, Long teamId) {
         try {
             return jdbcTemplate.queryForObject(LIST_NEXT_MATCHES, new Object[]{competitionId, teamId, teamId, 1}, new BeanPropertyRowMapper<Match>(Match.class));
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            logger.error(e.toString());
             return null;
         }
     }
@@ -69,8 +72,8 @@ public class MatchService {
     public Match findLastMatchByCompetitionIdAndTeamId(Long competitionId, Long teamId) {
         try {
             return jdbcTemplate.queryForObject(LIST_LAST_MATCHES, new Object[]{competitionId, teamId, teamId, 1}, new BeanPropertyRowMapper<Match>(Match.class));
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            logger.error(e.toString());
             return null;
         }
     }
@@ -79,14 +82,19 @@ public class MatchService {
         String sql = "SELECT * FROM match m WHERE m.id = ?";
         try {
             return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<Match>(Match.class));
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            logger.error(e.toString());
             return null;
         }
     }
 
     public List<Match> findByCompetitionId(Long competitionId, Timestamp lastUpdated) {
-        return jdbcTemplate.query(LIST_MATCHES, new Object[]{competitionId, lastUpdated}, new BeanPropertyRowMapper<Match>(Match.class));
+        try {
+            return jdbcTemplate.query(LIST_MATCHES, new Object[]{competitionId, lastUpdated}, new BeanPropertyRowMapper<Match>(Match.class));
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return null;
+        }
     }
 
     public Integer countById(Long id) {
@@ -95,13 +103,23 @@ public class MatchService {
     }
 
     public Integer countTotalWeeksByCompetitionId(Long competitionId) {
-        String sql = "select max(matchday) from public.\"match\" where competition_id = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{competitionId}, Integer.class);
+        try {
+            String sql = "select max(matchday) from public.\"match\" where competition_id = ?";
+            return jdbcTemplate.queryForObject(sql, new Object[]{competitionId}, Integer.class);
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return null;
+        }
     }
 
     public Integer getCurrentMatchdayByCompetitionId(Long competitionId) {
-        String sql = "select current_matchday from public.season s, public.competition c where c.current_season_id = s.id and c.id = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{competitionId}, Integer.class);
+        try {
+            String sql = "select current_matchday from public.season s, public.competition c where c.current_season_id = s.id and c.id = ?";
+            return jdbcTemplate.queryForObject(sql, new Object[]{competitionId}, Integer.class);
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return null;
+        }
     }
 
     public Match save(MatchDto dto) {

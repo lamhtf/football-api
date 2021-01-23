@@ -1,18 +1,19 @@
 package page.lamht.football.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import page.lamht.football.entity.Area;
-import page.lamht.football.entity.Season;
 
 @Service
 @Transactional
 public class AreaService {
+
+    private final static Logger logger = LoggerFactory.getLogger(AreaService.class);
 
     private final static String INSERT_QUERY = "INSERT INTO public.area VALUES (?, ?, ?, ?, ?, ?, ?)";
     private final static String UPDATE_QUERY = "UPDATE public.area SET \"name\"=?, country_code=?, ensign_url=?, parent_area_id=?, parent_area=?, created=? WHERE id=?";
@@ -24,8 +25,8 @@ public class AreaService {
         String sql = "SELECT * FROM area a WHERE a.id = ?";
         try {
             return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<Area>(Area.class));
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            logger.error(e.toString());
             return null;
         }
     }

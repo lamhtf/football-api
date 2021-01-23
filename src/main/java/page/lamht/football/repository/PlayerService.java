@@ -1,14 +1,14 @@
 package page.lamht.football.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import page.lamht.football.dto.PersonDto;
 import page.lamht.football.entity.Coach;
-import page.lamht.football.entity.Competition;
 import page.lamht.football.entity.Player;
 
 import java.sql.Timestamp;
@@ -17,6 +17,8 @@ import java.util.List;
 @Service
 @Transactional
 public class PlayerService {
+
+    private final static Logger logger = LoggerFactory.getLogger(PlayerService.class);
 
     private final static String INSERT_PLAYER_QUERY = "INSERT INTO public.player (id, \"name\", first_name, last_name, date_of_birth, country_of_birth, nationality, \"position\", shirt_number, team_id, last_updated, created)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private final static String INSERT_COACH_QUERY = "INSERT INTO public.coach (id, \"name\", first_name, last_name, date_of_birth, country_of_birth, nationality, \"position\", shirt_number, team_id, last_updated, created)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -30,18 +32,28 @@ public class PlayerService {
     private JdbcTemplate jdbcTemplate;
 
     public List<Coach> findCoachesByTeamId(Long teamId) {
-        return jdbcTemplate.query(FIND_COACH_BY_TEAM_ID, new Object[]{teamId}, new BeanPropertyRowMapper<Coach>(Coach.class));
+        try {
+            return jdbcTemplate.query(FIND_COACH_BY_TEAM_ID, new Object[]{teamId}, new BeanPropertyRowMapper<Coach>(Coach.class));
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return null;
+        }
     }
 
     public List<Player> findPlayersByTeamId(Long teamId) {
-        return jdbcTemplate.query(FIND_BY_TEAM_ID, new Object[]{teamId}, new BeanPropertyRowMapper<Player>(Player.class));
+        try {
+            return jdbcTemplate.query(FIND_BY_TEAM_ID, new Object[]{teamId}, new BeanPropertyRowMapper<Player>(Player.class));
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return null;
+        }
     }
 
-    public Player findPlayerByTeamAndPlayerId(Long teamId, Long playerId){
+    public Player findPlayerByTeamAndPlayerId(Long teamId, Long playerId) {
         try {
             return jdbcTemplate.queryForObject(FIND_PLAYER, new Object[]{teamId, playerId}, new BeanPropertyRowMapper<Player>(Player.class));
-        } catch (EmptyResultDataAccessException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            logger.error(e.toString());
             return null;
         }
     }
@@ -56,7 +68,7 @@ public class PlayerService {
     }
 
     private void insert(Long tId, PersonDto p) {
-        String dob = p.getDateOfBirth()!=null? p.getDateOfBirth().substring(0,10):null;
+        String dob = p.getDateOfBirth() != null ? p.getDateOfBirth().substring(0, 10) : null;
         if ("PLAYER".equals(p.getRole()))
             jdbcTemplate.update(INSERT_PLAYER_QUERY,
                     p.getId(), p.getName(), p.getFirstName(), p.getLastName(), dob, p.getCountryOfBirth(),

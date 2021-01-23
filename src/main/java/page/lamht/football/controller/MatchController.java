@@ -74,27 +74,31 @@ class MatchController {
     }
 
     String getFixtures(@PathVariable String league) {
-        logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
+        try {
+            logger.debug("start time: " + new Timestamp(System.currentTimeMillis()));
 
-        String url = Utils.selectMatchApi(league);
-        url = url + "?dateFrom=" + Utils.getLast3days() + "&dateTo=" + Utils.getToday();
+            String url = Utils.selectMatchApi(league);
+            url = url + "?dateFrom=" + Utils.getLast3days() + "&dateTo=" + Utils.getToday();
 
-        Mono<MatchesDto> mono = webClient.get()
-                .uri(url)
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .header(X_AUTH_TOKEN, TokenSelector.getToken())
-                .retrieve()
-                .bodyToMono(MatchesDto.class);
+            Mono<MatchesDto> mono = webClient.get()
+                    .uri(url)
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    .header(X_AUTH_TOKEN, TokenSelector.getToken())
+                    .retrieve()
+                    .bodyToMono(MatchesDto.class);
 
-        MatchesDto dto = mono.block();
+            MatchesDto dto = mono.block();
 
-        for (MatchDto matchDto : dto.getMatches()) {
-            matchDto.setCompetition(dto.getCompetition());
-            service.save(matchDto);
+            for (MatchDto matchDto : dto.getMatches()) {
+                matchDto.setCompetition(dto.getCompetition());
+                service.save(matchDto);
+            }
+
+            logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
+        } catch (Exception e) {
+            logger.info(e.toString());
+            return "Fail";
         }
-
-        logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
-
         return "Completed Successfully";
     }
 

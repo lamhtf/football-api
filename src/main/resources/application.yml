@@ -5,8 +5,8 @@ spring:
     password: password
 server:
   port: 8080
-init: false
-scheduler: true
+init: true
+scheduler: false
 limit: 1000
 leagueLimit: 20
 schedule:
