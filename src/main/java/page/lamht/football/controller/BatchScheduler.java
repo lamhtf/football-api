@@ -48,18 +48,25 @@ public class BatchScheduler {
         areaController.getAreas();
         logger.info("Initialize those data for competitions");
         competitionController.getCompetitions();
-        logger.info("Initialize those data for teams");
+        logger.info("Initialize those data for teams in ENGLISH_PREMIER_LEAGUE");
         teamController.getTeams(Constants.ENGLISH_PREMIER_LEAGUE);
+        logger.info("Initialize those data for teams in ITALIAN_SERIE_A");
         teamController.getTeams(Constants.ITALIAN_SERIE_A);
+        logger.info("Initialize those data for teams in GERMAN_BUNDESLIGA");
         teamController.getTeams(Constants.GERMAN_BUNDESLIGA);
+        logger.info("Initialize those data for teams in SPAINISH_LA_LIGA");
         teamController.getTeams(Constants.SPAINISH_LA_LIGA);
+        logger.info("Initialize those data for teams in PORTUGUESE_PRIMEIRA_LIGA");
         teamController.getTeams(Constants.PORTUGUESE_PRIMEIRA_LIGA);
+        logger.info("Initialize those data for teams in FRENCH_LIGUE_1");
         teamController.getTeams(Constants.FRENCH_LIGUE_1);
+        logger.info("Initialize those data for teams in DUTCH_EREDIVISIE");
         teamController.getTeams(Constants.DUTCH_EREDIVISIE);
+        logger.info("Initialize those data for teams in UEFA_CHAMPION_LEAGUE");
         teamController.getTeams(Constants.UEFA_CHAMPION_LEAGUE);
 
         for (Long leagueId : Constants.COMMON_LEAGUE_LIST) {
-            logger.info("Initialize team squad");
+            logger.info("Initialize team squad id = " + leagueId);
             List<Team> teamList = teamService.findByCompetitionId(leagueId);
             for (Team t : teamList) {
                 squadController.getPlayers(t.getId());
@@ -145,18 +152,25 @@ public class BatchScheduler {
         areaController.getAreas();
         logger.info("Initialize those data for competitions");
         competitionController.getCompetitions();
-        logger.info("Initialize those data for teams");
+        logger.info("Initialize those data for teams in ENGLISH_PREMIER_LEAGUE");
         teamController.getTeams(Constants.ENGLISH_PREMIER_LEAGUE);
+        logger.info("Initialize those data for teams in ITALIAN_SERIE_A");
         teamController.getTeams(Constants.ITALIAN_SERIE_A);
+        logger.info("Initialize those data for teams in GERMAN_BUNDESLIGA");
         teamController.getTeams(Constants.GERMAN_BUNDESLIGA);
+        logger.info("Initialize those data for teams in SPAINISH_LA_LIGA");
         teamController.getTeams(Constants.SPAINISH_LA_LIGA);
+        logger.info("Initialize those data for teams in PORTUGUESE_PRIMEIRA_LIGA");
         teamController.getTeams(Constants.PORTUGUESE_PRIMEIRA_LIGA);
+        logger.info("Initialize those data for teams in FRENCH_LIGUE_1");
         teamController.getTeams(Constants.FRENCH_LIGUE_1);
+        logger.info("Initialize those data for teams in DUTCH_EREDIVISIE");
         teamController.getTeams(Constants.DUTCH_EREDIVISIE);
+        logger.info("Initialize those data for teams in UEFA_CHAMPION_LEAGUE");
         teamController.getTeams(Constants.UEFA_CHAMPION_LEAGUE);
 
         for (Long leagueId : Constants.COMMON_LEAGUE_LIST) {
-            logger.info("Initialize team squad");
+            logger.info("Initialize team squad id = " + leagueId);
             List<Team> teamList = teamService.findByCompetitionId(leagueId);
             for (Team t : teamList) {
                 squadController.getPlayers(t.getId());

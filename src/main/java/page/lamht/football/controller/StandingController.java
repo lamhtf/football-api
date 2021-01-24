@@ -65,7 +65,7 @@ class StandingController {
 
             logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
         } catch (Exception e) {
-            logger.info(e.toString());
+            logger.error(e.toString());
             return "Fail";
         }
         return "Completed Successfully";
@@ -90,7 +90,7 @@ class StandingController {
 
             logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
         } catch (Exception e) {
-            logger.info(e.toString());
+            logger.error(e.toString());
             return "Fail";
         }
         return "Completed Successfully";

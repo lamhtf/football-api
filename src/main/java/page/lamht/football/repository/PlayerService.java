@@ -27,6 +27,8 @@ public class PlayerService {
     private final static String FIND_COACH_BY_TEAM_ID = "select * from coach c where c.team_id = ? order by date_of_birth";
     private final static String FIND_BY_TEAM_ID = "select * from player p where team_id=? order by position='Attacker',position='Midfielder',position='Defender',position='Goalkeeper',date_of_birth";
     private final static String FIND_PLAYER = "select * from player p where p.team_id =? and p.id=?";
+    private final static String COUNT_PLAYER = "select count(*) from player p where p.team_id =? and p.id=?";
+    private final static String COUNT_COACH = "select count(*) from coach c where c.team_id =? and c.id=?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -58,6 +60,14 @@ public class PlayerService {
         }
     }
 
+    public Integer countPlayerByTeamAndPlayerId(Long teamId, Long playerId) {
+        return jdbcTemplate.queryForObject(COUNT_PLAYER, new Object[]{teamId, playerId}, Integer.class);
+    }
+
+    public Integer countCoachByTeamAndPlayerId(Long teamId, Long playerId) {
+        return jdbcTemplate.queryForObject(COUNT_COACH, new Object[]{teamId, playerId}, Integer.class);
+    }
+
     public PersonDto save(Long teamId, PersonDto p) {
         this.insertOnly(teamId, p);
         return p;
@@ -69,16 +79,25 @@ public class PlayerService {
 
     private void insert(Long tId, PersonDto p) {
         String dob = p.getDateOfBirth() != null ? p.getDateOfBirth().substring(0, 10) : null;
-        if ("PLAYER".equals(p.getRole()))
+        if ("PLAYER".equals(p.getRole())) {
+            if (countPlayerByTeamAndPlayerId(tId, p.getId()) > 0) {
+                logger.warn("Duplicate player id = " + p.getId() + " " + p.getName() + " in team id = " + tId);
+                return;
+            }
             jdbcTemplate.update(INSERT_PLAYER_QUERY,
                     p.getId(), p.getName(), p.getFirstName(), p.getLastName(), dob, p.getCountryOfBirth(),
                     p.getNationality(), p.getPosition(), p.getShirtNumber(), tId, p.getLastUpdated(), new Timestamp(System.currentTimeMillis())
             );
-        else
+        } else {
+            if (countCoachByTeamAndPlayerId(tId, p.getId()) > 0) {
+                logger.warn("Duplicate coach id = " + p.getId() + " " + p.getName() + " in team id = " + tId);
+                return;
+            }
             jdbcTemplate.update(INSERT_COACH_QUERY,
                     p.getId(), p.getName(), p.getFirstName(), p.getLastName(), dob, p.getCountryOfBirth(),
                     p.getNationality(), p.getPosition(), p.getShirtNumber(), tId, p.getLastUpdated(), new Timestamp(System.currentTimeMillis())
             );
+        }
     }
 
     public void deleteAll(Long teamId) {
