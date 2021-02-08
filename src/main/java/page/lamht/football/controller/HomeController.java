@@ -14,12 +14,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 import page.lamht.football.entity.Match;
 import page.lamht.football.entity.Standing;
 import page.lamht.football.mapper.LastMatchMapper;
+import page.lamht.football.mapper.MatchMapper;
 import page.lamht.football.mapper.NextMatchMapper;
 import page.lamht.football.mapper.StandingsMapper;
-import page.lamht.football.mo.HomeResponse;
-import page.lamht.football.mo.LastMatchMo;
-import page.lamht.football.mo.NextMatchMo;
-import page.lamht.football.mo.StandingsMo;
+import page.lamht.football.mo.*;
 import page.lamht.football.repository.MatchService;
 import page.lamht.football.repository.StandingService;
 import page.lamht.football.util.Utils;
@@ -50,17 +48,22 @@ class HomeController {
         StandingsMo.StandingMo standingMo = StandingsMapper.INSTANCE.standingToStandingMo(standing);
 
         Match lastMatch = mService.findLastMatchByCompetitionIdAndTeamId(leagueId, teamId);
+        Match inPlayMatch = mService.findInPlayMatchByCompetitionIdAndTeamId(leagueId, teamId);
         Match nextMatch = mService.findNextMatchByCompetitionIdAndTeamId(leagueId, teamId);
 
         LastMatchMo lastMatchMo = null;
+        MatchMo inPlayMatchMo = null;
         NextMatchMo nextMatchMo = null;
         if (lastMatch != null) {
             lastMatchMo = LastMatchMapper.INSTANCE.matchToLastMatchMo(lastMatch);
         }
+        if (inPlayMatch != null) {
+            inPlayMatchMo = MatchMapper.INSTANCE.matchToMatchMo(inPlayMatch);
+        }
         if (nextMatch != null) {
             nextMatchMo = NextMatchMapper.INSTANCE.matchToNextMatchMo(nextMatch);
         }
-        HomeResponse response = new HomeResponse(standingMo, lastMatchMo, nextMatchMo, callTime);
+        HomeResponse response = new HomeResponse(standingMo, lastMatchMo, inPlayMatchMo ,nextMatchMo, callTime);
         String result = objectMapper.writeValueAsString(response);
         return result;
     }
