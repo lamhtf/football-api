@@ -74,7 +74,7 @@ public class MatchService {
         try {
             return jdbcTemplate.queryForObject(LIST_IN_PLAY_MATCHES, new Object[]{competitionId, teamId, teamId, 1}, new BeanPropertyRowMapper<Match>(Match.class));
         } catch (Exception e) {
-            logger.error(e.toString());
+//            logger.error(e.toString());
             return null;
         }
     }
