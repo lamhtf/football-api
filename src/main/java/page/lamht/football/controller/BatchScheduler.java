@@ -39,7 +39,7 @@ public class BatchScheduler {
 
     @Scheduled(cron = "${schedule.init}")
     public void runInit() {
-        if (!scheduler){
+        if (!scheduler) {
             logger.info("runInit :: scheduler disabled");
             return;
         }
@@ -72,11 +72,14 @@ public class BatchScheduler {
                 squadController.getPlayers(t.getId());
             }
         }
+        this.initFixtures();
+        this.initStandings();
+        this.initStatistics();
     }
 
     @Scheduled(cron = "${schedule.fixtures}")
     public void runFixtures() {
-        if (!scheduler){
+        if (!scheduler) {
             logger.info("runFixtures :: scheduler disabled");
             return;
         }
@@ -101,7 +104,7 @@ public class BatchScheduler {
 
     @Scheduled(cron = "${schedule.standings}")
     public void runStandings() {
-        if (!scheduler){
+        if (!scheduler) {
             logger.info("runStandings :: scheduler disabled");
             return;
         }
@@ -126,18 +129,26 @@ public class BatchScheduler {
 
     @Scheduled(cron = "${schedule.statistics}")
     public void runStatistics() {
-        if (!scheduler){
+        if (!scheduler) {
             logger.info("runStatistics :: scheduler disabled");
             return;
         }
         logger.info("runStatistics :: start");
+        logger.info("runStatistics :: ENGLISH_PREMIER_LEAGUE");
         statisticController.runScorers(Constants.ENGLISH_PREMIER_LEAGUE);
+        logger.info("runStatistics :: ITALIAN_SERIE_A");
         statisticController.runScorers(Constants.ITALIAN_SERIE_A);
+        logger.info("runStatistics :: GERMAN_BUNDESLIGA");
         statisticController.runScorers(Constants.GERMAN_BUNDESLIGA);
+        logger.info("runStatistics :: SPAINISH_LA_LIGA");
         statisticController.runScorers(Constants.SPAINISH_LA_LIGA);
+        logger.info("runStatistics :: PORTUGUESE_PRIMEIRA_LIGA");
         statisticController.runScorers(Constants.PORTUGUESE_PRIMEIRA_LIGA);
+        logger.info("runStatistics :: FRENCH_LIGUE_1");
         statisticController.runScorers(Constants.FRENCH_LIGUE_1);
+        logger.info("runStatistics :: DUTCH_EREDIVISIE");
         statisticController.runScorers(Constants.DUTCH_EREDIVISIE);
+        logger.info("runStatistics :: UEFA_CHAMPION_LEAGUE");
         statisticController.runScorers(Constants.UEFA_CHAMPION_LEAGUE);
     }
 
@@ -180,37 +191,61 @@ public class BatchScheduler {
 
     public void initFixtures() {
         logger.info("initFixtures :: start");
+        logger.info("initFixtures :: ENGLISH_PREMIER_LEAGUE");
         matchController.initFixtures(Constants.ENGLISH_PREMIER_LEAGUE);
+        logger.info("initFixtures :: ITALIAN_SERIE_A");
         matchController.initFixtures(Constants.ITALIAN_SERIE_A);
+        logger.info("initFixtures :: GERMAN_BUNDESLIGA");
         matchController.initFixtures(Constants.GERMAN_BUNDESLIGA);
+        logger.info("initFixtures :: SPAINISH_LA_LIGA");
         matchController.initFixtures(Constants.SPAINISH_LA_LIGA);
+        logger.info("initFixtures :: PORTUGUESE_PRIMEIRA_LIGA");
         matchController.initFixtures(Constants.PORTUGUESE_PRIMEIRA_LIGA);
+        logger.info("initFixtures :: FRENCH_LIGUE_1");
         matchController.initFixtures(Constants.FRENCH_LIGUE_1);
+        logger.info("initFixtures :: DUTCH_EREDIVISIE");
         matchController.initFixtures(Constants.DUTCH_EREDIVISIE);
+        logger.info("initFixtures :: UEFA_CHAMPION_LEAGUE");
         matchController.initFixtures(Constants.UEFA_CHAMPION_LEAGUE);
     }
 
     public void initStandings() {
         logger.info("initStandings :: start");
+        logger.info("initStandings :: ENGLISH_PREMIER_LEAGUE");
         standingController.initStandingTables(Constants.ENGLISH_PREMIER_LEAGUE);
+        logger.info("initStandings :: ITALIAN_SERIE_A");
         standingController.initStandingTables(Constants.ITALIAN_SERIE_A);
+        logger.info("initStandings :: GERMAN_BUNDESLIGA");
         standingController.initStandingTables(Constants.GERMAN_BUNDESLIGA);
+        logger.info("initStandings :: SPAINISH_LA_LIGA");
         standingController.initStandingTables(Constants.SPAINISH_LA_LIGA);
+        logger.info("initStandings :: PORTUGUESE_PRIMEIRA_LIGA");
         standingController.initStandingTables(Constants.PORTUGUESE_PRIMEIRA_LIGA);
+        logger.info("initStandings :: FRENCH_LIGUE_1");
         standingController.initStandingTables(Constants.FRENCH_LIGUE_1);
+        logger.info("initStandings :: DUTCH_EREDIVISIE");
         standingController.initStandingTables(Constants.DUTCH_EREDIVISIE);
+        logger.info("initStandings :: UEFA_CHAMPION_LEAGUE");
         standingController.initStandingTables(Constants.UEFA_CHAMPION_LEAGUE);
     }
 
     public void initStatistics() {
         logger.info("initStatistics :: start");
+        logger.info("initStatistics :: ENGLISH_PREMIER_LEAGUE");
         statisticController.initScorers(Constants.ENGLISH_PREMIER_LEAGUE);
+        logger.info("initStatistics :: ITALIAN_SERIE_A");
         statisticController.initScorers(Constants.ITALIAN_SERIE_A);
+        logger.info("initStatistics :: GERMAN_BUNDESLIGA");
         statisticController.initScorers(Constants.GERMAN_BUNDESLIGA);
+        logger.info("initStatistics :: SPAINISH_LA_LIGA");
         statisticController.initScorers(Constants.SPAINISH_LA_LIGA);
+        logger.info("initStatistics :: PORTUGUESE_PRIMEIRA_LIGA");
         statisticController.initScorers(Constants.PORTUGUESE_PRIMEIRA_LIGA);
+        logger.info("initStatistics :: FRENCH_LIGUE_1");
         statisticController.initScorers(Constants.FRENCH_LIGUE_1);
+        logger.info("initStatistics :: DUTCH_EREDIVISIE");
         statisticController.initScorers(Constants.DUTCH_EREDIVISIE);
+        logger.info("initStatistics :: UEFA_CHAMPION_LEAGUE");
         statisticController.initScorers(Constants.UEFA_CHAMPION_LEAGUE);
     }
 }
