@@ -55,7 +55,8 @@ public class PlayerService {
 
     public Player findPlayerByTeamAndPlayerId(Long teamId, Long playerId) {
         try {
-            return jdbcTemplate.queryForObject(FIND_PLAYER, new Object[]{playerId}, new BeanPropertyRowMapper<Player>(Player.class));
+            List<Player> players = jdbcTemplate.query(FIND_PLAYER, new Object[]{playerId}, new BeanPropertyRowMapper<Player>(Player.class));
+            return players.get(0);
         } catch (Exception e) {
             logger.error(e.toString());
             return null;
