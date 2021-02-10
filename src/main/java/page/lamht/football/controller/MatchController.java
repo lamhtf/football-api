@@ -111,30 +111,34 @@ class MatchController {
 
         Integer total = service.countTotalWeeksByCompetitionId(leagueId);
         Integer current = service.getCurrentMatchdayByCompetitionId(leagueId);
+        Integer min = service.countMinWeeksByCompetitionId(leagueId);
+
         // special handling for knockout stage
-        assignMatchdayForKnockoutStage(league, total, matchList);
+        if ("CL".contains(league)){
+            boolean increaseTotal = false;
+            for (Match match: matchList){
+                if (match.getMatchday() == null && match.getStage()!= null) {
+                    String stage = match.getStage();
+                    if (stage.contains("PRELIMINARY") || stage.contains("QUALIFYING") || stage.contains("PLAY_OFF")) {
+                        match.setMatchday(0);
+                        min = 0;
+                    }
+                    else{
+                        match.setMatchday(total+1);
+                        increaseTotal = true;
+                    }
+                }
+            }
+            total = increaseTotal? total+1: total;
+            current = increaseTotal? total: current;
+        }
 
         List<MatchMo> matchMos = MatchMapper.INSTANCE.matchsToMatchMos(matchList);
 
-
-        MatchResponse response = new MatchResponse(matchMos, total, current, callTime);
+        MatchResponse response = new MatchResponse(matchMos, total, current, min, callTime);
 
         String result = objectMapper.writeValueAsString(response);
         return result;
-    }
-
-    private void assignMatchdayForKnockoutStage(String league, Integer total, List<Match> matchList) {
-        if ("CL".contains(league)){
-            matchList.forEach(match -> {
-                if (match.getMatchday() == null && match.getStage()!= null) {
-                    String stage = match.getStage();
-                    if (stage.contains("PRELIMINARY") || stage.contains("QUALIFYING") || stage.contains("PLAY_OFF"))
-                        match.setMatchday(0);
-                    else
-                        match.setMatchday(total+1);
-                }
-            });
-        }
     }
 
     @GetMapping(value = "/matches/last/{league}", produces = MediaType.APPLICATION_JSON_VALUE)

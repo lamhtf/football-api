@@ -132,6 +132,16 @@ public class MatchService {
         }
     }
 
+    public Integer countMinWeeksByCompetitionId(Long competitionId) {
+        try {
+            String sql = "select min(matchday) from public.\"match\" where competition_id = ?";
+            return jdbcTemplate.queryForObject(sql, new Object[]{competitionId}, Integer.class);
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return null;
+        }
+    }
+
     public Match save(MatchDto dto) {
 
 //        Competition c = dto.getCompetition();
