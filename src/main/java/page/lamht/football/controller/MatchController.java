@@ -108,6 +108,10 @@ class MatchController {
         if (leagueId == null) return "";
         Timestamp callTime = new Timestamp(System.currentTimeMillis());
         List<Match> matchList = service.findByCompetitionId(leagueId, new Timestamp(lastUpdated));
+
+        // special handling for knockout stage
+        assignMatchdayForKnockoutStage(league, matchList);
+
         List<MatchMo> matchMos = MatchMapper.INSTANCE.matchsToMatchMos(matchList);
         Integer total = service.countTotalWeeksByCompetitionId(leagueId);
         Integer current = service.getCurrentMatchdayByCompetitionId(leagueId);
@@ -116,6 +120,20 @@ class MatchController {
 
         String result = objectMapper.writeValueAsString(response);
         return result;
+    }
+
+    private void assignMatchdayForKnockoutStage(String league, List<Match> matchList) {
+        if ("CL".contains(league)){
+            matchList.forEach(match -> {
+                if (match.getMatchday() == null && match.getStage()!= null) {
+                    String stage = match.getStage();
+                    if (stage.contains("PRELIMINARY") || stage.contains("QUALIFYING") || stage.contains("PLAY_OFF"))
+                        match.setMatchday(0);
+                    else
+                        match.setMatchday(7);
+                }
+            });
+        }
     }
 
     @GetMapping(value = "/matches/last/{league}", produces = MediaType.APPLICATION_JSON_VALUE)
