@@ -109,12 +109,13 @@ class MatchController {
         Timestamp callTime = new Timestamp(System.currentTimeMillis());
         List<Match> matchList = service.findByCompetitionId(leagueId, new Timestamp(lastUpdated));
 
-        // special handling for knockout stage
-        assignMatchdayForKnockoutStage(league, matchList);
-
-        List<MatchMo> matchMos = MatchMapper.INSTANCE.matchsToMatchMos(matchList);
         Integer total = service.countTotalWeeksByCompetitionId(leagueId);
         Integer current = service.getCurrentMatchdayByCompetitionId(leagueId);
+        // special handling for knockout stage
+        assignMatchdayForKnockoutStage(league, total, matchList);
+
+        List<MatchMo> matchMos = MatchMapper.INSTANCE.matchsToMatchMos(matchList);
+
 
         MatchResponse response = new MatchResponse(matchMos, total, current, callTime);
 
@@ -122,7 +123,7 @@ class MatchController {
         return result;
     }
 
-    private void assignMatchdayForKnockoutStage(String league, List<Match> matchList) {
+    private void assignMatchdayForKnockoutStage(String league, Integer total, List<Match> matchList) {
         if ("CL".contains(league)){
             matchList.forEach(match -> {
                 if (match.getMatchday() == null && match.getStage()!= null) {
@@ -130,7 +131,7 @@ class MatchController {
                     if (stage.contains("PRELIMINARY") || stage.contains("QUALIFYING") || stage.contains("PLAY_OFF"))
                         match.setMatchday(0);
                     else
-                        match.setMatchday(7);
+                        match.setMatchday(total+1);
                 }
             });
         }
