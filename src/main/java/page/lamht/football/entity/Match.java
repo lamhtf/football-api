@@ -29,7 +29,7 @@ public class Match extends Entity {
     private Integer homeTeamDraws;
     private Integer homeTeamLosses;
     private String homeTeamCrestUrl;
-    private String awayTeamId;
+    private Long awayTeamId;
     private String awayTeamName;
     private Integer awayTeamWins;
     private Integer awayTeamDraws;

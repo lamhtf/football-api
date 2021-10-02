@@ -117,9 +117,9 @@ class MatchController {
         if ("CL".contains(league)){
             boolean increaseTotal = false;
             for (Match match: matchList){
-                if (match.getMatchday() == null && match.getStage()!= null) {
+                if (match.getStage()!= null) {
                     String stage = match.getStage();
-                    if (stage.contains("PRELIMINARY") || stage.contains("QUALIFYING") || stage.contains("PLAY_OFF")) {
+                    if (stage.contains("PRELIMINARY") || stage.contains("QUALIF") || stage.contains("PLAY_OFF")) {
                         match.setMatchday(0);
                         min = 0;
                     }
