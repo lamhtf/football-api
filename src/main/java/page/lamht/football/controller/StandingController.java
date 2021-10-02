@@ -77,7 +77,6 @@ class StandingController {
 
             String url = Utils.selectStandingsApi(league);
 
-
             Mono<StandingDto> standingDtoMono = webClient.get()
                     .uri(url)
                     .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)

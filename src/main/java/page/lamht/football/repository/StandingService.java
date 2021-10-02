@@ -194,10 +194,10 @@ public class StandingService {
     public StandingDto save(StandingDto dto) {
         Competition c = dto.getCompetition();
         Competition db = competitionService.findById(c.getId());
-        if (c.getLastUpdated().after(db.getLastUpdated())) {
-            competitionService.directUpdate(c, db);
-            insertOnly(dto);
-        }
+//        if (c.getLastUpdated().after(db.getLastUpdated())) {
+        competitionService.directUpdate(c, db);
+        insertOnly(dto);
+//        }
         return dto;
     }
 

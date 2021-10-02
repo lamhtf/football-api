@@ -28,8 +28,18 @@ public class StatisticsService {
     private final static String FIND_SCORER_BY_COMPETITION_ID = "SELECT * FROM scorer s WHERE s.competition_id=? order by number_of_goals desc limit ?";
     private final static String FIND_SCORER_BY_COMPETITION_AND_TEAM_ID = "SELECT * FROM scorer s WHERE s.competition_id=? and s.team_id=? order by number_of_goals desc";
 
+    private final static String POST_SCHEDULE_JOB_DATA_PATCH = "delete from public.scorer where team_id =328 and id = 3330 and player_id = 3330";
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    public void postScheduleJobDataPatch(){
+        try {
+            jdbcTemplate.execute(POST_SCHEDULE_JOB_DATA_PATCH);
+        } catch (Exception e) {
+            logger.error(e.toString());
+        }
+    }
 
     public List<Scorer> findScorerByLeagueId(Long competitionId, Integer leagueLimit) {
         try {
@@ -83,15 +93,23 @@ public class StatisticsService {
     }
 
     private void insert(Long cId, Long sId, Long pId, Long tId, Integer goals) {
-        jdbcTemplate.update(INSERT_SCORER_QUERY,
-                pId, cId, sId, pId, tId, goals
-        );
+        try {
+            jdbcTemplate.update(INSERT_SCORER_QUERY,
+                    pId, cId, sId, pId, tId, goals
+            );
+        }catch (Exception e) {
+            logger.error(e.toString());
+        }
     }
 
     private void update(Long cId, Long sId, Long pId, Long tId, Integer goals) {
-        jdbcTemplate.update(UPDATE_SCORER_QUERY,
-                goals, cId, sId, pId, tId
-        );
+        try {
+            jdbcTemplate.update(UPDATE_SCORER_QUERY,
+                    goals, cId, sId, pId, tId
+            );
+        }catch (Exception e) {
+            logger.error(e.toString());
+        }
     }
 
 }
