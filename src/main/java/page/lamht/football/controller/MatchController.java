@@ -122,8 +122,7 @@ class MatchController {
                     if (stage.contains("PRELIMINARY") || stage.contains("QUALIF") || stage.contains("PLAY_OFF")) {
                         match.setMatchday(0);
                         min = 0;
-                    }
-                    else{
+                    } else if (match.getMatchday()== null){
                         match.setMatchday(total+1);
                         increaseTotal = true;
                     }
