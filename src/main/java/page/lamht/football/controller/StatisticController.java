@@ -80,7 +80,6 @@ class StatisticController {
                 ScorerDto scorerDto = mono.block();
                 service.saveScorers(scorerDto.getCompetition(), scorerDto.getSeason(), scorerDto.getScorers());
             }
-            service.postScheduleJobDataPatch();
 
             logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
         } catch (Exception e) {
@@ -106,8 +105,6 @@ class StatisticController {
 
             ScorerDto scorerDto = mono.block();
             service.saveScorers(scorerDto.getCompetition(), scorerDto.getSeason(), scorerDto.getScorers());
-
-            service.postScheduleJobDataPatch();
 
             logger.debug("end time: " + new Timestamp(System.currentTimeMillis()));
         } catch (Exception e) {
@@ -163,6 +160,10 @@ class StatisticController {
 
         String result = objectMapper.writeValueAsString(response);
         return result;
+    }
+
+    void postScheduleJobDataPatch(){
+        service.postScheduleJobDataPatch();
     }
 
 }

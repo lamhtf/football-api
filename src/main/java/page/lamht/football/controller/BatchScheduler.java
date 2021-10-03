@@ -17,6 +17,8 @@ import java.util.List;
 public class BatchScheduler {
     private final static Logger logger = LoggerFactory.getLogger(BatchScheduler.class);
 
+    private static boolean isInitNow = false;
+
     @Value("${scheduler}")
     Boolean scheduler;
 
@@ -64,14 +66,19 @@ public class BatchScheduler {
         teamController.getTeams(Constants.DUTCH_EREDIVISIE);
         logger.info("Initialize those data for teams in UEFA_CHAMPION_LEAGUE");
         teamController.getTeams(Constants.UEFA_CHAMPION_LEAGUE);
+        logger.info("Initialize those data for teams :: postScheduleJobDataPatch");
+        teamController.postScheduleJobDataPatch();
 
         for (Long leagueId : Constants.COMMON_LEAGUE_LIST) {
-            logger.info("Initialize team squad id = " + leagueId);
+            logger.info("Initialize team squad league id = " + leagueId);
             List<Team> teamList = teamService.findByCompetitionId(leagueId);
             for (Team t : teamList) {
                 squadController.getPlayers(t.getId());
             }
         }
+        logger.info("Initialize team squad :: postScheduleJobDataPatch");
+        squadController.postScheduleJobDataPatch();
+
         this.initFixtures();
         this.initStandings();
         this.initStatistics();
@@ -79,8 +86,8 @@ public class BatchScheduler {
 
     @Scheduled(cron = "${schedule.fixtures}")
     public void runFixtures() {
-        if (!scheduler) {
-            logger.info("runFixtures :: scheduler disabled");
+        if (!scheduler || isInitNow) {
+            logger.info("runFixtures :: scheduler disabled or init now");
             return;
         }
         logger.info("runFixtures :: start");
@@ -104,8 +111,8 @@ public class BatchScheduler {
 
     @Scheduled(cron = "${schedule.standings}")
     public void runStandings() {
-        if (!scheduler) {
-            logger.info("runStandings :: scheduler disabled");
+        if (!scheduler || isInitNow) {
+            logger.info("runStandings :: scheduler disabled or init now");
             return;
         }
         logger.info("runStandings :: start");
@@ -125,12 +132,14 @@ public class BatchScheduler {
         standingController.getStandingTables(Constants.DUTCH_EREDIVISIE);
         logger.info("runStandings :: UEFA_CHAMPION_LEAGUE");
         standingController.getStandingTables(Constants.UEFA_CHAMPION_LEAGUE);
+        logger.info("runStandings :: postScheduleJobDataPatch");
+        standingController.postScheduleJobDataPatch();
     }
 
     @Scheduled(cron = "${schedule.statistics}")
     public void runStatistics() {
-        if (!scheduler) {
-            logger.info("runStatistics :: scheduler disabled");
+        if (!scheduler || isInitNow) {
+            logger.info("runStatistics :: scheduler disabled or init now");
             return;
         }
         logger.info("runStatistics :: start");
@@ -150,6 +159,8 @@ public class BatchScheduler {
         statisticController.runScorers(Constants.DUTCH_EREDIVISIE);
         logger.info("runStatistics :: UEFA_CHAMPION_LEAGUE");
         statisticController.runScorers(Constants.UEFA_CHAMPION_LEAGUE);
+        logger.info("runStatistics :: postScheduleJobDataPatch");
+        statisticController.postScheduleJobDataPatch();
     }
 
 
@@ -158,6 +169,7 @@ public class BatchScheduler {
      * sosad to write these init functions
      */
     public void init() {
+        isInitNow = true;
         logger.info("runInit :: start");
         logger.info("Initialize those data for areas");
         areaController.getAreas();
@@ -179,6 +191,8 @@ public class BatchScheduler {
         teamController.getTeams(Constants.DUTCH_EREDIVISIE);
         logger.info("Initialize those data for teams in UEFA_CHAMPION_LEAGUE");
         teamController.getTeams(Constants.UEFA_CHAMPION_LEAGUE);
+        logger.info("Initialize those data for teams :: postScheduleJobDataPatch");
+        teamController.postScheduleJobDataPatch();
 
         for (Long leagueId : Constants.COMMON_LEAGUE_LIST) {
             logger.info("Initialize team squad id = " + leagueId);
@@ -187,6 +201,8 @@ public class BatchScheduler {
                 squadController.getPlayers(t.getId());
             }
         }
+        logger.info("Initialize team squad id :: postScheduleJobDataPatch");
+        squadController.postScheduleJobDataPatch();
     }
 
     public void initFixtures() {
@@ -227,6 +243,8 @@ public class BatchScheduler {
         standingController.initStandingTables(Constants.DUTCH_EREDIVISIE);
         logger.info("initStandings :: UEFA_CHAMPION_LEAGUE");
         standingController.initStandingTables(Constants.UEFA_CHAMPION_LEAGUE);
+        logger.info("initStandings :: postScheduleJobDataPatch");
+        standingController.postScheduleJobDataPatch();
     }
 
     public void initStatistics() {
@@ -247,5 +265,8 @@ public class BatchScheduler {
         statisticController.initScorers(Constants.DUTCH_EREDIVISIE);
         logger.info("initStatistics :: UEFA_CHAMPION_LEAGUE");
         statisticController.initScorers(Constants.UEFA_CHAMPION_LEAGUE);
+        logger.info("initStatistics :: postScheduleJobDataPatch");
+        statisticController.postScheduleJobDataPatch();
+        isInitNow = false;
     }
 }

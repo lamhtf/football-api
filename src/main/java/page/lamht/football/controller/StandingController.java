@@ -109,4 +109,8 @@ class StandingController {
         return result;
     }
 
+    void postScheduleJobDataPatch(){
+        service.postScheduleJobDataPatch();
+    }
+
 }

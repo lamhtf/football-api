@@ -20,6 +20,8 @@ public class TeamService {
     private final static String INSERT_QUERY = "INSERT INTO public.team VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private final static String UPDATE_QUERY = "UPDATE public.team SET area_id=?, \"name\"=?, short_name=?, tla=?, crest_url=?, address=?, phone=?, website=?, email=?, founded=?, club_colors=?, venue=?, last_updated=?, created=? WHERE id=?";
 
+    private final static String POST_SCHEDULE_JOB_DATA_PATCH_01 = "update public.team set crest_url = 'https://www.flamht.com/static/media/myfootball.4d1ab609.svg' where crest_url is null or crest_url like '%png%'";
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -31,6 +33,14 @@ public class TeamService {
 
     @Autowired
     private CompetitionService competitionService;
+
+    public void postScheduleJobDataPatch() {
+        try {
+            jdbcTemplate.execute(POST_SCHEDULE_JOB_DATA_PATCH_01);
+        } catch (Exception e) {
+            logger.error(e.toString());
+        }
+    }
 
     public Team findTeamDetailById(Long teamId){
         Team team = findById(teamId);

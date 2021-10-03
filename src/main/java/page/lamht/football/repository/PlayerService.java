@@ -31,9 +31,26 @@ public class PlayerService {
 //    private final static String COUNT_PLAYER = "select count(*) from player p where p.team_id =? and p.id=?";
     private final static String COUNT_PLAYER = "select count(*) from player p where p.team_id =? and p.id=?";
     private final static String COUNT_COACH = "select count(*) from coach c where c.team_id =? and c.id=?";
+    private final static String POST_SCHEDULE_JOB_DATA_PATCH_01 = "update public.player set id = 3343, country_of_birth ='Korea Republic',nationality ='Korea Republic', \"position\"='Attacker' where id = 170281";
+    private final static String POST_SCHEDULE_JOB_DATA_PATCH_02 = "update public.player set country_of_birth ='Argentina',nationality ='Argentina', \"position\"='Defender' where id in (170280, 169310)";
+    private final static String POST_SCHEDULE_JOB_DATA_PATCH_03 = "update public.player set id = 93, country_of_birth ='Spain',nationality ='Spain', \"position\"='Attacker' where id = 170047";
+    private final static String POST_SCHEDULE_JOB_DATA_PATCH_04 = "INSERT INTO public.player (id, \"name\", first_name, last_name, date_of_birth, country_of_birth, nationality, \"position\", shirt_number, team_id, last_updated, created) VALUES(74554, 'Simon Banza', 'Simon Bokote', null, '1996-08-13', 'France', 'France', 'Attacker', 23, 5531, '2020-09-07T21:05:38Z', now())";
+
+
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    public void postScheduleJobDataPatch() {
+        try {
+            jdbcTemplate.execute(POST_SCHEDULE_JOB_DATA_PATCH_01);
+            jdbcTemplate.execute(POST_SCHEDULE_JOB_DATA_PATCH_02);
+            jdbcTemplate.execute(POST_SCHEDULE_JOB_DATA_PATCH_03);
+            jdbcTemplate.execute(POST_SCHEDULE_JOB_DATA_PATCH_04);
+        } catch (Exception e) {
+            logger.error(e.toString());
+        }
+    }
 
     public List<Coach> findCoachesByTeamId(Long teamId) {
         try {
@@ -82,7 +99,7 @@ public class PlayerService {
 
     private void insert(Long tId, PersonDto p) {
         String dob = p.getDateOfBirth() != null ? p.getDateOfBirth().substring(0, 10) : null;
-        if ("PLAYER".equals(p.getRole())) {
+        if ("PLAYER".equals(p.getRole()) || p.getRole() == null) {
             if (countPlayerByTeamAndPlayerId(tId, p.getId()) > 0) {
                 logger.warn("Duplicate player id = " + p.getId() + " " + p.getName() + " in team id = " + tId);
                 return;

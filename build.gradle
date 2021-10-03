@@ -1,11 +1,19 @@
+import java.text.SimpleDateFormat
+
 plugins {
 	id 'org.springframework.boot' version '2.3.4.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
 }
 
+def buildTime() {
+	def df = new SimpleDateFormat("yyyy.MM.dd_HH.mm") // you can change it
+	df.setTimeZone(TimeZone.getTimeZone("UTC"))
+	return df.format(new Date())
+}
+
 group = 'page.lamht'
-version = '2021.10.02-SNAPSHOT'
+version = "${buildTime()}-SNAPSHOT"
 sourceCompatibility = '14'
 
 configurations {

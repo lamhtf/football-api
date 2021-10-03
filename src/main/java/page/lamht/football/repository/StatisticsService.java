@@ -24,18 +24,19 @@ public class StatisticsService {
 
     private final static String FIND_SCORER = "SELECT * FROM scorer s WHERE s.competition_id=? and s.season_id=? and s.id=? and s.team_id=?";
     private final static String COUNT_SCORER = "SELECT count(*) FROM scorer s WHERE s.competition_id=? and s.season_id=? and s.id=? and s.team_id=?";
+    private final static String FIND_TEAM = "select count(1) from team t where t.id = ?";
 
-    private final static String FIND_SCORER_BY_COMPETITION_ID = "SELECT * FROM scorer s WHERE s.competition_id=? order by number_of_goals desc limit ?";
+    private final static String FIND_SCORER_BY_COMPETITION_ID = "SELECT * FROM scorer s, player p WHERE s.competition_id=? and s.player_id = p.id order by number_of_goals desc limit ?";
     private final static String FIND_SCORER_BY_COMPETITION_AND_TEAM_ID = "SELECT * FROM scorer s WHERE s.competition_id=? and s.team_id=? order by number_of_goals desc";
 
-    private final static String POST_SCHEDULE_JOB_DATA_PATCH = "delete from public.scorer where team_id =328 and id = 3330 and player_id = 3330";
+    private final static String POST_SCHEDULE_JOB_DATA_PATCH_01 = "delete from public.scorer where team_id =328 and id = 3330 and player_id = 3330";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public void postScheduleJobDataPatch(){
+    public void postScheduleJobDataPatch() {
         try {
-            jdbcTemplate.execute(POST_SCHEDULE_JOB_DATA_PATCH);
+            jdbcTemplate.execute(POST_SCHEDULE_JOB_DATA_PATCH_01);
         } catch (Exception e) {
             logger.error(e.toString());
         }
@@ -68,6 +69,10 @@ public class StatisticsService {
         }
     }
 
+    public Integer isTeamAndPlayerExist(Long teamId){
+        return jdbcTemplate.queryForObject(FIND_TEAM, new Object[]{teamId}, Integer.class);
+    }
+
     public Integer countScorerByIds(Long competitionId, Long seasonId, Long playerId, Long teamId) {
         return jdbcTemplate.queryForObject(COUNT_SCORER, new Object[]{competitionId, seasonId, playerId, teamId}, Integer.class);
     }
@@ -77,10 +82,16 @@ public class StatisticsService {
         Long competitionId = competition.getId();
         Long seasonId = season.getId();
         for (Scorer s : scorers) {
-            Long playerId = s.getPlayer().getId();
-            Long teamId = s.getTeam().getId();
-            Integer goals = s.getNumberOfGoals();
-            insertOrUpdate(competitionId, seasonId, playerId, teamId, goals);
+            try {
+                Long playerId = s.getPlayer().getId();
+                Long teamId = s.getTeam().getId();
+                Integer goals = s.getNumberOfGoals();
+                insertOrUpdate(competitionId, seasonId, playerId, teamId, goals);
+            } catch (Exception e) {
+                logger.error("playerId :"+ s.getPlayer().getId() + " teamId: " + s.getTeam().getId() + " fail to be created");
+                logger.error(e.toString());
+                continue;
+            }
         }
         return "";
     }
@@ -93,13 +104,17 @@ public class StatisticsService {
     }
 
     private void insert(Long cId, Long sId, Long pId, Long tId, Integer goals) {
+        if (isTeamAndPlayerExist(tId) > 0)
         try {
             jdbcTemplate.update(INSERT_SCORER_QUERY,
                     pId, cId, sId, pId, tId, goals
             );
-        }catch (Exception e) {
+        } catch (Exception e) {
             logger.error(e.toString());
         }
+        else
+//            logger.error("player not find for id = "+ pId + " and teamId = "+tId);
+            logger.error("team not find for teamId = "+tId);
     }
 
     private void update(Long cId, Long sId, Long pId, Long tId, Integer goals) {
@@ -107,7 +122,7 @@ public class StatisticsService {
             jdbcTemplate.update(UPDATE_SCORER_QUERY,
                     goals, cId, sId, pId, tId
             );
-        }catch (Exception e) {
+        } catch (Exception e) {
             logger.error(e.toString());
         }
     }

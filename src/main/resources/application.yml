@@ -5,14 +5,14 @@ spring:
     password: password
 server:
   port: 8080
-init: false
+init: true
 scheduler: true
 limit: 1000
 leagueLimit: 20
 schedule:
   init: "0 0 0 * * ?"
-  fixtures: "0 20 11-23 * * ?"
-  standings: "20 10 11-23 * * ?"
+  fixtures: "0 * 11-23 * * ?"
+  standings: "20 * 11-23 * * ?"
   statistics: "40 * 11-23 * * ?"
 logging:
   file:

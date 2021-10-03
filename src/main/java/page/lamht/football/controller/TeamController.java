@@ -97,5 +97,8 @@ class TeamController {
         return result;
     }
 
+    void postScheduleJobDataPatch(){
+        service.postScheduleJobDataPatch();
+    }
 
 }
