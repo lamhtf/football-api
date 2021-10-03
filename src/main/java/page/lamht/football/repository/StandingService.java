@@ -31,7 +31,7 @@ public class StandingService {
     private final static String INSERT_SS_QUERY = "INSERT INTO public.standing VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private final static String DELETE_ALL_SS_QUERY = "DELETE FROM public.standing s WHERE s.standings_id = ?";
     private final static String GET_POSITION_BY_LEAGUE_ID_TEAM_ID = "SELECT standings_id, \"position\", team_id, team_name, team_crest_url, played_games, form, won, draw, lost, points, goals_for, goals_against, goal_difference FROM public.standings ss, public.standing s where ss.id=s.standings_id and ss.\"type\" = 'TOTAL' and ss.competition_id = ? and s.team_id = ?";
-    private final static String POST_SCHEDULE_JOB_DATA_PATCH_01 = "update public.standing set team_crest_url = 'https://www.flamht.com/static/media/myfootball.4d1ab609.svg' where team_crest_url is null or team_crest_url like '%png%'";
+    private final static String POST_SCHEDULE_JOB_DATA_PATCH_01 = "update public.standing set team_crest_url = 'https://svgsilh.com/svg/25775.svg' where team_crest_url is null or team_crest_url like '%png%'";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
