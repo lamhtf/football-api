@@ -11,8 +11,8 @@ limit: 1000
 leagueLimit: 20
 schedule:
   init: "0 0 0 * * ?"
-  fixtures: "0 * 11-23 * * ?"
-  standings: "20 * 11-23 * * ?"
+  fixtures: "0 1/2 11-23 * * ?"
+  standings: "20 0/2 11-23 * * ?"
   statistics: "40 * 11-23 * * ?"
 logging:
   file:
